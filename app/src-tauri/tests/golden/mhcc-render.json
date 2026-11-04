@@ -1,0 +1,852 @@
+{
+  "John.3.16": {
+    "groups": [
+      {
+        "blocks": [
+          {
+            "id": 12830,
+            "nodes": [
+              {
+                "attrs": [
+                  {
+                    "name": "type",
+                    "value": "x-s2"
+                  }
+                ],
+                "n": 0,
+                "name": "title",
+                "parent": null,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 1,
+                "name": null,
+                "parent": 0,
+                "text": "Chapter 3"
+              }
+            ]
+          },
+          {
+            "id": 12831,
+            "nodes": [
+              {
+                "attrs": [],
+                "n": 0,
+                "name": "p",
+                "parent": null,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 1,
+                "name": null,
+                "parent": 0,
+                "text": "\n"
+              }
+            ]
+          },
+          {
+            "id": 12832,
+            "nodes": [
+              {
+                "attrs": [
+                  {
+                    "name": "type",
+                    "value": "x-IS"
+                  }
+                ],
+                "n": 0,
+                "name": "title",
+                "parent": null,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 1,
+                "name": null,
+                "parent": 0,
+                "text": "Chapter Outline"
+              }
+            ]
+          },
+          {
+            "id": 12833,
+            "nodes": [
+              {
+                "attrs": [
+                  {
+                    "name": "subType",
+                    "value": "x-introduction"
+                  }
+                ],
+                "n": 0,
+                "name": "p",
+                "parent": null,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 1,
+                "name": null,
+                "parent": 0,
+                "text": "\n"
+              }
+            ]
+          },
+          {
+            "id": 12834,
+            "nodes": [
+              {
+                "attrs": [],
+                "n": 0,
+                "name": "table",
+                "parent": null,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 1,
+                "name": null,
+                "parent": 0,
+                "text": "\n"
+              },
+              {
+                "attrs": [],
+                "n": 2,
+                "name": "row",
+                "parent": 0,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 3,
+                "name": "cell",
+                "parent": 2,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 4,
+                "name": null,
+                "parent": 3,
+                "text": "Christ's discourse with Nicodemus."
+              },
+              {
+                "attrs": [],
+                "n": 5,
+                "name": "cell",
+                "parent": 2,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 6,
+                "name": null,
+                "parent": 5,
+                "text": "(1-21)"
+              },
+              {
+                "attrs": [],
+                "n": 7,
+                "name": null,
+                "parent": 0,
+                "text": "\n"
+              }
+            ]
+          },
+          {
+            "id": 12835,
+            "nodes": [
+              {
+                "attrs": [],
+                "n": 0,
+                "name": "p",
+                "parent": null,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 1,
+                "name": null,
+                "parent": 0,
+                "text": "\n"
+              }
+            ]
+          },
+          {
+            "id": 12836,
+            "nodes": [
+              {
+                "attrs": [],
+                "n": 0,
+                "name": "table",
+                "parent": null,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 1,
+                "name": null,
+                "parent": 0,
+                "text": "\n"
+              },
+              {
+                "attrs": [],
+                "n": 2,
+                "name": "row",
+                "parent": 0,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 3,
+                "name": "cell",
+                "parent": 2,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 4,
+                "name": null,
+                "parent": 3,
+                "text": "The baptism of John of Christ John's testimony."
+              },
+              {
+                "attrs": [],
+                "n": 5,
+                "name": "cell",
+                "parent": 2,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 6,
+                "name": null,
+                "parent": 5,
+                "text": "(22-36)"
+              },
+              {
+                "attrs": [],
+                "n": 7,
+                "name": null,
+                "parent": 0,
+                "text": "\n"
+              }
+            ]
+          },
+          {
+            "id": 12837,
+            "nodes": [
+              {
+                "attrs": [],
+                "n": 0,
+                "name": "p",
+                "parent": null,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 1,
+                "name": null,
+                "parent": 0,
+                "text": "\n"
+              },
+              {
+                "attrs": [
+                  {
+                    "name": "sID",
+                    "value": "John.3.1-8"
+                  },
+                  {
+                    "name": "osisID",
+                    "value": "John.3.1 John.3.2 John.3.3 John.3.4 John.3.5 John.3.6 John.3.7 John.3.8"
+                  },
+                  {
+                    "name": "n",
+                    "value": "1-8"
+                  }
+                ],
+                "n": 2,
+                "name": "verse",
+                "parent": 0,
+                "text": null
+              },
+              {
+                "attrs": [
+                  {
+                    "name": "type",
+                    "value": "bold"
+                  }
+                ],
+                "n": 3,
+                "name": "hi",
+                "parent": 0,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 4,
+                "name": null,
+                "parent": 3,
+                "text": "Verses 1-8"
+              },
+              {
+                "attrs": [],
+                "n": 5,
+                "name": null,
+                "parent": 0,
+                "text": "\n"
+              }
+            ]
+          },
+          {
+            "id": 12838,
+            "nodes": [
+              {
+                "attrs": [
+                  {
+                    "name": "subType",
+                    "value": "x-introduction"
+                  }
+                ],
+                "n": 0,
+                "name": "p",
+                "parent": null,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 1,
+                "name": null,
+                "parent": 0,
+                "text": "\nNicodemus was afraid, or ashamed to be seen with Christ, therefore came in the night. When religion is out of fashion, there are many Nicodemites. But though he came by night, Jesus bid him welcome, and hereby taught us to encourage good beginnings, although weak. And though now he came by night, yet afterward he owned Christ publicly. He did not talk with Christ about state affairs, though he was a ruler, but about the concerns of his own soul and its salvation, and went at once to them. Our Saviour spoke of the necessity and nature of regeneration or the new birth, and at once directed Nicodemus to the source of holiness of the heart. Birth is the beginning of life; to be born again, is to begin to live anew, as those who have lived much amiss, or to little purpose. We must have a new nature, new principles, new affections, new aims. By our first birth we were corrupt, shapen in sin; therefore we must be made new creatures. No stronger expression could have been chosen to signify a great and most remarkable change of state and character. We must be entirely different from what we were before, as that which begins to be at any time, is not, and cannot be the same with that which was before. This new birth is from heaven, ch. 1:13, and its tendency is to heaven. It is a great change made in the heart of a sinner, by the power of the Holy Spirit. It means that something is done in us, and for us, which we cannot do for ourselves. Something is wrong, whereby such a life begins as shall last for ever. We cannot otherwise expect any benefit by Christ; it is necessary to our happiness here and hereafter. What Christ speak, Nicodemus misunderstood, as if there had been no other way of regenerating and new-moulding an immortal soul, than by new-framing the body. But he acknowledged his ignorance, which shows a desire to be better informed. It is then further explained by the Lord Jesus. He shows the Author of this blessed change. It is not wrought by any wisdom or power of our own, but by the power of the blessed Spirit. We are shapen in iniquity, which makes it necessary that our nature be changed. We are not to marvel at this; for, when we consider the holiness of God, the depravity of our nature, and the happiness set before us, we shall not think it strange that so much stress is laid upon this. The regenerating work of the Holy Spirit is compared to water. It is also probable that Christ had reference to the ordinance of baptism. Not that all those, and those only, that are baptized, are saved; but without that new birth which is wrought by the Spirit, and signified by baptism, none shall be subjects of the kingdom of heaven. The same word signifies both the wind and the Spirit. The wind bloweth where it listeth for us; God directs it. The Spirit sends his influences where, and when, on whom, and in what measure and degree, he pleases. Though the causes are hidden, the effects are plain, when the soul is brought to mourn for sin, and to breathe after Christ. Christ's stating of the doctrine and the necessity of regeneration, it should seem, made it not clearer to Nicodemus. Thus the things of the Spirit of God are foolishness to the natural man. Many think that cannot be proved, which they cannot believe. Christ's discourse of gospel truths, ver. #(11-13), shows the folly of those who make these things strange unto them; and it recommends us to search them out. Jesus Christ is every way able to reveal the will of God to us; for he came down from heaven, and yet is in heaven. We have here a notice of Christ's two distinct natures in one person, so that while he is the Son of man, yet he is in heaven. God is the \"HE THAT IS,\" and heaven is the dwelling-place of his holiness. The knowledge of this must be from above, and can be received by faith alone. Jesus Christ came to save us by healing us, as the children of Israel, stung with fiery serpents, were cured and lived by looking up to the brazen serpent, "
+              },
+              {
+                "attrs": [
+                  {
+                    "name": "osisRef",
+                    "ref_end": 4021009,
+                    "ref_start": 4021006,
+                    "value": "Num.21.6-Num.21.9"
+                  }
+                ],
+                "n": 2,
+                "name": "reference",
+                "parent": 0,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 3,
+                "name": null,
+                "parent": 2,
+                "text": "Nu 21:6-9"
+              },
+              {
+                "attrs": [],
+                "n": 4,
+                "name": null,
+                "parent": 0,
+                "text": ". In this observe the deadly and destructive nature of sin. Ask awakened consciences, ask damned sinners, they will tell you, that how charming soever the allurements of sin may be, at the last it bites like a serpent. See the powerful remedy against this fatal malady. Christ is plainly set forth to us in the gospel. He whom we offended is our Peace, and the way of applying for a cure is by believing. If any so far slight either their disease by sin, or the method of cure by Christ, as not to receive Christ upon his own terms, their ruin is upon their own heads. He has said, Look and be saved, look and live; lift up the eyes of your faith to Christ crucified. And until we have grace to do this, we shall not be cured, but still are wounded with the stings of Satan, and in a dying state. Jesus Christ came to save us by pardoning us, that we might not die by the sentence of the law. Here is gospel, good news indeed. Here is God's love in giving his Son for the world. God so loved the world; so really, so richly. Behold and wonder, that the great God should love such a worthless world! Here, also, is the great gospel duty, to believe in Jesus Christ. God having given him to be our Prophet, Priest, and King, we must give up ourselves to be ruled, and taught, and saved by him. And here is the great gospel benefit, that whoever believes in Christ, shall not perish, but shall have everlasting life. God was in Christ reconciling the world to himself, and so saving it. It could not be saved, but through him; there is no salvation in any other. From all this is shown the happiness of true believers; he that believeth in Christ is not condemned. Though he has been a great sinner, yet he is not dealt with according to what his sins deserve. How great is the sin of unbelievers! God sent One to save us, that was dearest to himself; and shall he not be dearest to us? How great is the misery of unbelievers! they are condemned already; which speaks a certain condemnation; a present condemnation. The wrath of God now fastens upon them; and their own hearts condemn them. There is also a condemnation grounded on their former guilt; they are open to the law for all their sins; because they are not by faith interested in the gospel pardon. Unbelief is a sin against the remedy. It springs from the enmity of the heart of man to God, from love of sin in some form. Read also the doom of those that would not know Christ. Sinful works are works of darkness. The wicked world keep as far from this light as they can, lest their deeds should be reproved. Christ is hated, because sin is loved. If they had not hated saving knowledge, they would not sit down contentedly in condemning ignorance. On the other hand, renewed hearts bid this light welcome. A good man acts truly and sincerely in all he does. He desires to know what the will of God is, and to do it, though against his own worldly interest. A change in his whole character and conduct has taken place. The love of God is shed abroad in his heart by the Holy Ghost, and is become the commanding principle of his actions. So long as he continues under a load of unforgiven guilt, there can be little else than slavish fear of God; but when his doubts are done away, when he sees the righteous ground whereon this forgiveness is built, he rests on it as his own, and is united to God by unfeigned love. Our works are good when the will of God is the rule of them, and the glory of God the end of them; when they are done in his strength, and for his sake; to him, and not to men. Regeneration, or the new birth, is a subject to which the world is very averse; it is, however, the grand concern, in comparison with which every thing else is but trifling. What does it signify though we have food to eat in plenty, and variety of raiment to put on, if we are not born again? if after a few mornings and evenings spent in unthinking mirth, carnal pleasure, and riot, we die in our sins, and lie down in sorrow? What does it signify though we are well able to act our parts in life, in every other respect, if at last we hear from the Supreme Judge, \"Depart from me, I know you not, ye workers of iniquity?\"\n"
+              },
+              {
+                "attrs": [
+                  {
+                    "name": "eID",
+                    "value": "John.3.1-8"
+                  }
+                ],
+                "n": 5,
+                "name": "verse",
+                "parent": 0,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 6,
+                "name": null,
+                "parent": 0,
+                "text": "\n"
+              }
+            ]
+          },
+          {
+            "id": 12839,
+            "nodes": [
+              {
+                "attrs": [],
+                "n": 0,
+                "name": "p",
+                "parent": null,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 1,
+                "name": null,
+                "parent": 0,
+                "text": "\n"
+              },
+              {
+                "attrs": [
+                  {
+                    "name": "sID",
+                    "value": "John.3.22-36"
+                  },
+                  {
+                    "name": "osisID",
+                    "value": "John.3.22 John.3.23 John.3.24 John.3.25 John.3.26 John.3.27 John.3.28 John.3.29 John.3.30 John.3.31 John.3.32 John.3.33 John.3.34 John.3.35 John.3.36"
+                  },
+                  {
+                    "name": "n",
+                    "value": "22-36"
+                  }
+                ],
+                "n": 2,
+                "name": "verse",
+                "parent": 0,
+                "text": null
+              },
+              {
+                "attrs": [
+                  {
+                    "name": "type",
+                    "value": "bold"
+                  }
+                ],
+                "n": 3,
+                "name": "hi",
+                "parent": 0,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 4,
+                "name": null,
+                "parent": 3,
+                "text": "Verses 22-36"
+              },
+              {
+                "attrs": [],
+                "n": 5,
+                "name": null,
+                "parent": 0,
+                "text": "\n"
+              }
+            ]
+          },
+          {
+            "id": 12840,
+            "nodes": [
+              {
+                "attrs": [
+                  {
+                    "name": "subType",
+                    "value": "x-introduction"
+                  }
+                ],
+                "n": 0,
+                "name": "p",
+                "parent": null,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 1,
+                "name": null,
+                "parent": 0,
+                "text": "\nJohn was fully satisfied with the place and work assigned him; but Jesus came on a more important work. He also knew that Jesus would increase in honour and influence, for of his government and peace there would be no end, while he himself would be less followed. John knew that Jesus came from heaven as the Son of God, while he was a sinful, mortal man, who could only speak about the more plain subjects of religion. The words of Jesus were the words of God; he had the Spirit, not by measure, as the prophets, but in all fulness. Everlasting life could only be had by faith in Him, and might be thus obtained; whereas all those, who believe not in the Son of God, cannot partake of salvation, but the wrath of God for ever rests upon them.\n"
+              },
+              {
+                "attrs": [
+                  {
+                    "name": "eID",
+                    "value": "John.3.22-36"
+                  }
+                ],
+                "n": 2,
+                "name": "verse",
+                "parent": 0,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 3,
+                "name": null,
+                "parent": 0,
+                "text": "\n"
+              },
+              {
+                "attrs": [
+                  {
+                    "name": "eID",
+                    "value": "John.3"
+                  }
+                ],
+                "n": 4,
+                "name": "chapter",
+                "parent": 0,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 5,
+                "name": null,
+                "parent": 0,
+                "text": "\n"
+              },
+              {
+                "attrs": [
+                  {
+                    "name": "sID",
+                    "value": "John.4"
+                  },
+                  {
+                    "name": "osisID",
+                    "value": "John.4"
+                  },
+                  {
+                    "name": "n",
+                    "value": "4"
+                  }
+                ],
+                "n": 6,
+                "name": "chapter",
+                "parent": 0,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 7,
+                "name": null,
+                "parent": 0,
+                "text": "\n"
+              }
+            ]
+          }
+        ],
+        "first": null,
+        "last": null
+      }
+    ],
+    "source": {
+      "approved": true,
+      "author_line": "Matthew Henry · Presbyterian (English Nonconformist), with Thomas Scott · Anglican",
+      "date_line": "Abridgement c. 1838 (Religious Tract Society), from Henry's Exposition (1708–1710)",
+      "title": "Matthew Henry's Concise Commentary"
+    },
+    "status": "ok",
+    "verse_id": 43003016,
+    "whole_chapter": true
+  },
+  "John.3.3": {
+    "groups": [
+      {
+        "blocks": [
+          {
+            "id": 12837,
+            "nodes": [
+              {
+                "attrs": [],
+                "n": 0,
+                "name": "p",
+                "parent": null,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 1,
+                "name": null,
+                "parent": 0,
+                "text": "\n"
+              },
+              {
+                "attrs": [
+                  {
+                    "name": "sID",
+                    "value": "John.3.1-8"
+                  },
+                  {
+                    "name": "osisID",
+                    "value": "John.3.1 John.3.2 John.3.3 John.3.4 John.3.5 John.3.6 John.3.7 John.3.8"
+                  },
+                  {
+                    "name": "n",
+                    "value": "1-8"
+                  }
+                ],
+                "n": 2,
+                "name": "verse",
+                "parent": 0,
+                "text": null
+              },
+              {
+                "attrs": [
+                  {
+                    "name": "type",
+                    "value": "bold"
+                  }
+                ],
+                "n": 3,
+                "name": "hi",
+                "parent": 0,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 4,
+                "name": null,
+                "parent": 3,
+                "text": "Verses 1-8"
+              },
+              {
+                "attrs": [],
+                "n": 5,
+                "name": null,
+                "parent": 0,
+                "text": "\n"
+              }
+            ]
+          },
+          {
+            "id": 12838,
+            "nodes": [
+              {
+                "attrs": [
+                  {
+                    "name": "subType",
+                    "value": "x-introduction"
+                  }
+                ],
+                "n": 0,
+                "name": "p",
+                "parent": null,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 1,
+                "name": null,
+                "parent": 0,
+                "text": "\nNicodemus was afraid, or ashamed to be seen with Christ, therefore came in the night. When religion is out of fashion, there are many Nicodemites. But though he came by night, Jesus bid him welcome, and hereby taught us to encourage good beginnings, although weak. And though now he came by night, yet afterward he owned Christ publicly. He did not talk with Christ about state affairs, though he was a ruler, but about the concerns of his own soul and its salvation, and went at once to them. Our Saviour spoke of the necessity and nature of regeneration or the new birth, and at once directed Nicodemus to the source of holiness of the heart. Birth is the beginning of life; to be born again, is to begin to live anew, as those who have lived much amiss, or to little purpose. We must have a new nature, new principles, new affections, new aims. By our first birth we were corrupt, shapen in sin; therefore we must be made new creatures. No stronger expression could have been chosen to signify a great and most remarkable change of state and character. We must be entirely different from what we were before, as that which begins to be at any time, is not, and cannot be the same with that which was before. This new birth is from heaven, ch. 1:13, and its tendency is to heaven. It is a great change made in the heart of a sinner, by the power of the Holy Spirit. It means that something is done in us, and for us, which we cannot do for ourselves. Something is wrong, whereby such a life begins as shall last for ever. We cannot otherwise expect any benefit by Christ; it is necessary to our happiness here and hereafter. What Christ speak, Nicodemus misunderstood, as if there had been no other way of regenerating and new-moulding an immortal soul, than by new-framing the body. But he acknowledged his ignorance, which shows a desire to be better informed. It is then further explained by the Lord Jesus. He shows the Author of this blessed change. It is not wrought by any wisdom or power of our own, but by the power of the blessed Spirit. We are shapen in iniquity, which makes it necessary that our nature be changed. We are not to marvel at this; for, when we consider the holiness of God, the depravity of our nature, and the happiness set before us, we shall not think it strange that so much stress is laid upon this. The regenerating work of the Holy Spirit is compared to water. It is also probable that Christ had reference to the ordinance of baptism. Not that all those, and those only, that are baptized, are saved; but without that new birth which is wrought by the Spirit, and signified by baptism, none shall be subjects of the kingdom of heaven. The same word signifies both the wind and the Spirit. The wind bloweth where it listeth for us; God directs it. The Spirit sends his influences where, and when, on whom, and in what measure and degree, he pleases. Though the causes are hidden, the effects are plain, when the soul is brought to mourn for sin, and to breathe after Christ. Christ's stating of the doctrine and the necessity of regeneration, it should seem, made it not clearer to Nicodemus. Thus the things of the Spirit of God are foolishness to the natural man. Many think that cannot be proved, which they cannot believe. Christ's discourse of gospel truths, ver. #(11-13), shows the folly of those who make these things strange unto them; and it recommends us to search them out. Jesus Christ is every way able to reveal the will of God to us; for he came down from heaven, and yet is in heaven. We have here a notice of Christ's two distinct natures in one person, so that while he is the Son of man, yet he is in heaven. God is the \"HE THAT IS,\" and heaven is the dwelling-place of his holiness. The knowledge of this must be from above, and can be received by faith alone. Jesus Christ came to save us by healing us, as the children of Israel, stung with fiery serpents, were cured and lived by looking up to the brazen serpent, "
+              },
+              {
+                "attrs": [
+                  {
+                    "name": "osisRef",
+                    "ref_end": 4021009,
+                    "ref_start": 4021006,
+                    "value": "Num.21.6-Num.21.9"
+                  }
+                ],
+                "n": 2,
+                "name": "reference",
+                "parent": 0,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 3,
+                "name": null,
+                "parent": 2,
+                "text": "Nu 21:6-9"
+              },
+              {
+                "attrs": [],
+                "n": 4,
+                "name": null,
+                "parent": 0,
+                "text": ". In this observe the deadly and destructive nature of sin. Ask awakened consciences, ask damned sinners, they will tell you, that how charming soever the allurements of sin may be, at the last it bites like a serpent. See the powerful remedy against this fatal malady. Christ is plainly set forth to us in the gospel. He whom we offended is our Peace, and the way of applying for a cure is by believing. If any so far slight either their disease by sin, or the method of cure by Christ, as not to receive Christ upon his own terms, their ruin is upon their own heads. He has said, Look and be saved, look and live; lift up the eyes of your faith to Christ crucified. And until we have grace to do this, we shall not be cured, but still are wounded with the stings of Satan, and in a dying state. Jesus Christ came to save us by pardoning us, that we might not die by the sentence of the law. Here is gospel, good news indeed. Here is God's love in giving his Son for the world. God so loved the world; so really, so richly. Behold and wonder, that the great God should love such a worthless world! Here, also, is the great gospel duty, to believe in Jesus Christ. God having given him to be our Prophet, Priest, and King, we must give up ourselves to be ruled, and taught, and saved by him. And here is the great gospel benefit, that whoever believes in Christ, shall not perish, but shall have everlasting life. God was in Christ reconciling the world to himself, and so saving it. It could not be saved, but through him; there is no salvation in any other. From all this is shown the happiness of true believers; he that believeth in Christ is not condemned. Though he has been a great sinner, yet he is not dealt with according to what his sins deserve. How great is the sin of unbelievers! God sent One to save us, that was dearest to himself; and shall he not be dearest to us? How great is the misery of unbelievers! they are condemned already; which speaks a certain condemnation; a present condemnation. The wrath of God now fastens upon them; and their own hearts condemn them. There is also a condemnation grounded on their former guilt; they are open to the law for all their sins; because they are not by faith interested in the gospel pardon. Unbelief is a sin against the remedy. It springs from the enmity of the heart of man to God, from love of sin in some form. Read also the doom of those that would not know Christ. Sinful works are works of darkness. The wicked world keep as far from this light as they can, lest their deeds should be reproved. Christ is hated, because sin is loved. If they had not hated saving knowledge, they would not sit down contentedly in condemning ignorance. On the other hand, renewed hearts bid this light welcome. A good man acts truly and sincerely in all he does. He desires to know what the will of God is, and to do it, though against his own worldly interest. A change in his whole character and conduct has taken place. The love of God is shed abroad in his heart by the Holy Ghost, and is become the commanding principle of his actions. So long as he continues under a load of unforgiven guilt, there can be little else than slavish fear of God; but when his doubts are done away, when he sees the righteous ground whereon this forgiveness is built, he rests on it as his own, and is united to God by unfeigned love. Our works are good when the will of God is the rule of them, and the glory of God the end of them; when they are done in his strength, and for his sake; to him, and not to men. Regeneration, or the new birth, is a subject to which the world is very averse; it is, however, the grand concern, in comparison with which every thing else is but trifling. What does it signify though we have food to eat in plenty, and variety of raiment to put on, if we are not born again? if after a few mornings and evenings spent in unthinking mirth, carnal pleasure, and riot, we die in our sins, and lie down in sorrow? What does it signify though we are well able to act our parts in life, in every other respect, if at last we hear from the Supreme Judge, \"Depart from me, I know you not, ye workers of iniquity?\"\n"
+              },
+              {
+                "attrs": [
+                  {
+                    "name": "eID",
+                    "value": "John.3.1-8"
+                  }
+                ],
+                "n": 5,
+                "name": "verse",
+                "parent": 0,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 6,
+                "name": null,
+                "parent": 0,
+                "text": "\n"
+              }
+            ]
+          }
+        ],
+        "first": 43003001,
+        "last": 43003008
+      }
+    ],
+    "source": {
+      "approved": true,
+      "author_line": "Matthew Henry · Presbyterian (English Nonconformist), with Thomas Scott · Anglican",
+      "date_line": "Abridgement c. 1838 (Religious Tract Society), from Henry's Exposition (1708–1710)",
+      "title": "Matthew Henry's Concise Commentary"
+    },
+    "status": "ok",
+    "verse_id": 43003003,
+    "whole_chapter": false
+  },
+  "Ps.23.1": {
+    "groups": [
+      {
+        "blocks": [
+          {
+            "id": 6989,
+            "nodes": [
+              {
+                "attrs": [],
+                "n": 0,
+                "name": "p",
+                "parent": null,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 1,
+                "name": null,
+                "parent": 0,
+                "text": "\n"
+              },
+              {
+                "attrs": [
+                  {
+                    "name": "sID",
+                    "value": "Ps.23.1"
+                  },
+                  {
+                    "name": "osisID",
+                    "value": "Ps.23.1"
+                  },
+                  {
+                    "name": "n",
+                    "value": "1"
+                  }
+                ],
+                "n": 2,
+                "name": "verse",
+                "parent": 0,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 3,
+                "name": null,
+                "parent": 0,
+                "text": "Confidence in God's grace and care.\n"
+              }
+            ]
+          },
+          {
+            "id": 6990,
+            "nodes": [
+              {
+                "attrs": [
+                  {
+                    "name": "subType",
+                    "value": "x-introduction"
+                  }
+                ],
+                "n": 0,
+                "name": "p",
+                "parent": null,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 1,
+                "name": null,
+                "parent": 0,
+                "text": "\n--\"The Lord is my shepherd.\" In these words, the believer is taught to express his satisfaction in the care of the great Pastor of the universe, the Redeemer and Preserver of men. With joy he reflects that he has a shepherd, and that shepherd is Jehovah. A flock of sheep, gentle and harmless, feeding in verdant pastures, under the care of a skilful, watchful, and tender shepherd, forms an emblem of believers brought back to the Shepherd of their souls. The greatest abundance is but a dry pasture to a wicked man, who relishes in it only what pleases the senses; but to a godly man, who by faith tastes the goodness of God in all his enjoyments, though he has but little of the world, it is a green pasture. The Lord gives quiet and contentment in the mind, whatever the lot is. Are we blessed with the green pastures of the ordinances, let us not think it enough to pass through them, but let us abide in them. The consolations of the Holy Spirit are the still waters by which the saints are led; the streams which flow from the Fountain of living waters. Those only are led by the still waters of comfort, who walk in the paths of righteousness. The way of duty is the truly pleasant way. The work of righteousness in peace. In these paths we cannot walk, unless. God lead us into them, and lead us on in them. Discontent and distrust proceed from unbelief; an unsteady walk is the consequence: let us then simply trust our Shepherd's care, and hearken to his voice. The valley of the shadow of death may denote the most severe and terrible affliction, or dark dispensation of providence, that the psalmist ever could come under. Between the part of the flock on earth and that which is gone to heaven, death lies like a dark valley that must be passed in going from one to the other. But even in this there are words which lessen the terror. It is but the shadow of death: the shadow of a serpent will not sting, nor the shadow of a sword kill. It is a valley, deep indeed, and dark, and miry; but valleys are often fruitful, and so is death itself fruitful of comforts to God's people. It is a walk through it: they shall not be lost in this valley, but get safe to the mountain on the other side. Death is a king of terrors, but not to the sheep of Christ. When they come to die, God will rebuke the enemy; he will guide them with his rod, and sustain them with his staff. There is enough in the gospel to comfort the saints when dying, and underneath them are the everlasting arms. The Lord's people feast at his table, upon the provisions of his love. Satan and wicked men are not able to destroy their comforts, while they are anointed with the Holy Spirit, and drink of the cup of salvation which is ever full. Past experience teaches believers to trust that the goodness and mercy of God will follow them all the days of their lives, and it is their desire and determination, to seek their happiness in the service of God here, and they hope to enjoy his love for ever in heaven. While here, the Lord can make any situation pleasant, by the anointing of his Spirit and the joys of his salvation. But those that would be satisfied with the blessings of his house, must keep close to the duties of it.\n"
+              },
+              {
+                "attrs": [
+                  {
+                    "name": "eID",
+                    "value": "Ps.23.1"
+                  }
+                ],
+                "n": 2,
+                "name": "verse",
+                "parent": 0,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 3,
+                "name": null,
+                "parent": 0,
+                "text": "\n"
+              },
+              {
+                "attrs": [
+                  {
+                    "name": "eID",
+                    "value": "Ps.23"
+                  }
+                ],
+                "n": 4,
+                "name": "chapter",
+                "parent": 0,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 5,
+                "name": null,
+                "parent": 0,
+                "text": "\n"
+              },
+              {
+                "attrs": [
+                  {
+                    "name": "sID",
+                    "value": "Ps.24"
+                  },
+                  {
+                    "name": "osisID",
+                    "value": "Ps.24"
+                  },
+                  {
+                    "name": "n",
+                    "value": "24"
+                  }
+                ],
+                "n": 6,
+                "name": "chapter",
+                "parent": 0,
+                "text": null
+              },
+              {
+                "attrs": [],
+                "n": 7,
+                "name": null,
+                "parent": 0,
+                "text": "\n"
+              }
+            ]
+          }
+        ],
+        "first": 19023001,
+        "last": 19023001
+      }
+    ],
+    "source": {
+      "approved": true,
+      "author_line": "Matthew Henry · Presbyterian (English Nonconformist), with Thomas Scott · Anglican",
+      "date_line": "Abridgement c. 1838 (Religious Tract Society), from Henry's Exposition (1708–1710)",
+      "title": "Matthew Henry's Concise Commentary"
+    },
+    "status": "ok",
+    "verse_id": 19023001,
+    "whole_chapter": false
+  }
+}

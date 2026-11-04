@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-mark-recolor"
+description = "Enables the mark_recolor command without any pre-configured scope."
+commands.allow = ["mark_recolor"]
+
+[[permission]]
+identifier = "deny-mark-recolor"
+description = "Denies the mark_recolor command without any pre-configured scope."
+commands.deny = ["mark_recolor"]

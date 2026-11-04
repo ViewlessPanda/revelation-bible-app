@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes'?>
+<!DOCTYPE strongsdictionary [
+   <!ELEMENT strongsdictionary (prologue, entries) >
+   <!ELEMENT prologue (#PCDATA) >
+   <!ELEMENT entries (entry)+ >
+   <!ELEMENT entry (#PCDATA|strongs|greek|pronunciation|latin|strongsref|strongs_def|strongs_derivation|kjv_def)* >
+   <!ATTLIST entry strongs CDATA #REQUIRED >
+   <!ELEMENT greek EMPTY >
+
+
+   <!-- unicode is real Greek. translit is SBL-style transliteration. -->
+   <!ATTLIST greek BETA CDATA #REQUIRED 
+                   unicode CDATA #REQUIRED 
+                   translit CDATA #REQUIRED >
+   <!ELEMENT latin (#PCDATA) >
+   <!ELEMENT kjv_def (#PCDATA|strongsref)* >
+   <!ELEMENT strongs_def (#PCDATA|greek|latin|strongsref|pronunciation)* >
+   <!ELEMENT strongs_derivation (#PCDATA|greek|latin|strongsref|pronunciation)* >
+   <!ELEMENT pronunciation EMPTY >
+   <!ATTLIST pronunciation strongs CDATA #REQUIRED >
+   <!ELEMENT strongs (#PCDATA) >
+   <!ELEMENT strongsref EMPTY >
+   <!ATTLIST strongsref language (GREEK|HEBREW) #REQUIRED
+                 strongs CDATA #REQUIRED >
+ ]>

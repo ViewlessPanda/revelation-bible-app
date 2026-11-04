@@ -1,0 +1,47 @@
+# Build output
+target/
+node_modules/
+
+# Downloaded source files: untrusted, re-downloaded and checked against
+# sources/SOURCES.md, never committed.
+/sources/raw/
+
+# Built content and user databases, plus SQLite sidecar files.
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite-journal
+*.revpack
+# Small hand-made test databases (e.g. old user.sqlite files for migration
+# tests) are fixtures, not build output, so they stay trackable.
+!**/tests/fixtures/**/*.sqlite
+!**/tests/fixtures/**/*.revpack
+
+# Python bytecode: code nobody reviews, which could run in place of the
+# reviewed .py. Run scripts with `py -I -B`.
+__pycache__/
+*.py[cod]
+
+# Local tool settings and secrets: never committed. Signing keys are never
+# committed either.
+.claude/settings.local.json
+.env*
+*.pfx
+*.p12
+*.pem
+*.key
+*.snk
+
+# OS cruft
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+._*
+
+# Local tool and agent settings.
+/.claude/
+
+# Local private notes (never tracked)
+/private/

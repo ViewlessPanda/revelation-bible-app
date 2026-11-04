@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-bookmark-clear"
+description = "Enables the bookmark_clear command without any pre-configured scope."
+commands.allow = ["bookmark_clear"]
+
+[[permission]]
+identifier = "deny-bookmark-clear"
+description = "Denies the bookmark_clear command without any pre-configured scope."
+commands.deny = ["bookmark_clear"]

@@ -1,0 +1,207 @@
+name: CI
+
+# CI runs manually, on pull requests into main, and on pushes to main. A push
+# to a work branch starts nothing; open a PR (or run this workflow by hand) to
+# get CI. The Windows legs run on pull_request and workflow_dispatch only; a
+# push to main runs the Ubuntu legs (the Windows leg already passed on the PR).
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+# A newer run on the same ref replaces the older one.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# Least privilege: the workflow only reads the repository. No secrets are used.
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+  # Pinned so a new Rust release (and its new clippy lints) can't turn CI red
+  # by itself. Bump it in its own PR.
+  RUST_TOOLCHAIN: "1.99.1"
+
+jobs:
+  # Repository hygiene (review items M0-F2, M0-F3). Plain bash, git and
+  # sha256sum from the runner image; no extra actions. Runs on Windows too,
+  # because that is where a checkout is most likely to rewrite bytes.
+  repo:
+    name: Repo checks (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        # Windows only off push (see the note on `on:`); matrix entries are
+        # chosen here because a job-level `if:` cannot read the matrix.
+        os: ${{ fromJSON(github.event_name == 'push' && '["ubuntu-latest"]' || '["windows-latest","ubuntu-latest"]') }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # M0-F2: every content file (sources/, golden/, test fixtures and
+      # expected files, *.sha256) is byte-identical to its index blob.
+      - name: Content files are byte-exact
+        shell: bash
+        run: bash .github/scripts/check-content-bytes.sh
+
+      # M0-F3: no tracked file has a pinned source's SHA-256 (a raw source
+      # committed under any name), and nothing over 5 MiB outside
+      # pipeline/tests/fixtures/.
+      - name: No raw sources or large files tracked
+        shell: bash
+        run: bash .github/scripts/check-tracked-files.sh
+
+  # The Rust workspace (root Cargo.toml) has three members:
+  # crates/revelation-content (the shared open_verified), the pipeline, and
+  # the app core app/src-tauri (package `revelation`).
+  #
+  # Windows (the release target) runs everything: the UI checks and build
+  # (app/dist is needed to compile the app crate), the pipeline build, and
+  # the whole workspace's clippy and tests. Ubuntu runs the pipeline and the
+  # content crate only: the app crate would need the Tauri/WebKitGTK system
+  # libraries, which add an apt step and test nothing the release target
+  # doesn't. Ubuntu still builds both databases and checks them against the
+  # committed hashes, which proves the output is platform-independent
+  # (DESIGN.md 10.2).
+  rust:
+    name: Rust (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        # Windows only off push (see the note on `on:`). Each entry is
+        # {os, app, cargo_scope}: Windows = whole workspace plus the UI steps;
+        # Ubuntu = workspace without the app crate.
+        include: ${{ fromJSON(github.event_name == 'push' && '[{"os":"ubuntu-latest","app":false,"cargo_scope":"--workspace --exclude revelation"}]' || '[{"os":"windows-latest","app":true,"cargo_scope":"--workspace"},{"os":"ubuntu-latest","app":false,"cargo_scope":"--workspace --exclude revelation"}]') }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    defaults:
+      run:
+        shell: bash
+    env:
+      CARGO_SCOPE: ${{ matrix.cargo_scope }}
+      # The real-source tests read the pinned files from here. They are
+      # downloaded and hash-checked by the first step below; with CI set and
+      # this unset, those tests fail rather than skip (DESIGN.md 14).
+      REVELATION_SOURCES: ${{ github.workspace }}/sources/raw
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # From the exact URLs in sources/SOURCES.md into the git-ignored
+      # sources/raw/, each verified with sha256sum -c against
+      # sources/checksums/ before anything reads it.
+      - name: Fetch and verify pinned sources
+        run: bash .github/scripts/fetch-sources.sh sources/raw
+
+      # Uses the rustup preinstalled on GitHub runners: no third-party action.
+      - name: Install Rust
+        run: |
+          rustup toolchain install "$RUST_TOOLCHAIN" --profile minimal --component clippy,rustfmt
+          rustup default "$RUST_TOOLCHAIN"
+
+      - name: Format
+        run: cargo fmt --all --check
+
+      # UI: the runner's preinstalled Node (no setup action). Install scripts
+      # are not run. `npm run build` writes app/dist, which the app crate's
+      # tauri::generate_context! needs in order to compile.
+      - name: UI install
+        if: matrix.app
+        working-directory: app
+        run: |
+          node --version
+          npm --version
+          npm ci --ignore-scripts
+
+      - name: UI tests
+        if: matrix.app
+        working-directory: app
+        run: npm test
+
+      - name: UI type check
+        if: matrix.app
+        working-directory: app
+        run: npm run check
+
+      - name: UI build
+        if: matrix.app
+        working-directory: app
+        run: npm run build
+
+      - name: Clippy
+        run: cargo clippy $CARGO_SCOPE --all-targets --locked -- -D warnings
+
+      # Stages 1-6 on the verified sources. Writes pipeline/out/kjv.sqlite,
+      # kjv-search.sqlite (built from the published kjv.sqlite), content.sqlite
+      # (which the app crate's tests read) and mhcc.sqlite.
+      - name: Build content databases
+        run: cargo run --locked -p revelation-pipeline -- build "$REVELATION_SOURCES" pipeline/out
+
+      # The bytes must equal the committed, owner-reviewed hashes (DESIGN.md
+      # 10.2). Both runners must agree.
+      - name: Databases match committed hashes
+        working-directory: pipeline/out
+        run: grep -v '^#' ../tests/expected/output-sha256.txt | sha256sum --strict -c -
+
+      - name: Test
+        run: cargo test $CARGO_SCOPE --locked
+
+  # Independent oracle regeneration (DESIGN.md 11.1, owner question 11: the
+  # runner's preinstalled python3, no setup action). Regenerates
+  # pipeline/tests/expected/*.tsv from the verified sources and fails if they
+  # differ from the committed files, so a hand-edited expected file can't
+  # pass. The `# python: <version>` header line records the generator's
+  # Python version and is the only line allowed to differ. The two self-tests
+  # check that the strict walkers still refuse the bad fixtures.
+  oracle:
+    name: Oracle regeneration (ubuntu-latest)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Fetch and verify pinned sources
+        run: bash .github/scripts/fetch-sources.sh sources/raw
+
+      - name: Walker self-tests
+        run: |
+          python3 --version
+          s=docs/pipeline/survey-scripts
+          python3 -I -B "$s/selftest_strict.py" "$s/fixtures" "$RUNNER_TEMP/selftest-strict"
+          python3 -I -B "$s/selftest_lexicons.py" pipeline/tests/fixtures/lexicon/mgnt-prefix.bin "$RUNNER_TEMP/selftest-lexicons"
+          python3 -I -B "$s/selftest_mhcc.py" pipeline/tests/fixtures/mhcc
+
+      - name: Regenerate oracle files
+        run: |
+          s=docs/pipeline/survey-scripts
+          r=sources/raw
+          c=sources/checksums
+          out=pipeline/tests/expected
+          python3 -I -B "$s/oracle_kjv.py" "$r/BIB-KJV-CW31/kjv.osis.xml" "$c/BIB-KJV-CW31.sha256" "$out"
+          python3 -I -B "$s/oracle_lexicons.py" \
+            "$r/LEX-HEB-OSHB/HebrewStrong.xml" "$c/LEX-HEB-OSHB.sha256" \
+            "$r/LEX-GRC-MGNT19/strongsgreek.xml" "$c/LEX-GRC-MGNT19.sha256" "$out"
+          python3 -I -B "$s/oracle_mhcc.py" "$r/CMT-MHCC-CW20/mhcc.osis.xml" "$c/CMT-MHCC-CW20.sha256" "$out"
+
+      - name: Oracle files match the committed ones
+        run: |
+          git status --porcelain -- pipeline/tests/expected/
+          git diff --exit-code --stat -I '^# python: ' -- pipeline/tests/expected/
+          # Nothing new or deleted either.
+          test -z "$(git status --porcelain --untracked-files=all -- pipeline/tests/expected/ | grep -v '^ M ')"

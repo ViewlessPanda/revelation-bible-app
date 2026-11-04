@@ -1,0 +1,20 @@
+[package]
+name = "revelation-content"
+version = "0.0.0"
+edition = "2024"
+license = "MIT"
+publish = false
+description = "The one opener for Revelation's read-only content databases (open_verified, M1-F1) and the expected-hash file parser, shared by the pipeline and the app."
+
+[features]
+default = ["sqlite"]
+# open_verified and friends (rusqlite + sha2). Without it only the std-only
+# hash-file parser is built, which is what app/src-tauri/build.rs uses.
+sqlite = ["dep:rusqlite", "dep:sha2"]
+
+# The same two crates, same exact versions, as the pipeline and the app: this
+# crate adds none (the project's internal review notes 2.1 and 9).
+[dependencies]
+# SQLite compiled in; `serialize` gives sqlite3_deserialize. Default `cache` is off.
+rusqlite = { version = "=0.40.2", default-features = false, features = ["bundled", "serialize"], optional = true }
+sha2 = { version = "=0.11.1", optional = true }

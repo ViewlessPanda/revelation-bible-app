@@ -1,0 +1,86 @@
+# Fail-closed fixtures for the commentary profile (DESIGN.md 17.6, T24).
+# Each line turns good.xml into a bad file by replacing <old> (which must occur
+# in good.xml exactly once) with <new>; the result must be refused.
+# Columns (TAB-separated): id, the Rust check that must fire, who must refuse it
+# ("both": the Rust pipeline and the Python reader mhcc_osis.py; "rust": only
+# the Rust pipeline, because the check needs the KJV table), old, new.
+# Escapes in old/new: \n = LF, \t = TAB, \r = CR, \\ = backslash, \u{hex} = that
+# character in UTF-8.
+#
+# Outside the import scope
+scope-note	form	both	Comment delta.	Comment <note>n</note>delta.
+scope-q	form	both	Comment delta.	<q who="Jesus">Comment delta.</q>
+scope-lg-block	form	both	<p subType="x-introduction">\nChapter comment without an anchor.\n</p>	<lg>\nChapter comment without an anchor.\n</lg>
+scope-lb	form	both	<milestone type="x-usfm-toc1" n="Genesis" />	<lb />
+scope-div-type	cmt-attr	both	<div type="introduction">\n<!-- is -->	<div type="section">\n<!-- is -->
+scope-hi-type	cmt-attr	both	<hi type="bold">Verses 1-2</hi>	<hi type="italic">Verses 1-2</hi>
+scope-p-subtype	cmt-attr	both	<p subType="x-introduction">\nChapter comment	<p subType="x-other">\nChapter comment
+scope-p-attr	cmt-attr	both	<p>\n<verse sID="Gen.1.3"	<p n="1">\n<verse sID="Gen.1.3"
+scope-toc-type	cmt-attr	both	type="x-usfm-toc1"	type="x-usfm-toc4"
+scope-reference-in-title	cmt-structure	both	<title type="x-s2">Chapter 2</title>	<title type="x-s2">Chapter <reference osisRef="Gen.2.1">2</reference></title>
+scope-hi-in-cell	cmt-structure	both	<cell>Outline line one.</cell>	<cell><hi type="bold">Outline</hi> line one.</cell>
+scope-text-in-table	cmt-structure	both	<table>\n<row>	<table>\nstray<row>
+scope-text-between-blocks	cmt-structure	both	</table>\n<p>\n<verse	</table>\nstray\n<p>\n<verse
+scope-verse-outside-p	cmt-structure	both	<!-- s2 --><title type="x-s2">Chapter 2</title>	<verse sID="Gen.2.1" osisID="Gen.2.1" n="1" /><!-- s2 --><title type="x-s2">Chapter 2</title>
+scope-root-attr	cmt-attr	both	xml:lang="en"	xml:lang="de"
+scope-book-name	cmt-structure	both	osisID="Gen" canonical="true"	osisID="Genesis" canonical="true"
+#
+# Event forms (M1-F3): containers as Empty, milestones as containers
+empty-p	form	both	<p>\n</p>\n<div type="introduction">\n<!-- is -->	<p />\n<div type="introduction">\n<!-- is -->
+empty-hi	form	both	<hi type="bold">Verses 1-2</hi>	<hi type="bold" />
+empty-cell	form	both	<cell>(1-2)</cell>	<cell />
+empty-title	form	both	<!-- s2 --><title type="x-s2">Chapter 2</title>	<!-- s2 --><title type="x-s2" />
+container-verse	form	both	<verse sID="Gen.1.3" osisID="Gen.1.3" n="3" />Comment delta.\n<verse eID="Gen.1.3" />	<verse sID="Gen.1.3" osisID="Gen.1.3" n="3">Comment delta.</verse>
+container-chapter	form	both	<chapter eID="Gen.2" />	<chapter eID="Gen.2"></chapter>
+#
+# Malformed anchors
+anchor-osisid-short	cmt-anchor	both	osisID="Gen.1.1 Gen.1.2" n="1-2"	osisID="Gen.1.1" n="1-2"
+anchor-osisid-long	cmt-anchor	both	osisID="Gen.1.1 Gen.1.2" n="1-2"	osisID="Gen.1.1 Gen.1.2 Gen.1.3" n="1-2"
+anchor-osisid-spacing	cmt-anchor	both	osisID="Gen.1.1 Gen.1.2" n="1-2"	osisID="Gen.1.1  Gen.1.2" n="1-2"
+anchor-osisid-order	cmt-anchor	both	osisID="Gen.1.1 Gen.1.2" n="1-2"	osisID="Gen.1.2 Gen.1.1" n="1-2"
+anchor-n	cmt-anchor	both	n="1-2" />	n="1-3" />
+anchor-wrong-chapter	cmt-anchor	both	sID="Gen.1.3" osisID="Gen.1.3"	sID="Gen.2.3" osisID="Gen.2.3"
+anchor-wrong-book	cmt-anchor	both	sID="Gen.1.3" osisID="Gen.1.3"	sID="Exod.1.3" osisID="Exod.1.3"
+anchor-descending	cmt-anchor	both	sID="Gen.1.1-2" osisID="Gen.1.1 Gen.1.2" n="1-2"	sID="Gen.1.2-1" osisID="Gen.1.2 Gen.1.1" n="2-1"
+anchor-leading-zero	cmt-anchor	both	sID="Gen.1.3" osisID="Gen.1.3" n="3"	sID="Gen.1.03" osisID="Gen.1.03" n="03"
+anchor-eid-mismatch	cmt-anchor	both	<verse eID="Gen.1.3" />	<verse eID="Gen.1.4" />
+anchor-eid-missing	cmt-anchor	both	<verse eID="Gen.1.1-2" />\n
+anchor-sid-not-first	cmt-anchor	both	<p>\n<verse sID="Gen.1.3"	<p>\nlead <verse sID="Gen.1.3"
+anchor-text-after-eid	cmt-anchor	both	<verse eID="Gen.1.3" />\n<chapter eID="Gen.1" />	<verse eID="Gen.1.3" />\ntail\n<chapter eID="Gen.1" />
+anchor-element-after-eid	cmt-anchor	both	<verse eID="Gen.1.1-2" />\n</p>	<verse eID="Gen.1.1-2" /><hi type="bold">x</hi>\n</p>
+anchor-across-chapter	cmt-anchor	both	<verse eID="Gen.1.3" />\n<chapter eID="Gen.1" />	<chapter eID="Gen.1" />\n<verse eID="Gen.1.3" />
+anchor-attr-order	cmt-attr	both	sID="Gen.1.3" osisID="Gen.1.3" n="3"	osisID="Gen.1.3" sID="Gen.1.3" n="3"
+anchor-not-kjv	cmt-kjv	rust	sID="Gen.1.3" osisID="Gen.1.3" n="3" />Comment delta.\n<verse eID="Gen.1.3" />	sID="Gen.1.99" osisID="Gen.1.99" n="99" />Comment delta.\n<verse eID="Gen.1.99" />
+#
+# Cross-references
+ref-human	cmt-ref	both	osisRef="John.1.1">	osisRef="John 1:1">
+ref-two-books	cmt-ref	both	osisRef="John.1.1-John.1.3"	osisRef="John.1.1-Rom.1.3"
+ref-not-kjv	cmt-kjv	rust	osisRef="John.1.1">	osisRef="John.1.52">
+#
+# Chapters
+chapter-skip	cmt-chapter	both	<chapter sID="Gen.2" osisID="Gen.2" n="2" />	<chapter sID="Gen.3" osisID="Gen.3" n="3" />
+chapter-eid	cmt-chapter	both	<chapter eID="Gen.2" />	<chapter eID="Gen.1" />
+#
+# Untrusted input (DESIGN.md 9, 17.3)
+entity-lt	entity	both	&amp;c.	&lt;c.
+entity-numeric	entity	both	&amp;c.	&#65;c.
+entity-bare	entity	both	&amp;c.	& c.
+entity-in-attr	entity	both	n="Genesis"	n="Gen&amp;esis"
+comment-other	dtd	both	<!-- s2 --><title type="x-s2">Chapter 2</title>	<!-- s3 --><title type="x-s2">Chapter 2</title>
+comment-gap	comment	both	<!-- s2 --><title type="x-s2">Chapter 2</title>	<!-- s2 -->\n<title type="x-s2">Chapter 2</title>
+comment-wrong-title	comment	both	<!-- s2 --><title type="x-s2">Chapter 2</title>	<!-- s2 --><title type="x-IS">Chapter 2</title>
+title-without-comment	cmt-comment	both	<!-- s2 --><title type="x-s2">Chapter 2</title>	<title type="x-s2">Chapter 2</title>
+doctype	dtd	both	<?xml version="1.0" encoding="utf-8"?>\n<osis	<?xml version="1.0" encoding="utf-8"?>\n<!DOCTYPE osis>\n<osis
+cdata	dtd	both	Comment zeta.	<![CDATA[Comment zeta.]]>
+pi	decl	both	Comment zeta.	<?pi x?>Comment zeta.
+char-latin1	cmt-char	both	alpha	alph\u{e9}
+char-tab	cmt-char	both	alpha	al\tpha
+char-cr	cmt-char	both	alpha	al\rpha
+char-nbsp	cmt-char	both	alpha	al\u{a0}pha
+char-bidi	cmt-char	both	alpha	al\u{202e}pha
+tag-no-space	cmt-tag	both	<verse eID="Gen.1.3" />	<verse eID="Gen.1.3"/>
+tag-double-space	cmt-tag	both	<p subType="x-introduction">\nChapter comment	<p  subType="x-introduction">\nChapter comment
+# (quick-xml's end-name check refuses `</title >` before the tag-spelling check sees it)
+tag-end-space	xml	both	Chapter 2</title>	Chapter 2</title >
+attr-single-quote	attr	both	type="x-usfm-toc1"	type='x-usfm-toc1'
+attr-duplicate	attr	both	<hi type="bold">	<hi type="bold" type="bold">

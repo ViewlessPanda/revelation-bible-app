@@ -1,0 +1,618 @@
+/* ==========================================================================
+   Revelation design tokens: the single source of truth.
+   Status: v0.8 (2026-10-27).
+   v0.8 (wave 2, W2-RCd): section 12 appended at the end of this file:
+   one right column (Commentary over Study) with a height divider: sizes,
+   split, keyboard step and in-column motion (wave-2-layout.md 17). No
+   earlier value changed and no new colour.
+   v0.7 (wave 2, W2-BMd): section 11 appended at the end of this file:
+   the automatic-bookmark ribbon colour per theme, its sizes and timing
+   (bookmarks.md 9). No earlier value changed.
+   v0.6 (wave 2, W2-5d, applied in the wave-2 merge): section 10
+   appended at the end of this file: highlighter-pen range marks, pen
+   tray and cursor art (highlights-pen.md 14.1). No earlier value changed.
+   v0.5 (wave 2, W2-Qd and W2-4d): section 9 appended at the end of this
+   file: slower underline appearance, the sticky selected-word line, panel
+   slide-out motion, command-box dropdown search, About dialog and logo
+   (wave-2-layout.md 11.1). One earlier value changed: the dark
+   --color-match, #3A2E12 -> #45340A, because results now sit on the raised
+   dropdown. --search-count-delay became an alias of the new --search-delay
+   (same 150ms); the --dur-4 comment was updated.
+   v0.4 (wave 2, W2-2d): section 8 appended at the end of this file: side
+   panel widths, search match and verse flash colours, notes, caret and
+   timing tokens (wave-2-layout.md 11). No earlier value changed.
+   v0.3 (wave 2, W2-1d): refined five highlight tints in all three themes
+   (red-letters-and-highlights.md 4.4); new --color-word-underline per theme
+   and --word-underline-thickness / --word-underline-gap / --ease-linear for
+   the Strong's hover underline (red-letters 3.4.3). No other value changed.
+   v0.2: Gentium v7 family names (font licence review 4.8); section 7
+   reader layout (reader.md). No colour values changed.
+
+   How to use
+   - The app imports this file once, before any component CSS.
+   - Theme: set data-theme on <html>: "dark" (default, also used when the
+     attribute is missing), "light" or "sepia". Every theme defines the SAME
+     token names; components never reference a raw hex value.
+   - Reading font: set data-read-font on <html> (see the per-font block at
+     the end). Reading size: set --read-size from the size steps.
+   - Motion: the app sets data-motion="reduce" when the reader turns on
+     Settings > Reduce motion; the prefers-reduced-motion media query covers
+     the Windows "Animation effects" switch. Both give the same values.
+   - Colour values are checked by docs/design/check-contrast.py, which reads
+     THIS file. Change a colour here, re-run the script, paste its output into
+     red-letters-and-highlights.md.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Colour: dark (default)
+   -------------------------------------------------------------------------- */
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Surfaces: soft warm charcoal, never pure black */
+  --color-bg:            #1C1B19; /* page and reading column */
+  --color-surface:       #232220; /* side panel, title bar, setup list */
+  --color-raised:        #2B2A27; /* cards, menus, tooltips, popovers */
+  --color-border:        #3A3834; /* hairlines, dividers (decorative) */
+  --color-border-strong: #7A746B; /* input and control outlines (3:1 on bg) */
+  --color-scrim:         rgb(12 11 10 / 0.6); /* behind modal windows */
+
+  /* Text: warm off-white, never pure white */
+  --color-text:          #E6E0D4; /* body text, Scripture text */
+  --color-text-muted:    #ABA59A; /* secondary UI text, captions */
+  --color-text-disabled: #6E6A62; /* disabled controls only (exempt from AA) */
+  --color-verse-number:  #ABA59A; /* verse numbers (same value as muted) */
+
+  /* The one accent: calm slate blue. Also links and focus. */
+  --color-accent:        #8DB2DE;
+  --color-accent-hover:  #A5C3E6;
+  --color-on-accent:     #1C1B19; /* text on an accent-filled button */
+  --color-link:          #8DB2DE;
+  --color-link-underline: rgb(141 178 222 / 0.45);
+  --color-focus:         #8DB2DE;
+  --color-current-verse: #8DB2DE; /* 2px gutter bar, never a background */
+  --color-selection:     #2C3A4E; /* ::selection background */
+
+  /* Words of Jesus. Reserved: no other UI element may use this hue. */
+  --color-red-letter:    #EF8A7B;
+
+  /* Strong's word hover underline (red-letters 3.4.3). Neutral: never the
+     red-letter or link colour, never applied to text. */
+  --color-word-underline: #ABA59A;
+
+  /* Whole-verse highlight tints (backgrounds only). v0.3 set: red letters,
+     verse numbers and body text keep >= 4.5:1 on each (check-contrast.py). */
+  --color-hl-gold:       #483902;
+  --color-hl-green:      #1B2C03;
+  --color-hl-blue:       #1D385E;
+  --color-hl-rose:       #542333;
+  --color-hl-violet:     #321940;
+  /* Opaque swatch colours for the highlight picker and Highlights list chips
+     (the tint itself is too subtle to read as a 12px dot) */
+  --color-hl-gold-swatch:   #C9A24A;
+  --color-hl-green-swatch:  #7FA88C;
+  --color-hl-blue-swatch:   #6F86C4;
+  --color-hl-rose-swatch:   #C08A93;
+  --color-hl-violet-swatch: #9C8FD0;
+
+  /* Status (UI only, never in the reading column). Errors use ochre, not
+     red, so red stays reserved for the words of Jesus. Always paired with
+     an icon and words, never colour alone. */
+  --color-danger:        #E2A65A;
+  --color-success:       #9CC69B;
+
+  /* Interaction overlays (mixed over whatever surface is underneath) */
+  --color-hover:   color-mix(in srgb, var(--color-text) 6%, transparent);
+  --color-pressed: color-mix(in srgb, var(--color-text) 10%, transparent);
+
+  /* Elevation: on dark, raise by lightening the surface; shadows only help
+     separate overlapping layers */
+  --shadow-1: 0 1px 2px rgb(8 7 6 / 0.35);
+  --shadow-2: 0 2px 4px rgb(8 7 6 / 0.30), 0 8px 24px rgb(8 7 6 / 0.35);
+  --shadow-3: 0 4px 8px rgb(8 7 6 / 0.35), 0 16px 48px rgb(8 7 6 / 0.45);
+}
+
+/* --------------------------------------------------------------------------
+   2. Colour: light (first draft)
+   -------------------------------------------------------------------------- */
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --color-bg:            #F7F4EE;
+  --color-surface:       #EFEBE3;
+  --color-raised:        #FBF9F5;
+  --color-border:        #DCD5C9;
+  --color-border-strong: #8C857A;
+  --color-scrim:         rgb(42 39 35 / 0.35);
+
+  --color-text:          #2A2723;
+  --color-text-muted:    #5B564E;
+  --color-text-disabled: #A39D93;
+  --color-verse-number:  #5B564E;
+
+  --color-accent:        #285A93;
+  --color-accent-hover:  #1F4A7B;
+  --color-on-accent:     #F7F4EE;
+  --color-link:          #285A93;
+  --color-link-underline: rgb(40 90 147 / 0.45);
+  --color-focus:         #285A93;
+  --color-current-verse: #285A93;
+  --color-selection:     #C9D9EE;
+
+  --color-red-letter:    #A1251C;
+  --color-word-underline: #5B564E;
+
+  --color-hl-gold:       #FADD95;
+  --color-hl-green:      #B7F3C2;
+  --color-hl-blue:       #BBCDFE;
+  --color-hl-rose:       #FDBDCF;
+  --color-hl-violet:     #E4DDFD;
+  --color-hl-gold-swatch:   #9C7522;
+  --color-hl-green-swatch:  #5B8543;
+  --color-hl-blue-swatch:   #5A78C8;
+  --color-hl-rose-swatch:   #A8727C;
+  --color-hl-violet-swatch: #7F72C9;
+
+  --color-danger:        #8A5300;
+  --color-success:       #2F6B3A;
+
+  --color-hover:   color-mix(in srgb, var(--color-text) 5%, transparent);
+  --color-pressed: color-mix(in srgb, var(--color-text) 9%, transparent);
+
+  --shadow-1: 0 1px 2px rgb(42 39 35 / 0.10);
+  --shadow-2: 0 2px 4px rgb(42 39 35 / 0.08), 0 8px 24px rgb(42 39 35 / 0.10);
+  --shadow-3: 0 4px 8px rgb(42 39 35 / 0.10), 0 16px 48px rgb(42 39 35 / 0.16);
+}
+
+/* --------------------------------------------------------------------------
+   3. Colour: sepia (first draft)
+   -------------------------------------------------------------------------- */
+:root[data-theme="sepia"] {
+  color-scheme: light;
+
+  --color-bg:            #F2E8D5;
+  --color-surface:       #E9DEC8;
+  --color-raised:        #F6EEDF;
+  --color-border:        #D6C8AE;
+  --color-border-strong: #8A7B66;
+  --color-scrim:         rgb(44 37 29 / 0.35);
+
+  --color-text:          #2C251D;
+  --color-text-muted:    #5E5244;
+  --color-text-disabled: #A6987F;
+  --color-verse-number:  #5E5244;
+
+  --color-accent:        #285780;
+  --color-accent-hover:  #1E4666;
+  --color-on-accent:     #F2E8D5;
+  --color-link:          #285780;
+  --color-link-underline: rgb(40 87 128 / 0.45);
+  --color-focus:         #285780;
+  --color-current-verse: #285780;
+  --color-selection:     #CBD3D6;
+
+  --color-red-letter:    #982A1E;
+  --color-word-underline: #5E5244;
+
+  --color-hl-gold:       #FEDA95;
+  --color-hl-green:      #B7D2A0;
+  --color-hl-blue:       #CADFFD;
+  --color-hl-rose:       #FFBBCF;
+  --color-hl-violet:     #DEBDFD;
+  --color-hl-gold-swatch:   #8F6C1C;
+  --color-hl-green-swatch:  #5F7C3B;
+  --color-hl-blue-swatch:   #5873B0;
+  --color-hl-rose-swatch:   #95625A;
+  --color-hl-violet-swatch: #8E73A8;
+
+  --color-danger:        #844F00;
+  --color-success:       #2E6435;
+
+  --color-hover:   color-mix(in srgb, var(--color-text) 5%, transparent);
+  --color-pressed: color-mix(in srgb, var(--color-text) 9%, transparent);
+
+  --shadow-1: 0 1px 2px rgb(44 37 29 / 0.10);
+  --shadow-2: 0 2px 4px rgb(44 37 29 / 0.08), 0 8px 24px rgb(44 37 29 / 0.12);
+  --shadow-3: 0 4px 8px rgb(44 37 29 / 0.10), 0 16px 48px rgb(44 37 29 / 0.18);
+}
+
+/* --------------------------------------------------------------------------
+   4. Type, spacing, radius, focus, motion (shared by all themes)
+   -------------------------------------------------------------------------- */
+:root {
+  /* Families. Real fonts are bundled from /assets/fonts in M2; the names
+     after them are fallbacks for development only. */
+  --font-ui: "Inter", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  --font-hebrew: "Ezra SIL", "Noto Serif Hebrew", "SBL Hebrew", serif;
+  --font-hebrew-ui: "Noto Serif Hebrew", "Ezra SIL", serif; /* small sizes */
+  /* Gentium v7.000 names ("Gentium" was "Gentium Plus"; "Gentium Book" was
+     "Gentium Book Plus"). Old names stay as fallbacks only. */
+  --font-greek: "Gentium", "Gentium Plus", "Gentium Book", "Palatino Linotype", serif;
+
+  /* UI type scale (Inter). rem, so it follows OS text scaling. */
+  --text-ui-xs:  0.75rem;    /* 12px  keyboard hints, badges */
+  --text-ui-sm:  0.8125rem;  /* 13px  secondary lines, captions */
+  --text-ui-md:  0.875rem;   /* 14px  default UI text, buttons, lists */
+  --text-ui-lg:  1rem;       /* 16px  panel headings, dialog body */
+  --text-ui-xl:  1.25rem;    /* 20px  dialog titles */
+  --text-ui-2xl: 1.75rem;    /* 28px  first-run step titles */
+  --leading-ui:       1.45;
+  --leading-ui-tight: 1.25;  /* headings */
+  --weight-regular:   400;
+  --weight-medium:    500;
+  --weight-semibold:  600;
+  --tracking-ui-caps: 0.06em; /* the rare all-caps micro label */
+
+  /* Reading text. --read-size is the reader's chosen step (Ctrl +/-).
+     The per-font block sets --read-scale, --read-leading, --read-tracking. */
+  --read-size: 1.25rem;       /* step 5 (20px at 100% OS scaling) */
+  --read-scale: 1;
+  --read-leading: 1.6;
+  --read-tracking: 0;
+  --read-word-spacing: 0;
+  --measure: 66ch;            /* reading column; reader can pick 60 / 66 / 72 */
+  --measure-narrow: 60ch;
+  --measure-wide: 72ch;
+  --verse-number-size: 0.6em; /* relative to the reading size */
+  --verse-number-raise: -0.5em;
+  --verse-number-gap: 0.18em;
+  --verse-number-hang: 2.25em; /* gutter width for hanging numbers */
+  --scale-hebrew: 1.2;         /* Hebrew size relative to the reading size */
+  --leading-hebrew: 2;
+  --scale-greek: 1.04;
+  --leading-greek: 1.6;
+
+  /* Spacing (4px grid) */
+  --space-0-5: 0.125rem; /*  2px */
+  --space-1:   0.25rem;  /*  4px */
+  --space-2:   0.5rem;   /*  8px */
+  --space-3:   0.75rem;  /* 12px */
+  --space-4:   1rem;     /* 16px */
+  --space-5:   1.5rem;   /* 24px */
+  --space-6:   2rem;     /* 32px */
+  --space-7:   3rem;     /* 48px */
+  --space-8:   4rem;     /* 64px */
+
+  /* Radius (px: shapes should not grow with text size) */
+  --radius-sm:   4px;  /* inputs, small buttons, highlight tint corners */
+  --radius-md:   6px;  /* buttons, list rows */
+  --radius-lg:   10px; /* cards, popovers */
+  --radius-xl:   14px; /* windows, dialogs */
+  --radius-full: 999px;
+
+  /* Control sizes */
+  --control-h-sm: 1.75rem; /* 28px */
+  --control-h-md: 2.25rem; /* 36px */
+  --control-h-lg: 2.75rem; /* 44px  primary actions, touch-friendly */
+
+  /* Focus ring: drawn with outline on :focus-visible only */
+  --focus-width:  2px;
+  --focus-offset: 2px;
+  --focus-ring:   var(--focus-width) solid var(--color-focus);
+
+  /* Strong's word hover underline (red-letters 3.4.3). Drawn by .w::after,
+     never by text-decoration except on a wrapped word. Thickness: 1px up to
+     a 25px reading size, 2px from 26px. Gap: below the content-area bottom
+     (the font's descent line), so it clears descenders. */
+  --word-underline-thickness: max(1px, round(0.06em, 1px));
+  --word-underline-gap:       1px;
+
+  /* Motion. Only transform and opacity are ever animated. */
+  --dur-instant: 0ms;
+  --dur-1:  80ms;   /* caret glide, press feedback */
+  --dur-2: 120ms;   /* hover, fades, chapter cross-fade, tooltip fade */
+  --dur-3: 180ms;   /* tab content slide, tab indicator, panel FLIP */
+  --dur-4: 240ms;   /* first-run step enter (side panels use --dur-panel-in, v0.5) */
+  --dur-exit: 120ms; /* any exit is shorter than its entrance */
+  --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);   /* entrances, caret */
+  --ease-in:     cubic-bezier(0.4, 0, 1, 1);       /* exits */
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);   /* things that move and stay */
+  --ease-blink:  cubic-bezier(0.45, 0, 0.55, 1);   /* caret blink opacity */
+  --ease-linear: linear;  /* an opacity fade that rides on a scale grow */
+  --move-sm:  4px;   /* chapter content settle */
+  --move-md:  8px;   /* tab content slide */
+  --move-lg: 16px;   /* first-run step slide */
+  --caret-blink-period: 1060ms; /* full on-off cycle */
+  --caret-hold: 500ms;          /* caret stays solid after each keystroke */
+  --delay-tooltip: 400ms;       /* hover intent before a tooltip shows */
+  --delay-tooltip-skip: 300ms;  /* if another tooltip closed this recently, show at once */
+  --delay-tooltip-hide: 100ms;
+  --caret-glide: 1;             /* 0 = caret jumps (reduced motion) */
+}
+
+/* Reduced motion: no movement, no caret glide; short fades are kept because
+   they do not move anything. Same values for the OS switch and the app
+   setting. (data-motion="full" lets the reader override the OS.) */
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion="full"]) {
+    --dur-1: 0ms; --dur-3: 0ms; --dur-4: 120ms;
+    --move-sm: 0px; --move-md: 0px; --move-lg: 0px;
+    --caret-glide: 0;
+  }
+}
+:root[data-motion="reduce"] {
+  --dur-1: 0ms; --dur-3: 0ms; --dur-4: 120ms;
+  --move-sm: 0px; --move-md: 0px; --move-lg: 0px;
+  --caret-glide: 0;
+}
+
+/* --------------------------------------------------------------------------
+   5. Reading-size steps (Ctrl +/-). Index 5 is the default.
+      The app sets --read-size to one of these; it never animates font-size.
+   -------------------------------------------------------------------------- */
+:root {
+  --read-step-1: 1rem;      /* 16 */
+  --read-step-2: 1.0625rem; /* 17 */
+  --read-step-3: 1.125rem;  /* 18 */
+  --read-step-4: 1.1875rem; /* 19 */
+  --read-step-5: 1.25rem;   /* 20 default */
+  --read-step-6: 1.375rem;  /* 22 */
+  --read-step-7: 1.5rem;    /* 24 */
+  --read-step-8: 1.625rem;  /* 26 */
+  --read-step-9: 1.75rem;   /* 28 */
+  --read-step-10: 2rem;     /* 32 */
+}
+
+/* --------------------------------------------------------------------------
+   6. Reading fonts: per-font optical matching (see typography.md).
+      Values are first estimates from published x-heights; verify in M2 with
+      the measurement method in typography.md section 6 once the real files
+      are bundled.
+   -------------------------------------------------------------------------- */
+:root,
+:root[data-read-font="literata"] {
+  --font-read: "Literata", Georgia, "Times New Roman", serif;
+  --read-scale: 1;    --read-leading: 1.6;  --read-tracking: 0;
+}
+:root[data-read-font="source-serif-4"] {
+  --font-read: "Source Serif 4", "Source Serif Pro", Cambria, Georgia, serif;
+  --read-scale: 1;    --read-leading: 1.6;  --read-tracking: 0;
+}
+:root[data-read-font="eb-garamond"] {
+  --font-read: "EB Garamond", Garamond, "Palatino Linotype", Georgia, serif;
+  --read-scale: 1.12; --read-leading: 1.55; --read-tracking: 0.005em;
+}
+:root[data-read-font="crimson-pro"] {
+  --font-read: "Crimson Pro", "Book Antiqua", "Palatino Linotype", Georgia, serif;
+  --read-scale: 1.1;  --read-leading: 1.55; --read-tracking: 0.005em;
+}
+:root[data-read-font="lora"] {
+  --font-read: "Lora", Constantia, Georgia, serif;
+  --read-scale: 0.97; --read-leading: 1.65; --read-tracking: 0;
+}
+:root[data-read-font="newsreader"] {
+  --font-read: "Newsreader", Cambria, Georgia, serif;
+  --read-scale: 1.03; --read-leading: 1.6;  --read-tracking: 0;
+}
+:root[data-read-font="spectral"] {
+  --font-read: "Spectral", "Sitka Text", Georgia, serif;
+  --read-scale: 1.06; --read-leading: 1.65; --read-tracking: 0;
+}
+:root[data-read-font="gentium-book"] {
+  --font-read: "Gentium Book", "Gentium Book Plus", "Palatino Linotype", Georgia, serif;
+  --read-scale: 1.03; --read-leading: 1.6;  --read-tracking: 0;
+}
+
+/* --------------------------------------------------------------------------
+   7. Reader layout (reader.md). rem values follow OS text scaling; the
+      reading column itself is sized by --measure in the reading font.
+   -------------------------------------------------------------------------- */
+:root {
+  --topbar-h:        3rem;    /* 48px  reader top bar and panel header */
+  --command-w:       22rem;   /* 352px location / command box (shrinks to --command-w-min) */
+  --command-w-min:   14rem;   /* 224px */
+  --panel-w:         22rem;   /* 352px study panel default width */
+  --panel-w-min:     18rem;   /* 288px */
+  --panel-w-max:     40rem;   /* 640px, and never more than window - --reader-w-min */
+  --reader-w-min:    26rem;   /* 416px reading pane never narrower */
+  --splitter-hit:    8px;     /* pointer target; the drawn line is 1px */
+  --splitter-step:   1rem;    /* arrow-key resize step (Shift: 4x) */
+  --picker-w:        44rem;   /* book/chapter picker, max */
+  --options-w:       18rem;   /* reading options popover */
+  --chapter-pad-top: var(--space-7);   /* 48px above the chapter heading */
+  --chapter-pad-end: 30vh;              /* room to read the last verse at eye level */
+  --toast-hold:      1000ms;  /* text-size indicator stays this long */
+  --delay-splitter-hover: 150ms; /* splitter line lights after this hover delay */
+}
+
+/* ==========================================================================
+   8. Wave 2 (v0.4, 2026-10-22, task W2-2d): side panels, phrase search and
+      daily notes. Spec: wave-2-layout.md section 11. Appended block: no
+      earlier token value changed.
+   ========================================================================== */
+:root,
+:root[data-theme="dark"] {
+  --color-match: #45340A; /* search match background, results only. v0.5: was #3A2E12 (needs 5.0 separation from the raised dropdown) */
+}
+:root[data-theme="light"] {
+  --color-match: #F1D9A0;
+}
+:root[data-theme="sepia"] {
+  --color-match: #EBCB8A;
+}
+:root {
+  /* Aliases (no new hex): they resolve per theme because their targets do */
+  --color-match-edge: var(--color-text-muted); /* 2px bottom edge of a match */
+  --color-flash:      var(--color-selection);  /* verse flash after a jump */
+
+  /* Side panels (rem, so they follow OS text scaling) */
+  --notes-w:      20rem;   /* 320px notes panel default */
+  --notes-w-min:  16rem;   /* 256px */
+  --notes-w-max:  32rem;   /* 512px */
+  --comm-w:       22rem;   /* 352px commentary panel default */
+  --comm-w-min:   18rem;   /* 288px */
+  --comm-w-max:   36rem;   /* 576px */
+  --panel-toolbar-h: 2.25rem; /* 36px notes formatting row */
+  --date-head-h:  2rem;    /* 32px notes date header */
+  --tag-h:        1.25rem; /* 20px passage tag chip */
+  --reader-w-comfort: 34rem; /* 544px: panels shrink or hide to keep the reader this wide */
+
+  /* Text in panels. Commentary and results also multiply by --read-scale. */
+  --notes-size:      0.9375rem; /* 15px, Inter: the reader's own words */
+  --notes-leading:   1.6;
+  --comment-size:    1.0625rem; /* 17px, reading font */
+  --comment-leading: 1.6;
+  --result-size:     1rem;      /* 16px, reading font, whole verses */
+  --result-leading:  1.55;
+
+  /* Smooth caret (design-system 6.1, wave-2-layout.md 8.5) */
+  --caret-width:       2px;
+  --caret-height:      1.15em;
+  --caret-blink-count: 28;      /* x --caret-blink-period = about 30s, then solid */
+
+  /* Motion and timing */
+  --dur-flash:          1200ms; /* verse flash after a jump (opacity only) */
+  --reflow-fade-from:   0.5;    /* reading column settle after a reflow */
+  --search-count-delay: var(--search-delay); /* v0.5: alias of --search-delay (150ms); remove in v0.6 */
+  --save-delay:         500ms;  /* notes autosave after the last change */
+  --saving-show-after:  1000ms; /* "Saving..." only if a save takes longer */
+}
+/* ==== end of the v0.4 wave-2 block ==== */
+
+/* ==========================================================================
+   9. Wave 2 owner requests (v0.5, 2026-10-24, tasks W2-Qd and W2-4d):
+      underline timing, sticky Strong's selection, slide-out panels,
+      search in the command-box dropdown, About dialog. Spec:
+      wave-2-layout.md 11.1 and red-letters-and-highlights.md 3.4.3.
+      Appended block: no new colour (the dark --color-match change is in 8).
+   ========================================================================== */
+:root {
+  /* Strong's word underline (red-letters 3.4.3). The appearance is a touch
+     slower than v0.3 (owner, 2026-10-24): grow +25ms, fade +20ms. The exit
+     is unchanged (--dur-exit, 120ms). */
+  --dur-underline-in:      205ms; /* scaleX 0 -> 1, --ease-out (v0.3: --dur-3, 180ms) */
+  --dur-underline-fade-in: 140ms; /* opacity 0 -> 1, --ease-linear (v0.3: --dur-2, 120ms) */
+  /* The selected (sticky) word's line: same colour, one pixel thicker:
+     2px up to a 25px reading size, 3px from 26px. */
+  --word-underline-thickness-selected: calc(var(--word-underline-thickness) + 1px);
+
+  /* Side panels slide out from their own window edge (wave-2-layout.md 3).
+     Every element that moves with a panel uses the same duration and curve. */
+  --dur-panel-in:   280ms;
+  --dur-panel-out:  220ms;
+  --ease-panel-in:  cubic-bezier(0.32, 0.72, 0, 1); /* quick start, long soft landing */
+  --ease-panel-out: cubic-bezier(0.4, 0, 0.2, 1);   /* eases away, the text lands softly */
+  --panel-slide:    1;  /* slide distance x the panel's own width; 0 = fade only */
+
+  /* Command box dropdown with search results (wave-2-layout.md 6) */
+  --command-pop-w:     36rem;  /* 576px; never wider than the window - 2 x --space-4 */
+  --command-pop-max-h: min(36rem, 100vh - 96px);
+  --search-delay:      150ms;  /* the search runs this long after the last keystroke */
+
+  /* About dialog and the app mark (wave-2-layout.md 14) */
+  --about-w:     24rem;  /* 384px dialog */
+  --logo-about:  6rem;   /* 96px mark, from assets/brand/revelation-icon-1024.png */
+  --logo-radius: 22%;    /* rounded-square tile; % so it scales with the mark */
+  --font-brand:  "Literata", Georgia, "Times New Roman", serif; /* the name "Revelation" */
+}
+/* Reduced motion: panels fade (120ms) and never slide. The underline needs
+   nothing here: its transform is removed (red-letters 3.4.3) and fades stay. */
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion="full"]) {
+    --dur-panel-in: 120ms; --dur-panel-out: 120ms; --panel-slide: 0;
+  }
+}
+:root[data-motion="reduce"] {
+  --dur-panel-in: 120ms; --dur-panel-out: 120ms; --panel-slide: 0;
+}
+/* ==== end of the v0.5 block ==== */
+
+/* ==========================================================================
+   10. Wave 2: highlighter pen (v0.6, 2026-10-24, task W2-5d). Spec:
+       highlights-pen.md 3.3, 7.3 and 8.1. Appended block: aliases and
+       sizes only, no new theme colour. The range tints are the v0.3
+       --color-hl-* (unchanged); the pen tray reuses --color-raised,
+       --shadow-2 and --radius-lg.
+   ========================================================================== */
+:root {
+  /* Range marks (the paint layer behind .vtext; never inside it) */
+  --hl-radius:        var(--radius-sm); /* 4px, every line fragment of a range mark */
+  --hl-pad-block:     0.08em;           /* range box grows this much above and below the line's glyph boxes */
+  --hl-pad-inline:    0.08em;           /* outer ends only, next to whitespace or the verse edge */
+  --hl-join-gap:      2px;              /* between butting marks of different colours */
+  --hl-erase-opacity: 0.35;             /* eraser preview on the part being erased; check-contrast.py reads it */
+
+  /* Pen tray under the top bar */
+  --pen-tray-h:       2.5rem;           /* 40px */
+
+  /* Pen and eraser cursor art only (not theme colours: a cursor image is
+     never recoloured, so the same halo and outline work on every page,
+     tint and forced-colours scheme) */
+  --cursor-halo:      #FFFFFF;          /* outer halo */
+  --cursor-ink:       #1C1B19;          /* outline */
+  /* --cursor-pen / --cursor-eraser are set by script (a data: SVG built from
+     the current --color-hl-*-swatch), see highlights-pen.md 3.3 */
+}
+/* ==== end of the v0.6 block ==== */
+
+/* ==========================================================================
+   11. Wave 2: automatic bookmarks (v0.7, 2026-10-24, task W2-BMd). Spec:
+       bookmarks.md. Appended block: one new theme colour (the ribbon),
+       sizes and timing. No earlier value changed. The ribbon is brand gold
+       (the app mark's star), never the accent (focus, links, current
+       book/chapter), never the red-letter hue; check-contrast.py checks it
+       at 3:1 on the picker and dropdown and on their hover/active rows.
+   ========================================================================== */
+:root,
+:root[data-theme="dark"] {
+  --color-bookmark: #EBC85F; /* bookmark ribbon glyph (fill), UI only, never in the reading column */
+}
+:root[data-theme="light"] {
+  --color-bookmark: #9A720C;
+}
+:root[data-theme="sepia"] {
+  --color-bookmark: #937008;
+}
+:root {
+  /* Ribbon glyph (viewBox 0 0 12 16, so height = width x 4/3) */
+  --bookmark-w:       0.4375rem;  /* 7px (9.3px tall): picker book and chapter cells, hung from the cell's top edge */
+  --bookmark-w-row:   0.5625rem;  /* 9px: command-box "Go to" rows, inline after the book name */
+  --bookmark-gap:     6px;        /* book cells and Go to rows: from the end of the book name */
+  --bookmark-inset:   6px;        /* chapter cells: from the cell's inline-end edge */
+  --picker-book-min:  9.75rem;    /* 156px book column minimum (reader.md 6 used 8.5rem): the longest
+                                     name + ribbon + current-book dot fit without truncation */
+
+  /* "Counts as read" (bookmarks.md 2) */
+  --bookmark-dwell:   10000ms;    /* attended time on one chapter */
+  --bookmark-scroll:  1;          /* user scrolling, x the reading pane's height */
+  --bookmark-undo-hold: 6000ms;   /* the Undo toast after "Clear bookmark" */
+}
+/* ==== end of the v0.7 block ==== */
+
+/* ==========================================================================
+   12. Wave 2: one right column (v0.8, 2026-10-27, task W2-RCd). Spec:
+       wave-2-layout.md 17. Appended block: Commentary on top, Study
+       underneath, one shared width and a draggable height divider. No
+       earlier value changed. No new colour: the divider is drawn with
+       --color-border and lit with --color-accent, as the splitters are,
+       and sized by --splitter-hit (8px) and --delay-splitter-hover.
+   ========================================================================== */
+:root {
+  /* Column width (one splitter on the column's inner edge) */
+  --rc-w:      22rem;   /* 352px default */
+  --rc-w-min:  18rem;   /* 288px */
+  --rc-w-max:  36rem;   /* 576px, and never more than window - --reader-w-min */
+
+  /* Height split: Commentary's share of (column height - 1px divider) */
+  --rc-split-default: 0.5;
+  --rc-min-comm:  14rem;  /* 224px: header, source bar, two lines of body */
+  --rc-min-study: 10rem;  /* 160px: header, entry heading, two lines */
+  --rc-min-floor:  6rem;  /*  96px: both minimums when the two don't fit */
+  --rc-step:       1rem;  /* divider arrow-key step (Shift: 4x), = --splitter-step */
+
+  /* A panel opening or closing inside the open column: no height animates */
+  --rc-enter-y:   8px;    /* translateY settle, from the panel's own side */
+  --dur-rc-in:  180ms;    /* entering fade + settle, and the sibling's FLIP; --ease-out */
+  --dur-rc-out: 120ms;    /* closing fade; --ease-in */
+}
+/* Reduced motion: fades only, no settle and no FLIP. */
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion="full"]) {
+    --rc-enter-y: 0px; --dur-rc-in: 120ms; --dur-rc-out: 120ms;
+  }
+}
+:root[data-motion="reduce"] {
+  --rc-enter-y: 0px; --dur-rc-in: 120ms; --dur-rc-out: 120ms;
+}
+/* ==== end of the v0.8 block ==== */

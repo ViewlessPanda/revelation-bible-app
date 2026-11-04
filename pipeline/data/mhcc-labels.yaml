@@ -1,0 +1,35 @@
+id: CMT-MHCC-CW20
+display_name: "Matthew Henry's Concise Commentary"
+authors:
+  - name: "Matthew Henry"
+    tradition: "Presbyterian (English Nonconformist)"
+    life: "1662–1714"
+    role: primary
+  - name: "Thomas Scott"
+    tradition: "Anglican"
+    life: "1747–1821"
+    role: secondary   # displayed as "with Thomas Scott"
+author_label: "Matthew Henry · Presbyterian (English Nonconformist), with Thomas Scott · Anglican"
+author_label_short: "Matthew Henry, with Thomas Scott"
+tradition: "Presbyterian (English Nonconformist); Anglican"
+date_label: "Abridgement c. 1838 (Religious Tract Society), from Henry's Exposition (1708–1710)"
+date_label_status: to_confirm   # "c. 1838"; fallback "1830s–1850s"
+compiler: "Religious Tract Society (London)"
+about_note: "This one-volume commentary was compiled by the Religious Tract Society (London, c. 1838), which said its comments were taken mostly from Matthew Henry and Thomas Scott, with other writers."
+edition_note: "Text: CrossWire MHCC module, version 2.0 (2021), prepared from the Christian Classics Ethereal Library's text."
+provenance_note: "RTS Short Comments on Every Chapter of the Holy Bible (c. 1838) -> Moody Press printing (ISBN 0-8024-5190-X) -> Bible Foundation e-text -> Logos Research Systems e-text -> CCEL ThML/text (2001) -> CrossWire MHCC 2.0 OSIS (2021-02-14)."
+citations:
+  - "RTS, Short Comments on Every Chapter of the Holy Bible, London: Religious Tract Society, [1838? / 185-?], Preface p. iii. Internet Archive shortcommentson00britgoog (= Google Books Fl8EAAAAQAAJ, Oxford University copy). Accessed 2026-10-22."
+  - "In-memory text comparison, pinned mhcc.osis.xml vs the IA OCR above, 2026-10-22 (6-gram hit 0.767; OCR-noise expectation 0.754; control 0.0). docs/scholar/commentary-labels.md fact 3."
+  - "CrossWire MHCC mhcc.osis.xml header and mhcc.conf, commit b15ff40aab9556005fd3d38d5388040a90b99145, https://gitlab.com/crosswire-bible-society/mhcc. Accessed 2026-10-22."
+  - "CCEL, Matthew Henry's Concise Commentary on the Bible, ThML header, https://www.ccel.org/ccel/h/henry/mhcc.xml. Accessed 2026-10-22."
+  - "Dictionary of National Biography, vol. 26 (1891), pp. 123-124, 'Henry, Matthew', by Alexander Gordon. Via Wikisource page scans. Accessed 2026-10-22."
+  - "Encyclopaedia Britannica, 11th ed. (1911), vol. 13, 'Henry, Matthew'. Via Wikisource. Accessed 2026-10-22."
+  - "Dictionary of National Biography, vol. 51, pp. 73-75, 'Scott, Thomas (1747-1821)', by Alexander Gordon. Via Wikisource page scans. Accessed 2026-10-22."
+  - "Retailer listing, Moody 1982, ISBN 0-8024-5190-X, 'by Matthew Henry and Thomas Scott', https://www.ebay.com/p/8038643221 (weak; to confirm)."
+status: approved_by_owner
+approved_by: "owner"
+approved_on: "2026-10-27"
+to_confirm:
+  - "date c. 1838 (Google Books 1838 vs Internet Archive [185-?])"
+  - "Moody 1982 attribution to Henry and Scott"

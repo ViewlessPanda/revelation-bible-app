@@ -1,0 +1,32 @@
+{
+  "identifier": "main",
+  "description": "The main window may call only Revelation's own commands. No core, shell, fs, http or other plugin permissions.",
+  "local": true,
+  "windows": ["main"],
+  "permissions": [
+    "allow-app-info",
+    "allow-list-books",
+    "allow-get-chapter",
+    "allow-get-strongs",
+    "allow-get-highlights",
+    "allow-set-highlight",
+    "allow-load-state",
+    "allow-save-state",
+    "allow-start-new-user-data",
+    "allow-search",
+    "allow-bookmarks-list",
+    "allow-bookmark-set",
+    "allow-bookmark-clear",
+    "allow-bookmark-restore",
+    "allow-get-commentary",
+    "allow-marks-for-chapter",
+    "allow-pen-apply",
+    "allow-pen-erase",
+    "allow-mark-remove",
+    "allow-mark-recolor",
+    "allow-marks-replace-chapter",
+    "allow-notes-list",
+    "allow-note-save",
+    "allow-app-close"
+  ]
+}

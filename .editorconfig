@@ -1,0 +1,25 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+[*.{rs,ps1,py}]
+indent_size = 4
+
+[*.md]
+trim_trailing_whitespace = false
+
+# Byte-exact files: CI compares them byte for byte, so editors must not rewrite them
+# (fixtures, golden and expected data, pinned sources, licence texts, the survey scripts).
+[{sources/**,licenses/**,pipeline/tests/**/expected/**,pipeline/tests/expected/**,pipeline/tests/fixtures/**,pipeline/tests/golden/**,app/src-tauri/tests/**,docs/pipeline/survey-scripts/**,docs/pipeline/golden-*}]
+charset = unset
+end_of_line = unset
+insert_final_newline = unset
+trim_trailing_whitespace = false
+indent_style = unset
+indent_size = unset

@@ -1,0 +1,17 @@
+# KJV versification overrides to VRS-ENG-PALASO (eng.vrs.txt).
+# Expected verse counts: Paratext 'English' versification (eng.vrs, SIL libpalaso, MIT),
+# with the KJV overrides listed in SOURCES.md VRS-ENG-PALASO.
+#
+# Format (read by pipeline/src/vrs.rs, strict): LF line endings; '#' starts a comment line;
+# every other line is "<USFM book> <chapter> <verse count>". Each override must name a
+# chapter that exists in eng.vrs.txt and change its value. The list is pinned in
+# pipeline/src/profile.rs, so an added, removed or edited line fails the build (T2).
+#
+# Printed-page citations (docs/scholar/kjv-versification-overrides.md, checked by the
+# scholar agent against two scans; human spot-check pending):
+#
+# 3 John 1 = 14 verses: E1 p. 483 (archive.org oxfordselfpronou00oxforich n484);
+# E0 p. 1252 (n1275). eng.vrs says 15.
+3JN 1 14
+# Revelation 12 = 17 verses: E1 p. 502 (n503); E0 p. 1263 (n1286). eng.vrs says 18.
+REV 12 17

@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-mark-remove"
+description = "Enables the mark_remove command without any pre-configured scope."
+commands.allow = ["mark_remove"]
+
+[[permission]]
+identifier = "deny-mark-remove"
+description = "Denies the mark_remove command without any pre-configured scope."
+commands.deny = ["mark_remove"]

@@ -1,0 +1,25 @@
+/* Bundled fonts (PLAN.md 6; sources/SOURCES.md FONT-LITERATA, FONT-INTER).
+   Unmodified upstream variable TTFs, copied from /assets/fonts into
+   public/fonts by scripts/sync-fonts.mjs after a SHA-256 check. Served from
+   the app itself: the CSP allows font-src 'self' only. */
+@font-face {
+  font-family: "Literata";
+  src: url("/fonts/literata/Literata[opsz,wght].ttf") format("truetype");
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: "Literata";
+  src: url("/fonts/literata/Literata-Italic[opsz,wght].ttf") format("truetype");
+  font-weight: 200 900;
+  font-style: italic;
+  font-display: block;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter/InterVariable.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: block;
+}

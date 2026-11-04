@@ -1,0 +1,25 @@
+name: Feature request
+description: Suggest an improvement or a new feature.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Revelation's priorities are accuracy of the text, then reliability, then a smooth interface, then speed. See [PLAN.md](https://github.com/ViewlessPanda/revelation-bible-app/blob/main/PLAN.md) for the roadmap.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do?
+      description: Describe the need, not only the solution.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like to see?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you considered

@@ -1,0 +1,55 @@
+name: Text accuracy report
+description: A verse, commentary entry or lexicon entry shows wrong text.
+labels: ["text-accuracy"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Accuracy of the text is the project's first priority. Thank you for reporting a difference. Please do not paste long copyrighted passages; the reference and the differing words are enough.
+  - type: input
+    id: book
+    attributes:
+      label: Book
+      placeholder: John
+    validations:
+      required: true
+  - type: input
+    id: chapter
+    attributes:
+      label: Chapter
+      placeholder: "11"
+    validations:
+      required: true
+  - type: input
+    id: verse
+    attributes:
+      label: Verse
+      description: For a commentary or lexicon entry, give the entry instead (for example the Strong's number).
+      placeholder: "35"
+    validations:
+      required: true
+  - type: input
+    id: translation
+    attributes:
+      label: Translation or work
+      description: For example King James Version, Matthew Henry's Concise Commentary, Strong's Greek.
+    validations:
+      required: true
+  - type: textarea
+    id: shown
+    attributes:
+      label: What the app shows
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: What the source edition shows
+      description: Name the edition (publisher, year, printing or module version) and say where you read it. A link or page number helps.
+    validations:
+      required: true
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else
+      description: For example whether the difference is in the words, the punctuation, the red letters or the Strong's links.

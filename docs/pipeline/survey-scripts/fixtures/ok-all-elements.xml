@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osis><osisText><div type="book" osisID="Test">
+<chapter osisID="Test.1">
+<verse osisID="Test.1.1" sID="Test.1.1"/><w lemma="strong:H0001">alpha</w> <q who="Jesus" marker=""><w>beta</w> <transChange type="added">gamma</transChange> <divineName>delta</divineName> <inscription>epsilon</inscription><w lemma="strong:H0002"/></q><milestone type="x-p" marker="x"/><note type="study">zeta</note><verse eID="Test.1.1"/>
+</chapter>
+</div></osisText></osis>

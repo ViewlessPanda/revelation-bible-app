@@ -1,0 +1,1819 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-read-font="literata" data-red-letters="on" data-verse-numbers="on" data-supplied-italics="on">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>Revelation reader</title>
+<!--
+  Revelation: reader screen mockup (Milestone 2). Draft v0.1.
+  Self-contained: no remote resources, no external files. Opens offline.
+
+  ALL VERSE TEXT IS GENERATED PLACEHOLDER FILLER (Lorem ipsum), NOT SCRIPTURE.
+  Verse counts are placeholders. Book names, abbreviations and chapter counts are
+  typed for the mockup; the app reads them from content.sqlite.
+
+  Fonts: the stacks name the real bundled fonts (Literata, Inter, ...) with system
+  fallbacks; they render as designed only once the files are bundled in M2.
+  Icons: simple stand-ins drawn for the mockup; the app uses Lucide.
+-->
+<style>
+/* ==========================================================================
+   A. Design tokens: copied verbatim from tokens.css v0.3 (2026-10-22).
+      Do not edit here. If tokens.css changes, paste it in again.
+   ========================================================================== */
+/* ==========================================================================
+   Revelation design tokens: the single source of truth.
+   Status: v0.3 (2026-10-22).
+   v0.3 (wave 2, W2-1d): refined five highlight tints in all three themes
+   (red-letters-and-highlights.md 4.4); new --color-word-underline per theme
+   and --word-underline-thickness / --word-underline-gap / --ease-linear for
+   the Strong's hover underline (red-letters 3.4.3). No other value changed.
+   v0.2: Gentium v7 family names (font licence review 4.8); section 7
+   reader layout (reader.md). No colour values changed.
+
+   How to use
+   - The app imports this file once, before any component CSS.
+   - Theme: set data-theme on <html>: "dark" (default, also used when the
+     attribute is missing), "light" or "sepia". Every theme defines the SAME
+     token names; components never reference a raw hex value.
+   - Reading font: set data-read-font on <html> (see the per-font block at
+     the end). Reading size: set --read-size from the size steps.
+   - Motion: the app sets data-motion="reduce" when the reader turns on
+     Settings > Reduce motion; the prefers-reduced-motion media query covers
+     the Windows "Animation effects" switch. Both give the same values.
+   - Colour values are checked by docs/design/check-contrast.py, which reads
+     THIS file. Change a colour here, re-run the script, paste its output into
+     red-letters-and-highlights.md.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Colour: dark (default)
+   -------------------------------------------------------------------------- */
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Surfaces: soft warm charcoal, never pure black */
+  --color-bg:            #1C1B19; /* page and reading column */
+  --color-surface:       #232220; /* side panel, title bar, setup list */
+  --color-raised:        #2B2A27; /* cards, menus, tooltips, popovers */
+  --color-border:        #3A3834; /* hairlines, dividers (decorative) */
+  --color-border-strong: #7A746B; /* input and control outlines (3:1 on bg) */
+  --color-scrim:         rgb(12 11 10 / 0.6); /* behind modal windows */
+
+  /* Text: warm off-white, never pure white */
+  --color-text:          #E6E0D4; /* body text, Scripture text */
+  --color-text-muted:    #ABA59A; /* secondary UI text, captions */
+  --color-text-disabled: #6E6A62; /* disabled controls only (exempt from AA) */
+  --color-verse-number:  #ABA59A; /* verse numbers (same value as muted) */
+
+  /* The one accent: calm slate blue. Also links and focus. */
+  --color-accent:        #8DB2DE;
+  --color-accent-hover:  #A5C3E6;
+  --color-on-accent:     #1C1B19; /* text on an accent-filled button */
+  --color-link:          #8DB2DE;
+  --color-link-underline: rgb(141 178 222 / 0.45);
+  --color-focus:         #8DB2DE;
+  --color-current-verse: #8DB2DE; /* 2px gutter bar, never a background */
+  --color-selection:     #2C3A4E; /* ::selection background */
+
+  /* Words of Jesus. Reserved: no other UI element may use this hue. */
+  --color-red-letter:    #EF8A7B;
+
+  /* Strong's word hover underline (red-letters 3.4.3). Neutral: never the
+     red-letter or link colour, never applied to text. */
+  --color-word-underline: #ABA59A;
+
+  /* Whole-verse highlight tints (backgrounds only). v0.3 set: red letters,
+     verse numbers and body text keep >= 4.5:1 on each (check-contrast.py). */
+  --color-hl-gold:       #483902;
+  --color-hl-green:      #1B2C03;
+  --color-hl-blue:       #1D385E;
+  --color-hl-rose:       #542333;
+  --color-hl-violet:     #321940;
+  /* Opaque swatch colours for the highlight picker and Highlights list chips
+     (the tint itself is too subtle to read as a 12px dot) */
+  --color-hl-gold-swatch:   #C9A24A;
+  --color-hl-green-swatch:  #7FA88C;
+  --color-hl-blue-swatch:   #6F86C4;
+  --color-hl-rose-swatch:   #C08A93;
+  --color-hl-violet-swatch: #9C8FD0;
+
+  /* Status (UI only, never in the reading column). Errors use ochre, not
+     red, so red stays reserved for the words of Jesus. Always paired with
+     an icon and words, never colour alone. */
+  --color-danger:        #E2A65A;
+  --color-success:       #9CC69B;
+
+  /* Interaction overlays (mixed over whatever surface is underneath) */
+  --color-hover:   color-mix(in srgb, var(--color-text) 6%, transparent);
+  --color-pressed: color-mix(in srgb, var(--color-text) 10%, transparent);
+
+  /* Elevation: on dark, raise by lightening the surface; shadows only help
+     separate overlapping layers */
+  --shadow-1: 0 1px 2px rgb(8 7 6 / 0.35);
+  --shadow-2: 0 2px 4px rgb(8 7 6 / 0.30), 0 8px 24px rgb(8 7 6 / 0.35);
+  --shadow-3: 0 4px 8px rgb(8 7 6 / 0.35), 0 16px 48px rgb(8 7 6 / 0.45);
+}
+
+/* --------------------------------------------------------------------------
+   2. Colour: light (first draft)
+   -------------------------------------------------------------------------- */
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --color-bg:            #F7F4EE;
+  --color-surface:       #EFEBE3;
+  --color-raised:        #FBF9F5;
+  --color-border:        #DCD5C9;
+  --color-border-strong: #8C857A;
+  --color-scrim:         rgb(42 39 35 / 0.35);
+
+  --color-text:          #2A2723;
+  --color-text-muted:    #5B564E;
+  --color-text-disabled: #A39D93;
+  --color-verse-number:  #5B564E;
+
+  --color-accent:        #285A93;
+  --color-accent-hover:  #1F4A7B;
+  --color-on-accent:     #F7F4EE;
+  --color-link:          #285A93;
+  --color-link-underline: rgb(40 90 147 / 0.45);
+  --color-focus:         #285A93;
+  --color-current-verse: #285A93;
+  --color-selection:     #C9D9EE;
+
+  --color-red-letter:    #A1251C;
+  --color-word-underline: #5B564E;
+
+  --color-hl-gold:       #FADD95;
+  --color-hl-green:      #B7F3C2;
+  --color-hl-blue:       #BBCDFE;
+  --color-hl-rose:       #FDBDCF;
+  --color-hl-violet:     #E4DDFD;
+  --color-hl-gold-swatch:   #9C7522;
+  --color-hl-green-swatch:  #5B8543;
+  --color-hl-blue-swatch:   #5A78C8;
+  --color-hl-rose-swatch:   #A8727C;
+  --color-hl-violet-swatch: #7F72C9;
+
+  --color-danger:        #8A5300;
+  --color-success:       #2F6B3A;
+
+  --color-hover:   color-mix(in srgb, var(--color-text) 5%, transparent);
+  --color-pressed: color-mix(in srgb, var(--color-text) 9%, transparent);
+
+  --shadow-1: 0 1px 2px rgb(42 39 35 / 0.10);
+  --shadow-2: 0 2px 4px rgb(42 39 35 / 0.08), 0 8px 24px rgb(42 39 35 / 0.10);
+  --shadow-3: 0 4px 8px rgb(42 39 35 / 0.10), 0 16px 48px rgb(42 39 35 / 0.16);
+}
+
+/* --------------------------------------------------------------------------
+   3. Colour: sepia (first draft)
+   -------------------------------------------------------------------------- */
+:root[data-theme="sepia"] {
+  color-scheme: light;
+
+  --color-bg:            #F2E8D5;
+  --color-surface:       #E9DEC8;
+  --color-raised:        #F6EEDF;
+  --color-border:        #D6C8AE;
+  --color-border-strong: #8A7B66;
+  --color-scrim:         rgb(44 37 29 / 0.35);
+
+  --color-text:          #2C251D;
+  --color-text-muted:    #5E5244;
+  --color-text-disabled: #A6987F;
+  --color-verse-number:  #5E5244;
+
+  --color-accent:        #285780;
+  --color-accent-hover:  #1E4666;
+  --color-on-accent:     #F2E8D5;
+  --color-link:          #285780;
+  --color-link-underline: rgb(40 87 128 / 0.45);
+  --color-focus:         #285780;
+  --color-current-verse: #285780;
+  --color-selection:     #CBD3D6;
+
+  --color-red-letter:    #982A1E;
+  --color-word-underline: #5E5244;
+
+  --color-hl-gold:       #FEDA95;
+  --color-hl-green:      #B7D2A0;
+  --color-hl-blue:       #CADFFD;
+  --color-hl-rose:       #FFBBCF;
+  --color-hl-violet:     #DEBDFD;
+  --color-hl-gold-swatch:   #8F6C1C;
+  --color-hl-green-swatch:  #5F7C3B;
+  --color-hl-blue-swatch:   #5873B0;
+  --color-hl-rose-swatch:   #95625A;
+  --color-hl-violet-swatch: #8E73A8;
+
+  --color-danger:        #844F00;
+  --color-success:       #2E6435;
+
+  --color-hover:   color-mix(in srgb, var(--color-text) 5%, transparent);
+  --color-pressed: color-mix(in srgb, var(--color-text) 9%, transparent);
+
+  --shadow-1: 0 1px 2px rgb(44 37 29 / 0.10);
+  --shadow-2: 0 2px 4px rgb(44 37 29 / 0.08), 0 8px 24px rgb(44 37 29 / 0.12);
+  --shadow-3: 0 4px 8px rgb(44 37 29 / 0.10), 0 16px 48px rgb(44 37 29 / 0.18);
+}
+
+/* --------------------------------------------------------------------------
+   4. Type, spacing, radius, focus, motion (shared by all themes)
+   -------------------------------------------------------------------------- */
+:root {
+  /* Families. Real fonts are bundled from /assets/fonts in M2; the names
+     after them are fallbacks for development only. */
+  --font-ui: "Inter", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  --font-hebrew: "Ezra SIL", "Noto Serif Hebrew", "SBL Hebrew", serif;
+  --font-hebrew-ui: "Noto Serif Hebrew", "Ezra SIL", serif; /* small sizes */
+  /* Gentium v7.000 names ("Gentium" was "Gentium Plus"; "Gentium Book" was
+     "Gentium Book Plus"). Old names stay as fallbacks only. */
+  --font-greek: "Gentium", "Gentium Plus", "Gentium Book", "Palatino Linotype", serif;
+
+  /* UI type scale (Inter). rem, so it follows OS text scaling. */
+  --text-ui-xs:  0.75rem;    /* 12px  keyboard hints, badges */
+  --text-ui-sm:  0.8125rem;  /* 13px  secondary lines, captions */
+  --text-ui-md:  0.875rem;   /* 14px  default UI text, buttons, lists */
+  --text-ui-lg:  1rem;       /* 16px  panel headings, dialog body */
+  --text-ui-xl:  1.25rem;    /* 20px  dialog titles */
+  --text-ui-2xl: 1.75rem;    /* 28px  first-run step titles */
+  --leading-ui:       1.45;
+  --leading-ui-tight: 1.25;  /* headings */
+  --weight-regular:   400;
+  --weight-medium:    500;
+  --weight-semibold:  600;
+  --tracking-ui-caps: 0.06em; /* the rare all-caps micro label */
+
+  /* Reading text. --read-size is the reader's chosen step (Ctrl +/-).
+     The per-font block sets --read-scale, --read-leading, --read-tracking. */
+  --read-size: 1.25rem;       /* step 5 (20px at 100% OS scaling) */
+  --read-scale: 1;
+  --read-leading: 1.6;
+  --read-tracking: 0;
+  --read-word-spacing: 0;
+  --measure: 66ch;            /* reading column; reader can pick 60 / 66 / 72 */
+  --measure-narrow: 60ch;
+  --measure-wide: 72ch;
+  --verse-number-size: 0.6em; /* relative to the reading size */
+  --verse-number-raise: -0.5em;
+  --verse-number-gap: 0.18em;
+  --verse-number-hang: 2.25em; /* gutter width for hanging numbers */
+  --scale-hebrew: 1.2;         /* Hebrew size relative to the reading size */
+  --leading-hebrew: 2;
+  --scale-greek: 1.04;
+  --leading-greek: 1.6;
+
+  /* Spacing (4px grid) */
+  --space-0-5: 0.125rem; /*  2px */
+  --space-1:   0.25rem;  /*  4px */
+  --space-2:   0.5rem;   /*  8px */
+  --space-3:   0.75rem;  /* 12px */
+  --space-4:   1rem;     /* 16px */
+  --space-5:   1.5rem;   /* 24px */
+  --space-6:   2rem;     /* 32px */
+  --space-7:   3rem;     /* 48px */
+  --space-8:   4rem;     /* 64px */
+
+  /* Radius (px: shapes should not grow with text size) */
+  --radius-sm:   4px;  /* inputs, small buttons, highlight tint corners */
+  --radius-md:   6px;  /* buttons, list rows */
+  --radius-lg:   10px; /* cards, popovers */
+  --radius-xl:   14px; /* windows, dialogs */
+  --radius-full: 999px;
+
+  /* Control sizes */
+  --control-h-sm: 1.75rem; /* 28px */
+  --control-h-md: 2.25rem; /* 36px */
+  --control-h-lg: 2.75rem; /* 44px  primary actions, touch-friendly */
+
+  /* Focus ring: drawn with outline on :focus-visible only */
+  --focus-width:  2px;
+  --focus-offset: 2px;
+  --focus-ring:   var(--focus-width) solid var(--color-focus);
+
+  /* Strong's word hover underline (red-letters 3.4.3). Drawn by .w::after,
+     never by text-decoration except on a wrapped word. Thickness: 1px up to
+     a 25px reading size, 2px from 26px. Gap: below the content-area bottom
+     (the font's descent line), so it clears descenders. */
+  --word-underline-thickness: max(1px, round(0.06em, 1px));
+  --word-underline-gap:       1px;
+
+  /* Motion. Only transform and opacity are ever animated. */
+  --dur-instant: 0ms;
+  --dur-1:  80ms;   /* caret glide, press feedback */
+  --dur-2: 120ms;   /* hover, fades, chapter cross-fade, tooltip fade */
+  --dur-3: 180ms;   /* tab content slide, tab indicator, panel FLIP */
+  --dur-4: 240ms;   /* side panel open, first-run step enter */
+  --dur-exit: 120ms; /* any exit is shorter than its entrance */
+  --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);   /* entrances, caret */
+  --ease-in:     cubic-bezier(0.4, 0, 1, 1);       /* exits */
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);   /* things that move and stay */
+  --ease-blink:  cubic-bezier(0.45, 0, 0.55, 1);   /* caret blink opacity */
+  --ease-linear: linear;  /* an opacity fade that rides on a scale grow */
+  --move-sm:  4px;   /* chapter content settle */
+  --move-md:  8px;   /* tab content slide */
+  --move-lg: 16px;   /* first-run step slide */
+  --caret-blink-period: 1060ms; /* full on-off cycle */
+  --caret-hold: 500ms;          /* caret stays solid after each keystroke */
+  --delay-tooltip: 400ms;       /* hover intent before a tooltip shows */
+  --delay-tooltip-skip: 300ms;  /* if another tooltip closed this recently, show at once */
+  --delay-tooltip-hide: 100ms;
+  --caret-glide: 1;             /* 0 = caret jumps (reduced motion) */
+}
+
+/* Reduced motion: no movement, no caret glide; short fades are kept because
+   they do not move anything. Same values for the OS switch and the app
+   setting. (data-motion="full" lets the reader override the OS.) */
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion="full"]) {
+    --dur-1: 0ms; --dur-3: 0ms; --dur-4: 120ms;
+    --move-sm: 0px; --move-md: 0px; --move-lg: 0px;
+    --caret-glide: 0;
+  }
+}
+:root[data-motion="reduce"] {
+  --dur-1: 0ms; --dur-3: 0ms; --dur-4: 120ms;
+  --move-sm: 0px; --move-md: 0px; --move-lg: 0px;
+  --caret-glide: 0;
+}
+
+/* --------------------------------------------------------------------------
+   5. Reading-size steps (Ctrl +/-). Index 5 is the default.
+      The app sets --read-size to one of these; it never animates font-size.
+   -------------------------------------------------------------------------- */
+:root {
+  --read-step-1: 1rem;      /* 16 */
+  --read-step-2: 1.0625rem; /* 17 */
+  --read-step-3: 1.125rem;  /* 18 */
+  --read-step-4: 1.1875rem; /* 19 */
+  --read-step-5: 1.25rem;   /* 20 default */
+  --read-step-6: 1.375rem;  /* 22 */
+  --read-step-7: 1.5rem;    /* 24 */
+  --read-step-8: 1.625rem;  /* 26 */
+  --read-step-9: 1.75rem;   /* 28 */
+  --read-step-10: 2rem;     /* 32 */
+}
+
+/* --------------------------------------------------------------------------
+   6. Reading fonts: per-font optical matching (see typography.md).
+      Values are first estimates from published x-heights; verify in M2 with
+      the measurement method in typography.md section 6 once the real files
+      are bundled.
+   -------------------------------------------------------------------------- */
+:root,
+:root[data-read-font="literata"] {
+  --font-read: "Literata", Georgia, "Times New Roman", serif;
+  --read-scale: 1;    --read-leading: 1.6;  --read-tracking: 0;
+}
+:root[data-read-font="source-serif-4"] {
+  --font-read: "Source Serif 4", "Source Serif Pro", Cambria, Georgia, serif;
+  --read-scale: 1;    --read-leading: 1.6;  --read-tracking: 0;
+}
+:root[data-read-font="eb-garamond"] {
+  --font-read: "EB Garamond", Garamond, "Palatino Linotype", Georgia, serif;
+  --read-scale: 1.12; --read-leading: 1.55; --read-tracking: 0.005em;
+}
+:root[data-read-font="crimson-pro"] {
+  --font-read: "Crimson Pro", "Book Antiqua", "Palatino Linotype", Georgia, serif;
+  --read-scale: 1.1;  --read-leading: 1.55; --read-tracking: 0.005em;
+}
+:root[data-read-font="lora"] {
+  --font-read: "Lora", Constantia, Georgia, serif;
+  --read-scale: 0.97; --read-leading: 1.65; --read-tracking: 0;
+}
+:root[data-read-font="newsreader"] {
+  --font-read: "Newsreader", Cambria, Georgia, serif;
+  --read-scale: 1.03; --read-leading: 1.6;  --read-tracking: 0;
+}
+:root[data-read-font="spectral"] {
+  --font-read: "Spectral", "Sitka Text", Georgia, serif;
+  --read-scale: 1.06; --read-leading: 1.65; --read-tracking: 0;
+}
+:root[data-read-font="gentium-book"] {
+  --font-read: "Gentium Book", "Gentium Book Plus", "Palatino Linotype", Georgia, serif;
+  --read-scale: 1.03; --read-leading: 1.6;  --read-tracking: 0;
+}
+
+/* --------------------------------------------------------------------------
+   7. Reader layout (reader.md). rem values follow OS text scaling; the
+      reading column itself is sized by --measure in the reading font.
+   -------------------------------------------------------------------------- */
+:root {
+  --topbar-h:        3rem;    /* 48px  reader top bar and panel header */
+  --command-w:       22rem;   /* 352px location / command box (shrinks to --command-w-min) */
+  --command-w-min:   14rem;   /* 224px */
+  --panel-w:         22rem;   /* 352px study panel default width */
+  --panel-w-min:     18rem;   /* 288px */
+  --panel-w-max:     40rem;   /* 640px, and never more than window - --reader-w-min */
+  --reader-w-min:    26rem;   /* 416px reading pane never narrower */
+  --splitter-hit:    8px;     /* pointer target; the drawn line is 1px */
+  --splitter-step:   1rem;    /* arrow-key resize step (Shift: 4x) */
+  --picker-w:        44rem;   /* book/chapter picker, max */
+  --options-w:       18rem;   /* reading options popover */
+  --chapter-pad-top: var(--space-7);   /* 48px above the chapter heading */
+  --chapter-pad-end: 30vh;              /* room to read the last verse at eye level */
+  --toast-hold:      1000ms;  /* text-size indicator stays this long */
+  --delay-splitter-hover: 150ms; /* splitter line lights after this hover delay */
+}
+
+/* ==========================================================================
+   B. Base
+   ========================================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; }
+html { font-size: 100%; }
+body {
+  margin: 0; display: flex; flex-direction: column; overflow: hidden;
+  background: var(--color-bg); color: var(--color-text);
+  font-family: var(--font-ui); font-size: var(--text-ui-md); line-height: var(--leading-ui);
+}
+:focus { outline: none; }
+:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+::selection { background-color: var(--color-selection); }
+[hidden] { display: none !important; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+kbd {
+  font-family: var(--font-ui); font-size: var(--text-ui-xs); font-weight: var(--weight-medium);
+  color: var(--color-text-muted); border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm); padding: 1px 6px; white-space: nowrap;
+}
+svg.i { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+svg.i.s16 { width: 16px; height: 16px; }
+body.no-select { user-select: none; cursor: col-resize; }
+
+/* ==========================================================================
+   C. Mockup chrome: NOT part of the app (dashed, monospace annotations)
+   ========================================================================== */
+.mock-bar {
+  flex: none; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-raised); border-bottom: 1px dashed var(--color-border-strong);
+  font-size: var(--text-ui-sm); color: var(--color-text-muted);
+}
+.mock-bar label { display: inline-flex; align-items: center; gap: var(--space-1); cursor: pointer; }
+.mock-bar select, .mock-bar input, .mock-bar button { font: inherit; accent-color: var(--color-accent); }
+.mock-bar select, .mock-bar button {
+  color: var(--color-text); background: var(--color-bg);
+  border: 1px solid var(--color-border-strong); border-radius: var(--radius-sm); padding: 2px 6px;
+}
+.mock-bar button { cursor: pointer; }
+.mock-note {
+  display: inline-block;
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: var(--text-ui-xs); line-height: 1.4; font-style: normal; font-weight: 400;
+  letter-spacing: 0; font-variant: normal; text-transform: none;
+  color: var(--color-text-muted);
+  border: 1px dashed var(--color-border-strong); border-radius: var(--radius-sm);
+  padding: 0 6px;
+}
+#m-out { max-width: 60rem; }
+
+/* ==========================================================================
+   D. Reader layout (reader.md 1)
+   ========================================================================== */
+.app { flex: 1; min-height: 0; display: flex; position: relative; }
+.reader {
+  position: relative; flex: 1 1 auto; min-width: 0;
+  display: flex; flex-direction: column; background: var(--color-bg);
+  container-type: inline-size;
+}
+
+/* Top bar (reader.md 2) */
+.topbar {
+  position: relative; z-index: 5; flex: none; height: var(--topbar-h);
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: var(--space-2);
+  padding-inline: var(--space-3); background: var(--color-bg);
+}
+.topbar::after { /* scroll hairline */
+  content: ""; position: absolute; inset-inline: 0; bottom: -1px; height: 1px;
+  background: var(--color-border); opacity: 0; transition: opacity var(--dur-2) var(--ease-out); pointer-events: none;
+}
+.reader.scrolled .topbar::after { opacity: 1; }
+.topbar::before { /* reading-pane focus indicator (reader.md 11) */
+  content: ""; position: absolute; inset-inline: 0; bottom: -2px; height: 2px; z-index: 1;
+  background: var(--color-focus); opacity: 0; pointer-events: none;
+}
+.reader:has(.reader-scroll:focus-visible) .topbar::before { opacity: 1; }
+.tb-start, .tb-centre, .tb-end { display: flex; align-items: center; gap: var(--space-1); min-width: 0; }
+.tb-start { justify-self: start; }
+.tb-end { justify-self: end; }
+.anchor { position: relative; display: inline-flex; }
+
+/* Buttons (design-system 7). Hover = overlay opacity; press = scale. */
+.btn, .ibtn {
+  position: relative; isolation: isolate;
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-1);
+  border: 0; border-radius: var(--radius-md); background: transparent;
+  font: inherit; font-size: var(--text-ui-md); font-weight: var(--weight-medium); cursor: pointer;
+  transition: transform var(--dur-1) var(--ease-out);
+}
+.btn { height: var(--control-h-md); padding: 0 var(--space-3); color: var(--color-text); }
+.btn-sm { height: var(--control-h-sm); padding: 0 var(--space-2); }
+.btn-quiet, .ibtn { color: var(--color-text-muted); }
+.btn-quiet:hover, .ibtn:hover, .ibtn[aria-expanded="true"], .ibtn[aria-pressed="true"] { color: var(--color-text); }
+.btn::before, .ibtn::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit;
+  background: var(--color-hover); opacity: 0; transition: opacity var(--dur-2) var(--ease-out);
+}
+.btn:hover::before, .ibtn:hover::before { opacity: 1; }
+.ibtn[aria-pressed="true"]::before, .ibtn[aria-expanded="true"]::before { background: var(--color-pressed); opacity: 1; }
+.btn:active, .ibtn:active { transform: scale(0.98); }
+.ibtn { width: var(--control-h-md); height: var(--control-h-md); padding: 0; }
+.ibtn.sm { width: var(--control-h-sm); height: var(--control-h-sm); }
+.ibtn[aria-disabled="true"], .btn[aria-disabled="true"] { color: var(--color-text-disabled); cursor: default; }
+.ibtn[aria-disabled="true"]::before, .btn[aria-disabled="true"]::before { display: none; }
+.aa { font-family: var(--font-read); font-size: 1rem; font-weight: var(--weight-medium); letter-spacing: 0; }
+
+/* Command box (reader.md 5) */
+.cmd { position: relative; width: clamp(var(--command-w-min), 40cqw, var(--command-w)); }
+.cmd-field { position: relative; height: var(--control-h-md); }
+.cmd-field::after { /* hover / focus ring, by opacity */
+  content: ""; position: absolute; inset: 0; border-radius: var(--radius-md); pointer-events: none;
+  box-shadow: inset 0 0 0 1px var(--color-border-strong); opacity: 0;
+  transition: opacity var(--dur-2) var(--ease-out);
+}
+.cmd-field:hover::after, .cmd-field:focus-within::after { opacity: 1; }
+.cmd-input {
+  width: 100%; height: 100%; border: 0; border-radius: var(--radius-md);
+  background: var(--color-surface); color: var(--color-text);
+  font: inherit; font-size: var(--text-ui-md); font-weight: var(--weight-medium);
+  padding: 0 calc(var(--space-2) + 28px + 4.5rem) 0 36px;
+}
+.cmd-input::placeholder { color: var(--color-text-muted); font-weight: 400; }
+.cmd-input:focus { background: var(--color-bg); padding-inline-end: calc(var(--space-2) + 28px); }
+.cmd-input.editing { font-weight: 400; }
+.cmd-input:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+.cmd-icon { position: absolute; left: 12px; top: 10px; color: var(--color-text-muted); pointer-events: none; }
+.cmd-kbd { position: absolute; right: 36px; top: 50%; transform: translateY(-50%); pointer-events: none; }
+.cmd-field:focus-within .cmd-kbd { display: none; }
+.cmd-chev { position: absolute; right: 4px; top: 4px; }
+
+/* Popovers (design-system 7) */
+.pop {
+  position: absolute; z-index: 10; top: calc(100% + 4px);
+  background: var(--color-raised); box-shadow: var(--shadow-2); border-radius: var(--radius-lg);
+  padding: var(--space-1); color: var(--color-text);
+}
+@keyframes pop-in  { from { opacity: 0; transform: translateY(calc(-1 * var(--move-sm))); } }
+@keyframes pop-out { to   { opacity: 0; } }
+.pop.entering { animation: pop-in var(--dur-2) var(--ease-out) both; }
+.pop.leaving  { animation: pop-out var(--dur-exit) var(--ease-in) forwards; }
+
+.cmd-pop { left: 0; width: max(100%, 22rem); }
+.cmd-list { list-style: none; margin: 0; padding: 0; }
+.opt-row {
+  position: relative; display: flex; align-items: center; gap: var(--space-2);
+  min-height: 40px; padding: 0 var(--space-3); border-radius: var(--radius-md);
+  font-size: var(--text-ui-md); cursor: pointer;
+}
+.opt-row:hover { background: var(--color-hover); }
+.opt-row[aria-selected="true"] { background: var(--color-pressed); box-shadow: inset 2px 0 0 var(--color-accent); }
+.opt-row .label { font-weight: var(--weight-medium); }
+.opt-row .sub { color: var(--color-text-muted); font-size: var(--text-ui-sm); }
+.opt-row .end { margin-inline-start: auto; display: flex; gap: var(--space-2); align-items: center; }
+.opt-row:not([aria-selected="true"]) kbd { visibility: hidden; }
+.cmd-hint { padding: var(--space-2) var(--space-3) var(--space-3); }
+.cmd-hint .ex { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: var(--space-2) 0; }
+.cmd-hint code {
+  font-family: var(--font-ui); font-size: var(--text-ui-sm); color: var(--color-text);
+  background: var(--color-hover); border-radius: var(--radius-sm); padding: 2px 8px;
+}
+.cmd-hint .keys { font-size: var(--text-ui-xs); color: var(--color-text-muted); }
+.cmd-err { display: flex; gap: var(--space-2); padding: var(--space-3); }
+.cmd-err svg { color: var(--color-danger); margin-top: 2px; }
+.cmd-err .l1 { color: var(--color-danger); font-weight: var(--weight-medium); }
+.cmd-err .l2 { color: var(--color-text-muted); font-size: var(--text-ui-sm); }
+
+/* Book and chapter picker (reader.md 6) */
+.picker {
+  left: 50%; translate: -50% 0;
+  width: min(var(--picker-w), calc(100cqw - 2 * var(--space-4)));
+  max-height: min(36rem, calc(100vh - 140px)); overflow-y: auto; padding: var(--space-3);
+}
+.pk-group-h { font-size: var(--text-ui-xs); font-weight: var(--weight-medium); color: var(--color-text-muted); margin: var(--space-2) var(--space-1); }
+.pk-group-h:first-child { margin-top: 0; }
+.pk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); gap: 2px; }
+.pk-cell {
+  position: relative; isolation: isolate; display: flex; align-items: center; gap: var(--space-2);
+  height: 32px; padding: 0 var(--space-2); border: 0; border-radius: var(--radius-md);
+  background: transparent; color: var(--color-text); font: inherit; font-size: var(--text-ui-md);
+  text-align: start; cursor: pointer; white-space: nowrap;
+}
+.pk-cell::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit;
+  background: var(--color-hover); opacity: 0; transition: opacity var(--dur-2) var(--ease-out);
+}
+.pk-cell:hover::before { opacity: 1; }
+.pk-cell:focus-visible { outline-offset: -2px; }
+.pk-cell[aria-current="true"] { font-weight: var(--weight-medium); }
+.pk-cell .dot { margin-inline-start: auto; width: 6px; height: 6px; border-radius: var(--radius-full); background: var(--color-accent); }
+.pk-head { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3); }
+.pk-title { font-size: var(--text-ui-lg); font-weight: var(--weight-semibold); line-height: var(--leading-ui-tight); }
+.pk-grid.chapters { grid-template-columns: repeat(auto-fill, minmax(2.75rem, 1fr)); gap: 4px; }
+.pk-grid.chapters .pk-cell { height: 36px; justify-content: center; padding: 0; font-variant-numeric: tabular-nums; }
+.pk-grid.chapters .pk-cell[aria-current="true"] { box-shadow: inset 0 0 0 1px var(--color-accent); }
+@keyframes view-in { from { opacity: 0; transform: translateX(calc(var(--view-dir, 1) * var(--move-md))); } }
+.pk-view.entering { animation: view-in var(--dur-3) var(--ease-out) both; }
+.pk-note { margin-top: var(--space-3); }
+
+/* Menus and reading options (reader.md 4) */
+.menu-pop { right: 0; min-width: 14rem; }
+.menu-pop.start { left: 0; right: auto; }
+.mi {
+  position: relative; display: flex; align-items: center; gap: var(--space-2); width: 100%;
+  min-height: 36px; padding: 0 var(--space-3); border: 0; border-radius: var(--radius-md);
+  background: transparent; color: var(--color-text); font: inherit; font-size: var(--text-ui-md); text-align: start; cursor: pointer;
+}
+.mi:hover { background: var(--color-hover); }
+.mi:focus-visible { outline-offset: -2px; }
+.mi[aria-disabled="true"] { color: var(--color-text-disabled); cursor: default; }
+.mi[aria-disabled="true"]:hover { background: transparent; }
+.mi .chk { width: 16px; color: var(--color-accent); }
+.mi .sub { display: block; font-size: var(--text-ui-sm); color: var(--color-text-muted); }
+.options { right: 0; width: var(--options-w); }
+.row {
+  position: relative; display: flex; align-items: center; gap: var(--space-3);
+  min-height: 40px; padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); cursor: pointer;
+}
+.row:hover { background: var(--color-hover); }
+.row:focus-visible { outline-offset: -2px; }
+.row-text { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.row-desc { font-size: var(--text-ui-sm); color: var(--color-text-muted); }
+.row[aria-disabled="true"] { cursor: default; }
+.row[aria-disabled="true"]:hover { background: transparent; }
+.row[aria-disabled="true"] .row-label { color: var(--color-text-muted); }
+.tr-row { display: none; }
+.sep { height: 1px; background: var(--color-border); margin: var(--space-1) 0; border: 0; }
+.size-row { display: flex; align-items: center; gap: var(--space-2); min-height: 40px; padding: 0 var(--space-2) 0 var(--space-3); }
+.size-row .lbl { flex: 1; }
+.size-val { font-variant-numeric: tabular-nums; color: var(--color-text-muted); min-width: 3.5rem; text-align: end; }
+
+/* Switch (design-system 7) */
+.sw { position: relative; flex: none; width: 32px; height: 18px; border-radius: var(--radius-full); box-shadow: inset 0 0 0 1px var(--color-border-strong); }
+.sw::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: var(--color-accent); opacity: 0; transition: opacity var(--dur-2) var(--ease-out); }
+.sw::after {
+  content: ""; position: absolute; top: 3px; left: 3px; width: 12px; height: 12px; border-radius: var(--radius-full);
+  background: var(--color-text-muted); transition: transform var(--dur-3) var(--ease-out);
+}
+[aria-checked="true"] > .sw::before { opacity: 1; }
+[aria-checked="true"] > .sw::after { transform: translateX(14px); background: var(--color-on-accent); }
+[aria-disabled="true"] > .sw { box-shadow: inset 0 0 0 1px var(--color-text-disabled); }
+[aria-disabled="true"] > .sw::after { background: var(--color-text-disabled); }
+
+/* Narrow pane (reader.md 2) */
+@container (max-width: 40rem) { .cmd-kbd { display: none; } .cmd-input { padding-inline-end: calc(var(--space-2) + 28px); } }
+@container (max-width: 34rem) { .tb-prev, .tb-next, .tr-anchor { display: none; } .tr-row { display: flex; } }
+
+/* ==========================================================================
+   E. Reading column (reader.md 3; typography.md; red-letters-and-highlights.md 3)
+   ========================================================================== */
+.reader-scroll { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; scroll-behavior: auto; scrollbar-gutter: stable; }
+.reader-scroll:focus-visible { outline: none; } /* indicator is the top bar line */
+.reader-scroll::-webkit-scrollbar { width: 8px; }
+.reader-scroll::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--color-border-strong) 60%, transparent); border-radius: 4px; }
+.reading {
+  box-sizing: content-box;
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding-inline: calc(var(--space-6) + var(--verse-number-hang));
+  padding-block: var(--chapter-pad-top) var(--chapter-pad-end);
+  font-family: var(--font-read);
+  font-size: calc(var(--read-size) * var(--read-scale));
+  line-height: var(--read-leading); letter-spacing: var(--read-tracking);
+  color: var(--color-text);
+  text-align: start; hyphens: manual; font-kerning: normal; font-optical-sizing: auto;
+}
+.mock-head { margin: 0 0 var(--space-4); display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.chapter-head { font-family: var(--font-read); font-size: 1.4em; font-weight: var(--weight-medium); line-height: 1.25; margin: 0 0 var(--space-6); }
+.verse { display: block; position: relative; margin-block-end: 0.35em; }
+.verse > .vnum {
+  position: absolute; inset-inline-start: calc(-1 * var(--verse-number-hang));
+  width: calc(var(--verse-number-hang) - 0.5em); text-align: end; top: 0.55em;
+  font-family: var(--font-ui); font-weight: var(--weight-medium); font-size: var(--verse-number-size);
+  font-variant-numeric: lining-nums tabular-nums; line-height: 1;
+  color: var(--color-verse-number);
+}
+.vnum, .verse > .sr-only { user-select: none; }
+:root[data-verse-numbers="off"] .vnum { display: none; }
+
+/* Source-marked presentation (typography.md 3). No colour rules here. */
+.add { font-style: italic; }
+:root[data-supplied-italics="off"] .add { font-style: inherit; }
+.nd { font-variant-caps: small-caps; letter-spacing: 0.04em; }
+
+/* THE red-letter rule and its toggle (red-letters 3.1, R1 and R2). */
+.wj { color: var(--color-red-letter); }
+:root[data-red-letters="off"] .wj { color: inherit; }
+/* Strong's words, M3 preview (red-letters 3.4.3, R3): outline only, never colour. */
+.vtext .w { color: inherit; }                                     /* R3 */
+.vtext .w { position: relative; cursor: pointer; }
+/* Strong's hover underline (red-letters 3.4.3, E1 and E2): grows from the
+   word's centre while it fades in; fades out at full width on leave. */
+.vtext .w::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: calc(100% + var(--word-underline-gap));
+  height: var(--word-underline-thickness);
+  background-color: var(--color-word-underline);
+  transform: scaleX(0);
+  transform-origin: 50% 50%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-exit) var(--ease-in),
+              transform 0s linear var(--dur-exit);
+}
+.vtext .w:hover:not(:focus-visible)::after {
+  transform: scaleX(1);
+  opacity: 1;
+  transition: opacity var(--dur-2) var(--ease-linear),
+              transform var(--dur-3) var(--ease-out);
+}
+.vtext .w:focus-visible { outline: var(--focus-ring); outline-offset: 1px; border-radius: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion="full"]) .vtext .w::after { transform: none; }
+}
+:root[data-motion="reduce"] .vtext .w::after { transform: none; }
+.vtext .w[data-wrapped]::after { display: none; }
+.vtext .w[data-wrapped]:hover:not(:focus-visible) {
+  text-decoration-line: underline;
+  text-decoration-color: var(--color-word-underline);
+  text-decoration-thickness: var(--word-underline-thickness);
+  text-underline-position: under;
+  text-underline-offset: var(--word-underline-gap);
+  text-decoration-skip-ink: auto;
+}
+/* Selection inside verse text (red-letters 3.4.4, R4 to R6). */
+.vtext::selection, .vtext ::selection { color: var(--color-text); background-color: var(--color-selection); }
+.vtext .wj::selection, .vtext .wj ::selection { color: var(--color-red-letter); }
+:root[data-red-letters="off"] .vtext .wj::selection,
+:root[data-red-letters="off"] .vtext .wj ::selection { color: var(--color-text); }
+
+/* Whole-verse highlight tints, M7 preview (red-letters 3.3): background only. */
+.verse[data-hl] {
+  margin-inline: calc(-1 * var(--space-2)); padding-inline: var(--space-2);
+  border-radius: var(--radius-sm);
+}
+.verse[data-hl] > .vnum { inset-inline-start: calc(-1 * var(--verse-number-hang) + var(--space-2)); }
+.verse[data-hl="gold"]   { background-color: var(--color-hl-gold); }
+.verse[data-hl="green"]  { background-color: var(--color-hl-green); }
+.verse[data-hl="blue"]   { background-color: var(--color-hl-blue); }
+.verse[data-hl="rose"]   { background-color: var(--color-hl-rose); }
+.verse[data-hl="violet"] { background-color: var(--color-hl-violet); }
+
+/* Current verse (reader.md 3.3) */
+.verse[aria-current="true"]::before {
+  content: ""; position: absolute;
+  inset-inline-start: calc(-1 * var(--verse-number-hang) - var(--space-3));
+  inset-block: 0.3em; width: 2px; border-radius: 1px;
+  background: var(--color-current-verse);
+}
+.verse[data-hl][aria-current="true"]::before { inset-inline-start: calc(-1 * var(--verse-number-hang) - var(--space-3) + var(--space-2)); }
+
+/* End of chapter (reader.md 3.4) */
+.chapter-end { display: flex; justify-content: space-between; margin-top: var(--space-7); font-family: var(--font-ui); }
+
+/* Chapter change (reader.md 7) */
+@keyframes chapter-in { from { opacity: 0; transform: translateY(calc(var(--chapter-dir, 1) * var(--move-sm))); } }
+.chapter.entering { animation: chapter-in var(--dur-2) var(--ease-out) both; will-change: opacity, transform; }
+
+/* Text-size indicator (reader.md 9) */
+.toast {
+  position: absolute; left: 50%; bottom: 24px; translate: -50% 0; z-index: 6; pointer-events: none;
+  background: var(--color-raised); box-shadow: var(--shadow-2); border-radius: var(--radius-full);
+  padding: 6px 12px; font-size: var(--text-ui-sm); font-weight: var(--weight-medium); font-variant-numeric: tabular-nums;
+  opacity: 0; transition: opacity var(--dur-exit) var(--ease-in);
+}
+.toast.show { opacity: 1; transition: opacity var(--dur-2) var(--ease-out); }
+
+/* ==========================================================================
+   F. Study panel and splitter (reader.md 8)
+   ========================================================================== */
+.panel { position: relative; flex: none; display: flex; flex-direction: column; min-width: 0; background: var(--color-surface); }
+.panel-head {
+  flex: none; height: var(--topbar-h); display: flex; align-items: center; justify-content: space-between;
+  padding-inline: var(--space-4) var(--space-2); border-bottom: 1px solid var(--color-border);
+}
+.panel-title { font-size: var(--text-ui-md); font-weight: var(--weight-semibold); }
+.panel-body { flex: 1; position: relative; min-height: 0; }
+.empty {
+  position: absolute; top: 33%; left: 50%; translate: -50% 0; width: min(16rem, calc(100% - 2 * var(--space-4)));
+  display: grid; justify-items: center; gap: var(--space-2); text-align: center;
+}
+.empty svg { color: var(--color-text-muted); }
+.empty .t { font-weight: var(--weight-medium); }
+.empty .d { font-size: var(--text-ui-sm); color: var(--color-text-muted); }
+@keyframes panel-in { from { opacity: 0; transform: translateX(var(--move-lg)); } }
+.panel.entering { animation: panel-in var(--dur-4) var(--ease-out) both; }
+.panel.leaving  { animation: pop-out var(--dur-exit) var(--ease-in) forwards; }
+.splitter {
+  position: absolute; top: 0; bottom: 0; left: calc(-1 * var(--splitter-hit) / 2); width: var(--splitter-hit);
+  z-index: 4; cursor: col-resize; touch-action: none;
+}
+.splitter::before, .splitter::after { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; pointer-events: none; }
+.splitter::before { width: 1px; translate: -50% 0; background: var(--color-border); }
+.splitter::after { width: 2px; translate: -50% 0; background: var(--color-accent); opacity: 0; transition: opacity var(--dur-2) var(--ease-out); }
+.splitter:hover::after { opacity: 1; transition-delay: var(--delay-splitter-hover); }
+.splitter.dragging::after, .splitter:focus-visible::after { opacity: 1; transition-delay: 0s; }
+.splitter:focus-visible { outline: none; }
+
+/* Tooltip (design-system 6.4) */
+.tip {
+  position: fixed; z-index: 30; pointer-events: none; max-width: 22rem;
+  background: var(--color-raised); box-shadow: var(--shadow-3); border-radius: var(--radius-lg);
+  padding: var(--space-2) var(--space-3); font-size: var(--text-ui-sm); color: var(--color-text);
+  opacity: 0; transform: translateY(calc(var(--move-sm) / 2)); transition: opacity 80ms var(--ease-in);
+}
+.tip.show { opacity: 1; transform: none; transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out); }
+
+/* Keyboard shortcuts dialog */
+dialog.keys {
+  border: 0; padding: var(--space-5); max-width: min(40rem, calc(100vw - 32px)); max-height: calc(100vh - 64px);
+  background: var(--color-raised); color: var(--color-text); border-radius: var(--radius-xl); box-shadow: var(--shadow-3);
+}
+dialog.keys::backdrop { background: var(--color-scrim); }
+dialog.keys h2 { margin: 0 0 var(--space-4); font-size: var(--text-ui-xl); font-weight: var(--weight-semibold); line-height: var(--leading-ui-tight); }
+dialog.keys table { border-collapse: collapse; width: 100%; font-size: var(--text-ui-sm); }
+dialog.keys td { padding: 6px 8px; border-top: 1px solid var(--color-border); vertical-align: top; }
+dialog.keys td:first-child { white-space: nowrap; }
+dialog.keys .foot { display: flex; justify-content: flex-end; margin-top: var(--space-4); }
+
+/* Windows contrast themes: keep boundaries and cues visible */
+@media (forced-colors: active) {
+  .cmd-input, .btn, .ibtn, .pk-cell, .row { border: 1px solid ButtonText; }
+  .opt-row[aria-selected="true"] { outline: 2px solid Highlight; outline-offset: -2px; }
+  .sw { border: 1px solid ButtonText; }
+  [aria-checked="true"] > .sw::before { forced-color-adjust: none; background: Highlight; }
+  .verse[aria-current="true"]::before, .splitter::before, .topbar::before { forced-color-adjust: none; background: Highlight; }
+  /* red-letters 3.5: highlights and the hover underline must not vanish */
+  .verse[data-hl] { outline: 2px dashed CanvasText; outline-offset: 0; }
+  .vtext .w::after { forced-color-adjust: none; background-color: CanvasText; }
+}
+</style>
+</head>
+<body>
+
+<div class="mock-bar" role="region" aria-label="Mockup controls (not part of the app)">
+  <span class="mock-note">MOCKUP CONTROLS, not part of the app</span>
+  <label>Theme:
+    <select id="m-theme">
+      <option value="dark" selected>Dark (default)</option>
+      <option value="light">Light (draft)</option>
+      <option value="sepia">Sepia (draft)</option>
+    </select>
+  </label>
+  <label>Motion:
+    <select id="m-motion">
+      <option value="" selected>Follow system</option>
+      <option value="reduce">Reduce</option>
+      <option value="full">Full</option>
+    </select>
+  </label>
+  <label><input type="checkbox" id="m-strongs"> M3 preview: Strong's word spans (hover underline, focus ring)</label>
+  <label>M7 preview, tint on verses 3–5 (all five: verses 3–7):
+    <select id="m-hl">
+      <option value="" selected>none</option>
+      <option value="all">All five (1–5)</option>
+      <option value="gold">1 Gold</option><option value="green">2 Green</option><option value="blue">3 Blue</option>
+      <option value="rose">4 Rose</option><option value="violet">5 Violet</option>
+    </select>
+  </label>
+  <button type="button" id="m-check">Run colour-lock check (T20 sketch)</button>
+  <span id="m-out" class="mock-note" aria-live="polite">not run yet</span>
+  <span class="mock-note">All verse text is generated placeholder filler, NOT Scripture. Verse counts are placeholders</span>
+  <span class="mock-note">In a browser, Ctrl+L, Ctrl+J and Ctrl+PgUp/PgDn may be taken by the browser: use Ctrl+G, the buttons, or [ and ] with the text focused</span>
+  <span class="mock-note">Fonts render as designed only once bundled in M2</span>
+</div>
+
+<div class="app" id="app">
+  <section class="reader" id="reader" aria-label="Reader">
+    <header class="topbar">
+      <div class="tb-start">
+        <span class="anchor">
+          <button type="button" class="ibtn" id="menu-btn" aria-label="Menu" aria-haspopup="menu" aria-expanded="false" data-tip="Menu">
+            <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+          <div class="pop menu-pop start" id="menu" role="menu" aria-label="Menu" hidden>
+            <button type="button" class="mi" role="menuitem" aria-disabled="true">Settings… <span class="mock-note">later spec</span></button>
+            <button type="button" class="mi" role="menuitem" id="mi-keys">Keyboard shortcuts</button>
+            <button type="button" class="mi" role="menuitem" aria-disabled="true">About Revelation <span class="mock-note">later spec</span></button>
+          </div>
+        </span>
+      </div>
+
+      <div class="tb-centre">
+        <button type="button" class="ibtn tb-prev" id="prev" aria-label="Previous chapter" data-tip="Previous chapter · Ctrl+PgUp">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="cmd" id="cmd">
+          <div class="cmd-field">
+            <svg class="i s16 cmd-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+            <input class="cmd-input" id="cmd-input" type="text" autocomplete="off" spellcheck="false"
+              role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="cmd-pop"
+              aria-label="Go to a passage" placeholder="Go to a passage">
+            <kbd class="cmd-kbd" aria-hidden="true">Ctrl L</kbd>
+            <button type="button" class="ibtn sm cmd-chev" id="cmd-chev" aria-label="Choose book and chapter" aria-haspopup="dialog" aria-expanded="false" data-tip="Choose book and chapter · ↓">
+              <svg class="i s16" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <div class="pop cmd-pop" id="cmd-pop" hidden></div>
+          <div class="pop picker" id="picker" role="dialog" aria-label="Choose book and chapter" hidden>
+            <div class="pk-view" id="pk-view"></div>
+            <div class="pk-note"><span class="mock-note">book names and chapter counts typed for the mockup; the app reads them from content.sqlite</span></div>
+          </div>
+        </div>
+        <button type="button" class="ibtn tb-next" id="next" aria-label="Next chapter" data-tip="Next chapter · Ctrl+PgDn">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+
+      <div class="tb-end">
+        <span class="anchor tr-anchor">
+          <button type="button" class="btn btn-quiet" id="tr-btn" aria-haspopup="menu" aria-expanded="false"></button>
+          <div class="pop menu-pop" id="tr-menu" role="menu" aria-label="Translation" hidden></div>
+        </span>
+        <span class="anchor">
+          <button type="button" class="ibtn" id="aa-btn" aria-label="Reading options" aria-haspopup="dialog" aria-expanded="false" data-tip="Reading options"><span class="aa" aria-hidden="true">Aa</span></button>
+          <div class="pop options" id="options" role="dialog" aria-label="Reading options" hidden>
+            <div class="row tr-row" id="tr-row" tabindex="0" role="button" aria-haspopup="menu"><span class="row-text"><span class="row-label">Translation</span><span class="row-desc" id="tr-row-desc"></span></span></div>
+            <div class="row" role="switch" tabindex="0" aria-checked="true" data-opt="verseNumbers"><span class="row-text"><span class="row-label">Verse numbers</span></span><span class="sw" aria-hidden="true"></span></div>
+            <div class="row" role="switch" tabindex="0" aria-checked="true" data-opt="redLetters" aria-describedby="red-desc"><span class="row-text"><span class="row-label">Words of Jesus in red</span><span class="row-desc" id="red-desc" hidden></span></span><span class="sw" aria-hidden="true"></span></div>
+            <div class="row" role="switch" tabindex="0" aria-checked="true" data-opt="suppliedItalics"><span class="row-text"><span class="row-label">Supplied words in italics</span></span><span class="sw" aria-hidden="true"></span></div>
+            <hr class="sep">
+            <div class="size-row">
+              <span class="lbl">Text size</span>
+              <span class="size-val" id="size-val">20 px</span>
+              <button type="button" class="ibtn sm" id="size-dn" aria-label="Smaller text" data-tip="Smaller · Ctrl −"><svg class="i s16" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+              <button type="button" class="ibtn sm" id="size-up" aria-label="Larger text" data-tip="Larger · Ctrl +"><svg class="i s16" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg></button>
+            </div>
+          </div>
+        </span>
+        <button type="button" class="ibtn" id="panel-btn" aria-label="Study panel" aria-pressed="false" aria-controls="panel" data-tip="Study panel · Ctrl+J">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M15 4v16"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="reader-scroll" id="scroller" tabindex="0" role="region" aria-label="Chapter">
+      <div class="reading" id="reading"><div class="chapter" id="chapter"></div></div>
+    </div>
+    <div class="toast" id="toast" aria-hidden="true"></div>
+  </section>
+
+  <aside class="panel" id="panel" aria-label="Study panel" hidden>
+    <div class="splitter" id="splitter" role="separator" aria-orientation="vertical" aria-controls="panel" aria-label="Resize study panel" tabindex="0"></div>
+    <div class="panel-head">
+      <span class="panel-title">Study</span>
+      <button type="button" class="ibtn sm" id="panel-close" aria-label="Close study panel" data-tip="Close · Ctrl+J">
+        <svg class="i s16" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="panel-body">
+      <div class="empty">
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h6a3 3 0 0 1 3 3v12a2 2 0 0 0-2-2H3z"/><path d="M21 5h-6a3 3 0 0 0-3 3v12a2 2 0 0 1 2-2h7z"/></svg>
+        <span class="t">Nothing here yet</span>
+        <span class="d">Commentary, dictionary, lexicon and notes will open in this panel.</span>
+        <span class="mock-note">M2 empty state, see Q10</span>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<div class="tip" id="tip" role="tooltip" aria-hidden="true"></div>
+<div class="sr-only" aria-live="polite" id="live"></div>
+
+<dialog class="keys" id="keys" aria-labelledby="keys-title">
+  <h2 id="keys-title">Keyboard shortcuts</h2>
+  <table>
+    <tr><td><kbd>Ctrl L</kbd> <kbd>Ctrl G</kbd></td><td>Go to a passage (command box)</td></tr>
+    <tr><td><kbd>↓</kbd> <kbd>Alt ↓</kbd></td><td>In the command box: book and chapter picker</td></tr>
+    <tr><td><kbd>Esc</kbd></td><td>Cancel and close</td></tr>
+    <tr><td><kbd>Ctrl PgUp</kbd> <kbd>Ctrl PgDn</kbd></td><td>Previous / next chapter</td></tr>
+    <tr><td><kbd>[</kbd> <kbd>]</kbd></td><td>Previous / next chapter, while the text has focus</td></tr>
+    <tr><td><kbd>Ctrl +</kbd> <kbd>Ctrl −</kbd> <kbd>Ctrl 0</kbd></td><td>Larger / smaller / default text size</td></tr>
+    <tr><td><kbd>Ctrl J</kbd></td><td>Study panel</td></tr>
+    <tr><td><kbd>F6</kbd> <kbd>Shift F6</kbd></td><td>Next / previous region</td></tr>
+    <tr><td><kbd>←</kbd> <kbd>→</kbd> <kbd>Home</kbd> <kbd>End</kbd> <kbd>Enter</kbd></td><td>On the splitter: resize, smallest, largest, close</td></tr>
+  </table>
+  <div class="foot"><button type="button" class="btn" id="keys-close" style="box-shadow: inset 0 0 0 1px var(--color-border-strong)">Close</button></div>
+</dialog>
+
+<noscript><p style="padding:16px">This mockup needs JavaScript.</p></noscript>
+
+<script>
+"use strict";
+/* ======================================================================
+   Mock data. Book names, abbreviations and chapter counts are typed for
+   the mockup; the app reads book names and counts from content.sqlite and
+   the abbreviation table from the developer (with the scholar).
+   ====================================================================== */
+const B = (name, ch, ab, t) => ({ name, ch, ab, t, key: name.toLowerCase().replace(/\s+/g, "") });
+const BOOKS = [
+  B("Genesis", 50, ["gen", "ge", "gn"], "ot"), B("Exodus", 40, ["exod", "exo", "ex"], "ot"),
+  B("Leviticus", 27, ["lev", "le", "lv"], "ot"), B("Numbers", 36, ["num", "nu", "nm", "nb"], "ot"),
+  B("Deuteronomy", 34, ["deut", "dt", "de"], "ot"), B("Joshua", 24, ["josh", "jos", "jsh"], "ot"),
+  B("Judges", 21, ["judg", "jdg", "jg", "jdgs"], "ot"), B("Ruth", 4, ["rth", "ru"], "ot"),
+  B("1 Samuel", 31, ["1sam", "1sa", "1sm"], "ot"), B("2 Samuel", 24, ["2sam", "2sa", "2sm"], "ot"),
+  B("1 Kings", 22, ["1kgs", "1ki", "1kg"], "ot"), B("2 Kings", 25, ["2kgs", "2ki", "2kg"], "ot"),
+  B("1 Chronicles", 29, ["1chr", "1ch"], "ot"), B("2 Chronicles", 36, ["2chr", "2ch"], "ot"),
+  B("Ezra", 10, ["ezr"], "ot"), B("Nehemiah", 13, ["neh", "ne"], "ot"), B("Esther", 10, ["esth", "est", "es"], "ot"),
+  B("Job", 42, ["jb"], "ot"), B("Psalms", 150, ["ps", "psa", "psalm", "pss", "psm"], "ot"),
+  B("Proverbs", 31, ["prov", "pro", "pr", "prv"], "ot"), B("Ecclesiastes", 12, ["eccl", "ecc", "ec", "qoh"], "ot"),
+  B("Song of Solomon", 8, ["song", "sos", "sng"], "ot"), B("Isaiah", 66, ["isa", "is"], "ot"),
+  B("Jeremiah", 52, ["jer", "je", "jr"], "ot"), B("Lamentations", 5, ["lam", "la"], "ot"),
+  B("Ezekiel", 48, ["ezek", "eze", "ezk"], "ot"), B("Daniel", 12, ["dan", "da", "dn"], "ot"),
+  B("Hosea", 14, ["hos", "ho"], "ot"), B("Joel", 3, ["jl"], "ot"), B("Amos", 9, ["am"], "ot"),
+  B("Obadiah", 1, ["obad", "ob"], "ot"), B("Jonah", 4, ["jon", "jnh"], "ot"), B("Micah", 7, ["mic", "mc"], "ot"),
+  B("Nahum", 3, ["nah", "na"], "ot"), B("Habakkuk", 3, ["hab", "hb"], "ot"), B("Zephaniah", 3, ["zeph", "zep", "zp"], "ot"),
+  B("Haggai", 2, ["hag", "hg"], "ot"), B("Zechariah", 14, ["zech", "zec", "zc"], "ot"), B("Malachi", 4, ["mal", "ml"], "ot"),
+  B("Matthew", 28, ["matt", "mat", "mt"], "nt"), B("Mark", 16, ["mrk", "mk", "mr"], "nt"),
+  B("Luke", 24, ["luk", "lk"], "nt"), B("John", 21, ["jn", "jhn", "joh"], "nt"), B("Acts", 28, ["act", "ac"], "nt"),
+  B("Romans", 16, ["rom", "ro", "rm"], "nt"), B("1 Corinthians", 16, ["1cor", "1co"], "nt"),
+  B("2 Corinthians", 13, ["2cor", "2co"], "nt"), B("Galatians", 6, ["gal", "ga"], "nt"),
+  B("Ephesians", 6, ["eph", "ephes"], "nt"), B("Philippians", 4, ["phil", "php", "pp"], "nt"),
+  B("Colossians", 4, ["col"], "nt"), B("1 Thessalonians", 5, ["1thess", "1thes", "1th"], "nt"),
+  B("2 Thessalonians", 3, ["2thess", "2thes", "2th"], "nt"), B("1 Timothy", 6, ["1tim", "1ti", "1tm"], "nt"),
+  B("2 Timothy", 4, ["2tim", "2ti", "2tm"], "nt"), B("Titus", 3, ["tit", "ti"], "nt"),
+  B("Philemon", 1, ["phlm", "phm", "philem"], "nt"), B("Hebrews", 13, ["heb"], "nt"),
+  B("James", 5, ["jas", "jm"], "nt"), B("1 Peter", 5, ["1pet", "1pe", "1pt"], "nt"), B("2 Peter", 3, ["2pet", "2pe", "2pt"], "nt"),
+  B("1 John", 5, ["1jn", "1jhn", "1jo", "1joh"], "nt"), B("2 John", 1, ["2jn", "2jhn", "2jo"], "nt"),
+  B("3 John", 1, ["3jn", "3jhn", "3jo"], "nt"), B("Jude", 1, ["jud", "jde"], "nt"), B("Revelation", 22, ["rev", "re", "rv"], "nt")
+];
+BOOKS.forEach((b, i) => { b.i = i; });
+
+// Translation labels are content (PLAN.md 4): the KJV label is an owner decision
+// still open (docs/scholar/kjv-label.md), so it is shown as pending.
+const TRANSLATIONS = [
+  { id: "kjv", short: "KJV", label: "King James Version (‹label to confirm›)", sub: "label pending owner decision: docs/scholar/kjv-label.md", wj: true },
+  { id: "nowj", short: "MOCK", label: "Mockup translation without words-of-Jesus markup", sub: "shows the “Not available in this translation” state", wj: false }
+];
+
+/* Placeholder filler, NOT Scripture. Deterministic per book and chapter. */
+const WORDS = ("lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore " +
+  "magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo consequat duis " +
+  "aute irure in reprehenderit voluptate velit esse cillum fugiat nulla pariatur excepteur sint occaecat cupidatat non " +
+  "proident sunt culpa qui officia deserunt mollit anim id est laborum").split(" ");
+function rng(seed) {
+  let a = seed >>> 0;
+  return () => {
+    a = (a + 0x6D2B79F5) >>> 0; let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+const verseCount = (bi, ch) => 20 + Math.floor(rng(bi * 131 + ch * 17 + 3)() * 17); // placeholder
+
+// Each verse: tokens { w, cls, red }. Red runs (mock "words of Jesus" markup) only in
+// Matthew to John and only in the translation that has the markup. Runs start and end
+// mid-verse and cross verse boundaries, like real stored ranges.
+function makeChapter(bi, ch, tr) {
+  const r = rng(bi * 1009 + ch * 7 + (tr.wj ? 1 : 501));
+  const n = verseCount(bi, ch), nt = BOOKS[bi].t === "nt", gospel = bi >= 39 && bi <= 42;
+  let redLeft = 0;
+  const out = [];
+  for (let v = 1; v <= n; v++) {
+    const len = 9 + Math.floor(r() * 13);
+    const addAt = r() < 0.35 ? 1 + Math.floor(r() * (len - 1)) : -1;
+    const ndAt = r() < (nt ? 0.08 : 0.2) ? Math.floor(r() * len) : -1;
+    let redStart = -1;
+    if (tr.wj && gospel && redLeft === 0 && r() < 0.3) { redStart = Math.floor(r() * len); redLeft = 6 + Math.floor(r() * 30); }
+    const toks = [];
+    for (let i = 0; i < len; i++) {
+      let w = i === ndAt ? "Lorem" : WORDS[Math.floor(r() * WORDS.length)];
+      if (i === 0) w = w[0].toUpperCase() + w.slice(1);
+      if (i === len - 1) w += ".";
+      const red = redLeft > 0 && (redStart === -1 || i >= redStart);
+      if (red) redLeft--;
+      toks.push({ w, cls: i === ndAt ? "nd" : i === addAt ? "add" : "", red });
+    }
+    out.push(toks);
+  }
+  return out;
+}
+
+// Builds verse HTML and the stored text + red ranges ([start, end) in characters).
+// The .wj span wraps exactly the stored range; text nodes split at its edges.
+function verseHTML(toks, strongs) {
+  let html = "", text = "", open = false, runStart = 0;
+  const ranges = [];
+  toks.forEach((t, i) => {
+    if (i > 0) {
+      if (open && !t.red) { html += "</span>"; open = false; ranges.push([runStart, text.length]); }
+      html += " "; text += " ";
+    }
+    if (t.red && !open) { html += '<span class="wj">'; open = true; runStart = text.length; }
+    let word = strongs ? `<span class="w" data-strong="mock" tabindex="-1">${t.w}</span>` : t.w;
+    if (t.cls) word = `<span class="${t.cls}">${word}</span>`;
+    html += word; text += t.w;
+  });
+  if (open) { html += "</span>"; ranges.push([runStart, text.length]); }
+  return { html, text, ranges };
+}
+
+/* ======================================================================
+   State
+   ====================================================================== */
+const root = document.documentElement;
+const $ = (id) => document.getElementById(id);
+const scroller = $("scroller"), chapterEl = $("chapter"), readingEl = $("reading"), readerEl = $("reader");
+const input = $("cmd-input"), cmdPop = $("cmd-pop"), picker = $("picker"), panel = $("panel"), splitter = $("splitter");
+const STEPS = [16, 17, 18, 19, 20, 22, 24, 26, 28, 32];
+const state = {
+  loc: { bi: 42, ch: 3, v: null },  // mockup opens at John 3 to show red letters; the app resumes, Genesis 1 the first time
+  tr: TRANSLATIONS[0],
+  pref: { verseNumbers: true, redLetters: true, suppliedItalics: true },
+  step: 4,
+  panelW: null,
+  rows: [], active: 0, lastParse: null
+};
+const motionQuery = matchMedia("(prefers-reduced-motion: reduce)");
+const forcedQuery = matchMedia("(forced-colors: active)");
+const reduced = () => root.dataset.motion === "reduce" || (root.dataset.motion !== "full" && motionQuery.matches);
+const remPx = () => parseFloat(getComputedStyle(root).fontSize);
+const say = (t) => { const l = $("live"); l.textContent = ""; requestAnimationFrame(() => { l.textContent = t; }); };
+const locLabel = (bi, ch) => BOOKS[bi].ch === 1 ? BOOKS[bi].name : `${BOOKS[bi].name} ${ch}`;
+const refLabel = (b, ch, v) => b.ch === 1 ? (v ? `${b.name} 1:${v}` : b.name) : `${b.name} ${ch}${v ? ":" + v : ""}`;
+
+/* ======================================================================
+   Popovers (design-system 7)
+   ====================================================================== */
+const isOpen = (el) => !el.hidden && !el.classList.contains("leaving");
+function openPop(el) {
+  el.hidden = false; el.classList.remove("leaving"); void el.offsetWidth; el.classList.add("entering");
+}
+function closePop(el) {
+  if (!isOpen(el)) return;
+  el.classList.remove("entering"); el.classList.add("leaving");
+  // Fallback: finish closing even if animationend never fires (throttled or hidden page)
+  setTimeout(() => { if (el.classList.contains("leaving")) { el.hidden = true; el.classList.remove("leaving"); } }, 250);
+}
+document.addEventListener("animationend", (e) => {
+  const el = e.target;
+  if (el.classList.contains("pop") && el.classList.contains("leaving")) { el.hidden = true; el.classList.remove("leaving"); }
+  if (el.classList.contains("pop") && el.classList.contains("entering")) el.classList.remove("entering");
+  if (el === chapterEl) chapterEl.classList.remove("entering");
+  if (el.classList.contains("pk-view")) el.classList.remove("entering");
+});
+
+/* ======================================================================
+   Anchor restore (reader.md 9): keeps the reader in the same verse
+   ====================================================================== */
+function captureAnchor() {
+  const top = scroller.getBoundingClientRect().top;
+  if (scroller.scrollTop <= 0) return { top0: true };
+  for (const v of chapterEl.querySelectorAll(".verse")) {
+    const r = v.getBoundingClientRect();
+    if (r.bottom > top) return { v: v.dataset.v, f: (top - r.top) / r.height };
+  }
+  return null;
+}
+function restoreAnchor(a) {
+  if (!a) return;
+  if (a.top0) { scroller.scrollTop = 0; return; }
+  const el = chapterEl.querySelector(`.verse[data-v="${a.v}"]`);
+  if (!el) return;
+  const top = scroller.getBoundingClientRect().top, r = el.getBoundingClientRect();
+  scroller.scrollTop += (r.top - top) + a.f * r.height;
+}
+let lastAnchor = null, scrollRaf = 0;
+scroller.addEventListener("scroll", () => {
+  readerEl.classList.toggle("scrolled", scroller.scrollTop > 0);
+  if (scrollRaf) return;
+  scrollRaf = requestAnimationFrame(() => { scrollRaf = 0; lastAnchor = captureAnchor(); });
+});
+window.addEventListener("resize", () => { clampPanel(); restoreAnchor(lastAnchor); });
+
+/* ======================================================================
+   Chapter rendering and navigation (reader.md 3, 7)
+   ====================================================================== */
+function renderChapter() {
+  const { bi, ch, v: cur } = state.loc;
+  const verses = makeChapter(bi, ch, state.tr);
+  const strongs = $("m-strongs").checked, hl = $("m-hl").value;
+  let html = `<p class="mock-head"><span class="mock-note">placeholder, not verified Scripture: generated filler</span><span class="mock-note">verse count is a placeholder</span></p>`;
+  html += `<h1 class="chapter-head">${locLabel(bi, ch)}</h1>`;
+  verses.forEach((toks, k) => {
+    const v = k + 1, r = verseHTML(toks, strongs);
+    html += `<div class="verse" data-v="${v}" data-r="${r.ranges.map((x) => x.join("-")).join(",")}" data-len="${r.text.length}"` +
+      (hl === "all" ? (v >= 3 && v <= 7 ? ` data-hl="${["gold", "green", "blue", "rose", "violet"][v - 3]}"` : "")
+        : hl && v >= 3 && v <= 5 ? ` data-hl="${hl}"` : "") + (cur === v ? ' aria-current="true"' : "") + ">" +
+      `<span class="vnum" aria-hidden="true">${v}</span><span class="sr-only">Verse ${v} </span>` +
+      `<span class="vtext">${r.html}</span></div>`;
+  });
+  const prev = neighbour(-1), next = neighbour(1);
+  html += `<nav class="chapter-end" aria-label="Chapters">` +
+    (prev ? `<button type="button" class="btn btn-quiet" data-go="-1">‹ ${locLabel(prev.bi, prev.ch)}</button>` : "<span></span>") +
+    (next ? `<button type="button" class="btn btn-quiet" data-go="1">${locLabel(next.bi, next.ch)} ›</button>` : "<span></span>") + `</nav>`;
+  chapterEl.innerHTML = html;
+  const firstW = chapterEl.querySelector(".w");
+  if (firstW) firstW.tabIndex = 0;
+  scroller.setAttribute("aria-label", locLabel(bi, ch));
+  $("prev").setAttribute("aria-disabled", String(!prev));
+  $("next").setAttribute("aria-disabled", String(!next));
+  if (document.activeElement !== input) setInputToLocation();
+}
+function neighbour(d) {
+  let { bi, ch } = state.loc; ch += d;
+  if (ch < 1) { if (bi === 0) return null; bi--; ch = BOOKS[bi].ch; }
+  else if (ch > BOOKS[bi].ch) { if (bi === BOOKS.length - 1) return null; bi++; ch = 1; }
+  return { bi, ch };
+}
+function go(bi, ch, v = null, dir = 1, animate = true) {
+  state.loc = { bi, ch, v };
+  renderChapter();
+  scroller.scrollTop = 0;
+  if (v) { // verse top 48px (--space-7) below the pane top
+    const el = chapterEl.querySelector(`.verse[data-v="${v}"]`);
+    const y = el.getBoundingClientRect().top - scroller.getBoundingClientRect().top;
+    scroller.scrollTop = y - 3 * remPx();
+  }
+  readerEl.classList.toggle("scrolled", scroller.scrollTop > 0);
+  lastAnchor = captureAnchor();
+  if (animate) {
+    chapterEl.style.setProperty("--chapter-dir", dir);
+    chapterEl.classList.remove("entering"); void chapterEl.offsetWidth; chapterEl.classList.add("entering");
+  }
+}
+function stepChapter(d) { const n = neighbour(d); if (n) go(n.bi, n.ch, null, d); }
+function rerenderKeepingPlace() { const a = captureAnchor(); renderChapter(); restoreAnchor(a); }
+
+chapterEl.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-go]");
+  if (b) { stepChapter(+b.dataset.go); scroller.focus({ preventScroll: true }); }
+});
+chapterEl.addEventListener("keydown", (e) => { // M3 preview: roving focus between word spans
+  const w = e.target.closest && e.target.closest(".w");
+  if (!w || (e.key !== "ArrowRight" && e.key !== "ArrowLeft")) return;
+  const all = [...chapterEl.querySelectorAll(".w")], i = all.indexOf(w), j = i + (e.key === "ArrowRight" ? 1 : -1);
+  if (all[j]) { e.preventDefault(); e.stopPropagation(); w.tabIndex = -1; all[j].tabIndex = 0; all[j].focus(); }
+});
+$("prev").onclick = () => stepChapter(-1);
+$("next").onclick = () => stepChapter(1);
+
+/* ======================================================================
+   Command box (reader.md 5)
+   ====================================================================== */
+const RE = /^([1-3])?\s*([a-z][a-z ]*?)\s*(?:(\d+)(?:\s*[:.\s]\s*(\d+))?)?(?:\s*[-–]\s*\d+)?\s*$/;
+function matchBooks(d, name) {
+  const letters = name.replace(/\s+/g, ""), key = (d || "") + letters;
+  const exact = BOOKS.filter((b) => b.key === key || b.ab.includes(key));
+  if (exact.length) return exact;
+  if (letters.length < 2) return [];
+  return BOOKS.filter((b) => b.key.startsWith(key) || b.ab.some((a) => a.startsWith(key)));
+}
+function parse(raw) {
+  const s = raw.trim().toLowerCase();
+  if (!s) return { kind: "empty" };
+  const noBook = { kind: "error", l1: `No book matches “${raw.trim()}”.`, l2: "Try a book name or abbreviation, like Romans 8." };
+  const m = s.match(RE);
+  if (!m) return noBook;
+  const [, d, name, c, v] = m;
+  const books = matchBooks(d, name);
+  if (!books.length) return noBook;
+  if (!c) return { kind: "rows", rows: books.slice(0, 6).map((b) => ({ label: b.name, sub: b.ch === 1 ? "1 chapter" : `${b.ch} chapters`, t: { bi: b.i, ch: 1, v: null } })) };
+  const C = +c, V = v ? +v : null, refs = [], errs = [];
+  for (const b of books) {
+    let ch = C, vv = V;
+    if (b.ch === 1 && V === null && C !== 1) { ch = 1; vv = C; } // single-chapter book: one number is a verse
+    if (ch < 1 || ch > b.ch) { errs.push({ t: `${b.name} has ${b.ch} chapter${b.ch > 1 ? "s" : ""}.` }); continue; }
+    if (vv !== null) {
+      const n = verseCount(b.i, ch);
+      if (vv < 1 || vv > n) { errs.push({ t: `${b.name}${b.ch > 1 ? " " + ch : ""} has ${n} verses.`, mock: true }); continue; }
+    }
+    refs.push({ label: refLabel(b, ch, vv), t: { bi: b.i, ch, v: vv } });
+  }
+  if (refs.length) return { kind: "rows", rows: refs.slice(0, 6) };
+  if (books.length === 1) return { kind: "error", l1: errs[0].t, l2: "", mock: errs[0].mock };
+  return noBook;
+}
+function setInputToLocation() {
+  input.value = locLabel(state.loc.bi, state.loc.ch);
+  input.classList.remove("editing");
+  input.removeAttribute("aria-invalid"); input.removeAttribute("aria-describedby"); input.removeAttribute("aria-activedescendant");
+}
+function renderList() {
+  const p = parse(input.value);
+  state.lastParse = p; state.rows = []; state.active = 0;
+  input.removeAttribute("aria-invalid"); input.removeAttribute("aria-describedby"); input.removeAttribute("aria-activedescendant");
+  cmdPop.textContent = "";
+  if (p.kind === "empty") {
+    cmdPop.innerHTML = `<div class="cmd-hint"><div>Type a reference</div><div class="ex"><code>jn 3 16</code><code>ps23</code><code>Romans 8</code></div>` +
+      `<div class="keys">↵ Go · Esc Cancel · ↓ Book list</div></div>`;
+  } else if (p.kind === "error") {
+    const box = document.createElement("div");
+    box.className = "cmd-err"; box.id = "cmd-err"; box.setAttribute("role", "status");
+    box.innerHTML = `<svg class="i s16" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.01"/></svg><div><div class="l1"></div><div class="l2"></div></div>`;
+    box.querySelector(".l1").textContent = p.l1;   // user text via textContent only
+    box.querySelector(".l2").textContent = p.l2;
+    if (p.mock) box.querySelector("div").insertAdjacentHTML("beforeend", '<div><span class="mock-note">verse counts in this mockup are placeholders</span></div>');
+    cmdPop.append(box);
+    input.setAttribute("aria-invalid", "true"); input.setAttribute("aria-describedby", "cmd-err");
+  } else {
+    state.rows = p.rows;
+    const ul = document.createElement("ul");
+    ul.className = "cmd-list"; ul.id = "cmd-list"; ul.setAttribute("role", "listbox"); ul.setAttribute("aria-label", "Passages");
+    p.rows.forEach((row, i) => {
+      const li = document.createElement("li");
+      li.className = "opt-row"; li.id = "cmd-opt-" + i; li.setAttribute("role", "option"); li.dataset.i = i;
+      li.innerHTML = `<span class="label"></span><span class="end">${row.sub ? '<span class="sub"></span>' : ""}<kbd aria-hidden="true">↵</kbd></span>`;
+      li.querySelector(".label").textContent = row.label;
+      if (row.sub) li.querySelector(".sub").textContent = row.sub;
+      ul.append(li);
+    });
+    cmdPop.append(ul);
+    setActive(0);
+  }
+  if (!isOpen(cmdPop)) openPop(cmdPop);
+  input.setAttribute("aria-expanded", "true");
+}
+function setActive(i) {
+  const opts = [...cmdPop.querySelectorAll(".opt-row")];
+  if (!opts.length) return;
+  state.active = (i + opts.length) % opts.length;
+  opts.forEach((o, j) => o.setAttribute("aria-selected", String(j === state.active)));
+  input.setAttribute("aria-activedescendant", opts[state.active].id);
+}
+function closeList() { closePop(cmdPop); input.setAttribute("aria-expanded", "false"); input.removeAttribute("aria-activedescendant"); }
+function cancelCmd(focusText = true) {
+  closeList(); setInputToLocation();
+  if (focusText) scroller.focus({ preventScroll: true });
+}
+function commit() {
+  if (!isOpen(cmdPop)) { if (!input.classList.contains("editing")) cancelCmd(); return; }
+  const p = state.lastParse;
+  if (p && p.kind === "error") { say(p.l1); return; }       // nothing happens; re-announce
+  const row = state.rows[state.active];
+  if (!row) return;
+  closeList();
+  go(row.t.bi, row.t.ch, row.t.v, 1);
+  setInputToLocation();
+  scroller.focus({ preventScroll: true });
+}
+function focusCmd() { closeAllPops(); input.focus(); input.select(); }
+
+input.addEventListener("focus", () => { if (!input.classList.contains("editing")) input.select(); });
+input.addEventListener("input", () => { input.classList.add("editing"); renderList(); });
+input.addEventListener("keydown", (e) => {
+  const unchanged = !input.classList.contains("editing") || input.value.trim() === "";
+  if (e.key === "ArrowDown" && (e.altKey || (unchanged && !state.rows.length))) { e.preventDefault(); openPicker(); return; }
+  if (e.key === "ArrowDown") { e.preventDefault(); setActive(state.active + 1); return; }
+  if (e.key === "ArrowUp") { e.preventDefault(); setActive(state.active - 1); return; }
+  if (e.key === "Enter") { e.preventDefault(); commit(); return; }
+  if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); cancelCmd(); }
+});
+cmdPop.addEventListener("mousedown", (e) => e.preventDefault()); // keep focus in the field
+cmdPop.addEventListener("click", (e) => { const o = e.target.closest(".opt-row"); if (o) { setActive(+o.dataset.i); commit(); } });
+$("cmd").addEventListener("focusout", (e) => {
+  if (e.relatedTarget && $("cmd").contains(e.relatedTarget)) return;
+  setTimeout(() => {
+    if ($("cmd").contains(document.activeElement)) return;
+    closeList(); closePop(picker); $("cmd-chev").setAttribute("aria-expanded", "false"); setInputToLocation();
+  }, 0);
+});
+
+/* ======================================================================
+   Book and chapter picker (reader.md 6)
+   ====================================================================== */
+let digitBuf = "", digitTimer = 0;
+function openPicker() {
+  closeList(); setInputToLocation();
+  closeAllPops(picker);
+  openPop(picker); $("cmd-chev").setAttribute("aria-expanded", "true");
+  renderPicker("books", state.loc.bi, 1, false); // after showing it, so focus can land
+}
+function closePicker(focusField = true) {
+  closePop(picker); $("cmd-chev").setAttribute("aria-expanded", "false");
+  if (focusField) input.focus();
+}
+function renderPicker(view, bi, dir, animate = true) {
+  const pv = $("pk-view");
+  pv.dataset.view = view; pv.dataset.bi = bi;
+  if (view === "books") {
+    pv.innerHTML = ["ot", "nt"].map((t) =>
+      `<div class="pk-group-h" id="pk-h-${t}">${t === "ot" ? "Old Testament" : "New Testament"}</div>` +
+      `<div class="pk-grid" role="group" aria-labelledby="pk-h-${t}">` +
+      BOOKS.filter((b) => b.t === t).map((b) =>
+        `<button type="button" class="pk-cell" data-bi="${b.i}" tabindex="-1"${b.i === state.loc.bi ? ' aria-current="true"' : ""}>` +
+        `<span>${b.name}</span>${b.i === state.loc.bi ? '<span class="dot" aria-hidden="true"></span>' : ""}</button>`).join("") +
+      `</div>`).join("");
+  } else {
+    const b = BOOKS[bi];
+    let cells = "";
+    for (let c = 1; c <= b.ch; c++) {
+      cells += `<button type="button" class="pk-cell" data-bi="${bi}" data-ch="${c}" tabindex="-1" aria-label="${b.name} ${c}"` +
+        (bi === state.loc.bi && c === state.loc.ch ? ' aria-current="true"' : "") + `>${c}</button>`;
+    }
+    pv.innerHTML = `<div class="pk-head"><button type="button" class="btn btn-quiet btn-sm" id="pk-back">‹ Books</button>` +
+      `<span class="pk-title" id="pk-title">${b.name}</span></div>` +
+      `<div class="pk-grid chapters" role="group" aria-labelledby="pk-title">${cells}</div>`;
+  }
+  if (animate) {
+    pv.style.setProperty("--view-dir", dir);
+    pv.classList.remove("entering"); void pv.offsetWidth; pv.classList.add("entering");
+  }
+  // books view: focus the book we came from (the current book on open); chapters: the current chapter
+  const target = (view === "books" ? pv.querySelector(`.pk-cell[data-bi="${bi}"]`) : pv.querySelector('.pk-cell[aria-current="true"]')) ||
+    pv.querySelector(".pk-cell");
+  target.tabIndex = 0;
+  target.focus({ preventScroll: true });
+  target.scrollIntoView({ block: "nearest" });
+}
+function chooseCell(cell) {
+  const bi = +cell.dataset.bi;
+  if (cell.dataset.ch) { closePicker(false); go(bi, +cell.dataset.ch, null, 1); scroller.focus({ preventScroll: true }); return; }
+  if (BOOKS[bi].ch === 1) { closePicker(false); go(bi, 1, null, 1); scroller.focus({ preventScroll: true }); return; }
+  renderPicker("chapters", bi, 1);
+}
+picker.addEventListener("click", (e) => {
+  if (e.target.closest("#pk-back")) { renderPicker("books", +$("pk-view").dataset.bi, -1); return; }
+  const c = e.target.closest(".pk-cell");
+  if (c) chooseCell(c);
+});
+function moveFocus(cells, from, to) { if (!to) return; from.tabIndex = -1; to.tabIndex = 0; to.focus(); to.scrollIntoView({ block: "nearest" }); }
+function vertical(cells, cur, down) { // nearest cell in the next row up or down, by x
+  const r = cur.getBoundingClientRect(), cx = r.left + r.width / 2;
+  const rows = cells.filter((c) => { const t = c.getBoundingClientRect().top; return down ? t > r.top + 2 : t < r.top - 2; });
+  if (!rows.length) return null;
+  const rowTop = down ? Math.min(...rows.map((c) => c.getBoundingClientRect().top)) : Math.max(...rows.map((c) => c.getBoundingClientRect().top));
+  const row = rows.filter((c) => Math.abs(c.getBoundingClientRect().top - rowTop) < 2);
+  return row.reduce((best, c) => { const b = c.getBoundingClientRect(); const d = Math.abs(b.left + b.width / 2 - cx); return !best || d < best.d ? { c, d } : best; }, null).c;
+}
+picker.addEventListener("keydown", (e) => {
+  const pv = $("pk-view"), cells = [...pv.querySelectorAll(".pk-cell")], cur = e.target.closest(".pk-cell");
+  if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); closePicker(); return; }
+  if ((e.key === "Backspace" || (e.altKey && e.key === "ArrowLeft")) && pv.dataset.view === "chapters") { e.preventDefault(); renderPicker("books", +pv.dataset.bi, -1); return; }
+  if (!cur) return;
+  const i = cells.indexOf(cur), top = cur.getBoundingClientRect().top;
+  const sameRow = cells.filter((c) => Math.abs(c.getBoundingClientRect().top - top) < 2);
+  let to = null;
+  if (e.key === "ArrowRight") to = cells[i + 1];
+  else if (e.key === "ArrowLeft") to = cells[i - 1];
+  else if (e.key === "ArrowDown") to = vertical(cells, cur, true);
+  else if (e.key === "ArrowUp") to = vertical(cells, cur, false);
+  else if (e.key === "Home") to = e.ctrlKey ? cells[0] : sameRow[0];
+  else if (e.key === "End") to = e.ctrlKey ? cells[cells.length - 1] : sameRow[sameRow.length - 1];
+  else if (pv.dataset.view === "books" && /^[a-z0-9]$/i.test(e.key) && !e.ctrlKey && !e.altKey) {
+    const L = e.key.toLowerCase();
+    for (let d = 1; d <= cells.length; d++) { const c = cells[(i + d) % cells.length]; if (c.textContent.trim().toLowerCase().startsWith(L)) { to = c; break; } }
+  } else if (pv.dataset.view === "chapters" && /^[0-9]$/.test(e.key)) {
+    clearTimeout(digitTimer); digitBuf += e.key; digitTimer = setTimeout(() => { digitBuf = ""; }, 800);
+    to = cells.find((c) => c.dataset.ch === digitBuf) || null;
+  } else return;
+  e.preventDefault();
+  moveFocus(cells, cur, to);
+});
+$("cmd-chev").onclick = () => { if (isOpen(picker)) closePicker(); else openPicker(); };
+
+/* ======================================================================
+   Menus and reading options (reader.md 2, 4)
+   ====================================================================== */
+const POPS = [["menu-btn", "menu"], ["tr-btn", "tr-menu"], ["aa-btn", "options"]];
+function closeAllPops(except) {
+  POPS.forEach(([b, p]) => { if ($(p) !== except && isOpen($(p))) { closePop($(p)); $(b).setAttribute("aria-expanded", "false"); } });
+  if (picker !== except && isOpen(picker)) closePicker(false);
+}
+function togglePop(btnId, popId, focusFirst = true) {
+  const pop = $(popId), btn = $(btnId);
+  if (isOpen(pop)) { closePop(pop); btn.setAttribute("aria-expanded", "false"); btn.focus(); return; }
+  closeAllPops(); closeList();
+  openPop(pop); btn.setAttribute("aria-expanded", "true");
+  if (focusFirst) { const f = pop.querySelector('[tabindex="0"]:not([style*="display: none"]), .mi, button'); const vis = [...pop.querySelectorAll('.row, .mi, button')].find((x) => x.offsetParent !== null); (vis || f).focus(); }
+}
+POPS.forEach(([b, p]) => {
+  $(b).onclick = () => { if (b === "tr-btn") renderTrMenu(); togglePop(b, p); };
+  $(p).addEventListener("keydown", (e) => {
+    if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); closePop($(p)); $(b).setAttribute("aria-expanded", "false"); $(b).focus(); }
+    if ((e.key === "ArrowDown" || e.key === "ArrowUp") && $(p).getAttribute("role") === "menu") {
+      const items = [...$(p).querySelectorAll(".mi")], i = items.indexOf(document.activeElement);
+      e.preventDefault(); items[(i + (e.key === "ArrowDown" ? 1 : -1) + items.length) % items.length].focus();
+    }
+  });
+});
+document.addEventListener("pointerdown", (e) => { // click outside closes without moving focus
+  POPS.forEach(([b, p]) => { if (isOpen($(p)) && !$(p).contains(e.target) && !$(b).contains(e.target)) { closePop($(p)); $(b).setAttribute("aria-expanded", "false"); } });
+});
+$("mi-keys").onclick = () => { closePop($("menu")); $("menu-btn").setAttribute("aria-expanded", "false"); $("keys").showModal(); $("keys-close").focus(); };
+$("keys-close").onclick = () => $("keys").close();
+$("keys").addEventListener("close", () => $("menu-btn").focus());
+
+function renderTrMenu() {
+  const m = $("tr-menu");
+  m.innerHTML = TRANSLATIONS.map((t, i) =>
+    `<button type="button" class="mi" role="menuitemradio" aria-checked="${t === state.tr}" data-i="${i}">` +
+    `<span class="chk" aria-hidden="true">${t === state.tr ? "✓" : ""}</span><span><span>${t.label}</span><span class="sub mock-note">${t.sub}</span></span></button>`).join("");
+}
+$("tr-menu").addEventListener("click", (e) => {
+  const mi = e.target.closest(".mi"); if (!mi) return;
+  state.tr = TRANSLATIONS[+mi.dataset.i];
+  closePop($("tr-menu")); $("tr-btn").setAttribute("aria-expanded", "false");
+  syncChrome(); rerenderKeepingPlace(); $("tr-btn").focus();
+});
+$("tr-row").addEventListener("click", () => {
+  const i = (TRANSLATIONS.indexOf(state.tr) + 1) % TRANSLATIONS.length; // narrow pane: cycles in the mockup
+  state.tr = TRANSLATIONS[i]; syncChrome(); rerenderKeepingPlace();
+});
+
+function syncChrome() {
+  $("tr-btn").textContent = state.tr.short;
+  $("tr-btn").dataset.tip = state.tr.label;
+  $("tr-row-desc").textContent = state.tr.label;
+  const opts = { verseNumbers: "verse-numbers", redLetters: "red-letters", suppliedItalics: "supplied-italics" };
+  for (const [k, attr] of Object.entries(opts)) root.setAttribute("data-" + attr, state.pref[k] ? "on" : "off");
+  document.querySelectorAll('.row[role="switch"]').forEach((row) => {
+    const k = row.dataset.opt;
+    const unavailable = k === "redLetters" && !state.tr.wj;
+    row.setAttribute("aria-checked", String(unavailable ? false : state.pref[k]));
+    if (unavailable) row.setAttribute("aria-disabled", "true"); else row.removeAttribute("aria-disabled");
+  });
+  const desc = $("red-desc");
+  if (!state.tr.wj) { desc.textContent = "Not available in this translation"; desc.hidden = false; }
+  else if (forcedQuery.matches) { desc.textContent = "Your Windows contrast theme sets the colours"; desc.hidden = false; }
+  else { desc.hidden = true; }
+  $("size-val").textContent = STEPS[state.step] + " px";
+  $("size-dn").setAttribute("aria-disabled", String(state.step === 0));
+  $("size-up").setAttribute("aria-disabled", String(state.step === STEPS.length - 1));
+}
+function toggleOpt(row) {
+  if (row.getAttribute("aria-disabled") === "true") return;
+  const k = row.dataset.opt, a = captureAnchor();
+  state.pref[k] = !state.pref[k];
+  syncChrome();            // instant, never animated
+  restoreAnchor(a);        // italics and verse numbers can change line breaks
+}
+$("options").addEventListener("click", (e) => { const r = e.target.closest('.row[role="switch"]'); if (r) toggleOpt(r); });
+$("options").addEventListener("keydown", (e) => {
+  const r = e.target.closest('.row[role="switch"]');
+  if (r && (e.key === " " || e.key === "Enter")) { e.preventDefault(); toggleOpt(r); }
+  if (e.target.id === "tr-row" && (e.key === " " || e.key === "Enter")) { e.preventDefault(); $("tr-row").click(); }
+});
+
+/* ======================================================================
+   Text size (reader.md 9)
+   ====================================================================== */
+let toastTimer = 0, wheelAcc = 0;
+function setStep(i) {
+  i = Math.max(0, Math.min(STEPS.length - 1, i));
+  const a = captureAnchor();
+  state.step = i;
+  root.style.setProperty("--read-size", STEPS[i] / 16 + "rem");
+  restoreAnchor(a);
+  syncChrome();
+  const t = $("toast");
+  t.textContent = `Text size ${STEPS[i]} px` + (i === 0 ? " · smallest" : i === STEPS.length - 1 ? " · largest" : "");
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 120 + 1000);
+  say(`Text size ${STEPS[i]} pixels`);
+}
+$("size-dn").onclick = () => setStep(state.step - 1);
+$("size-up").onclick = () => setStep(state.step + 1);
+readerEl.addEventListener("wheel", (e) => {
+  if (!e.ctrlKey) return;
+  e.preventDefault();
+  wheelAcc += e.deltaY;
+  while (wheelAcc >= 100) { setStep(state.step - 1); wheelAcc -= 100; }
+  while (wheelAcc <= -100) { setStep(state.step + 1); wheelAcc += 100; }
+}, { passive: false });
+
+/* ======================================================================
+   Study panel and splitter (reader.md 8)
+   ====================================================================== */
+const panelMin = () => 18 * remPx();
+const panelMax = () => Math.max(panelMin(), Math.min(40 * remPx(), $("app").clientWidth - 26 * remPx() - 8));
+function setPanelW(w) {
+  w = Math.round(Math.max(panelMin(), Math.min(panelMax(), w)));
+  state.panelW = w; panel.style.width = w + "px";
+  splitter.setAttribute("aria-valuenow", w); splitter.setAttribute("aria-valuemin", Math.round(panelMin())); splitter.setAttribute("aria-valuemax", Math.round(panelMax()));
+}
+function clampPanel() { if (!panel.hidden && state.panelW) setPanelW(state.panelW); }
+function flip(dx) {
+  if (reduced() || Math.abs(dx) < 1) return;
+  readingEl.style.transition = "none";
+  readingEl.style.transform = `translateX(${dx}px)`;
+  void readingEl.offsetWidth;
+  readingEl.style.transition = "transform var(--dur-3) var(--ease-out)";
+  readingEl.style.transform = "";
+  readingEl.addEventListener("transitionend", () => { readingEl.style.transition = ""; }, { once: true });
+}
+let panelBy = null;
+function openPanel(by) {
+  if (!panel.hidden && !panel.classList.contains("leaving")) return;
+  panelBy = by;
+  const a = captureAnchor(), before = readingEl.getBoundingClientRect().left;
+  panel.classList.remove("leaving"); panel.hidden = false;
+  setPanelW(state.panelW || 22 * remPx());
+  restoreAnchor(a);
+  flip(before - readingEl.getBoundingClientRect().left);
+  panel.classList.remove("entering"); void panel.offsetWidth; panel.classList.add("entering");
+  $("panel-btn").setAttribute("aria-pressed", "true");
+  $("panel-close").focus({ preventScroll: true });
+}
+function closePanel() {
+  if (panel.hidden || panel.classList.contains("leaving")) return;
+  panel.classList.remove("entering"); panel.classList.add("leaving");
+  setTimeout(finishPanelClose, 250); // fallback if animationend never fires
+  $("panel-btn").setAttribute("aria-pressed", "false");
+  if (panelBy === "button") $("panel-btn").focus({ preventScroll: true }); else scroller.focus({ preventScroll: true });
+}
+function finishPanelClose() {   // fade done: remove, then FLIP the column back
+  if (!panel.classList.contains("leaving")) return;
+  const a = captureAnchor(), before = readingEl.getBoundingClientRect().left;
+  panel.hidden = true; panel.classList.remove("leaving");
+  restoreAnchor(a);
+  flip(before - readingEl.getBoundingClientRect().left);
+}
+panel.addEventListener("animationend", (e) => {
+  if (e.target !== panel) return;
+  if (panel.classList.contains("leaving")) finishPanelClose(); else panel.classList.remove("entering");
+});
+const togglePanel = (by) => (panel.hidden || panel.classList.contains("leaving") ? openPanel(by) : closePanel());
+$("panel-btn").onclick = () => togglePanel("button");
+$("panel-close").onclick = () => { panelBy = "button"; closePanel(); };
+panel.addEventListener("keydown", (e) => { if (e.key === "Escape" && e.target !== splitter) { e.preventDefault(); scroller.focus({ preventScroll: true }); } });
+
+let drag = null;
+splitter.addEventListener("pointerdown", (e) => {
+  e.preventDefault(); splitter.setPointerCapture(e.pointerId);
+  drag = { anchor: captureAnchor() }; splitter.classList.add("dragging"); document.body.classList.add("no-select");
+});
+splitter.addEventListener("pointermove", (e) => {
+  if (!drag) return;
+  setPanelW($("app").getBoundingClientRect().right - e.clientX);
+  restoreAnchor(drag.anchor);                 // live, no animation
+});
+const endDrag = () => { if (!drag) return; drag = null; splitter.classList.remove("dragging"); document.body.classList.remove("no-select"); lastAnchor = captureAnchor(); };
+splitter.addEventListener("pointerup", endDrag);
+splitter.addEventListener("pointercancel", endDrag);
+splitter.addEventListener("dblclick", () => { const a = captureAnchor(); setPanelW(22 * remPx()); restoreAnchor(a); });
+splitter.addEventListener("keydown", (e) => {
+  const step = remPx() * (e.shiftKey ? 4 : 1), a = captureAnchor();
+  if (e.key === "ArrowLeft") setPanelW(state.panelW + step);
+  else if (e.key === "ArrowRight") setPanelW(state.panelW - step);
+  else if (e.key === "Home") setPanelW(panelMin());
+  else if (e.key === "End") setPanelW(panelMax());
+  else if (e.key === "Enter") { e.preventDefault(); panelBy = "button"; closePanel(); return; }
+  else return;
+  e.preventDefault(); restoreAnchor(a);
+});
+
+/* ======================================================================
+   Tooltips (design-system 6.4): 400ms intent, at once on keyboard focus
+   or if another closed < 300ms ago; 100ms hide delay
+   ====================================================================== */
+const tip = $("tip");
+let tipTimer = 0, hideTimer = 0, lastHide = 0, tipFor = null;
+function showTip(el, now) {
+  clearTimeout(tipTimer); clearTimeout(hideTimer);
+  const go = () => {
+    if (!el.dataset.tip || el.offsetParent === null) return;
+    tipFor = el; tip.textContent = el.dataset.tip;
+    const r = el.getBoundingClientRect(), tw = tip.offsetWidth;
+    tip.style.left = Math.max(8, Math.min(innerWidth - tw - 8, r.left + r.width / 2 - tw / 2)) + "px";
+    tip.style.top = (r.bottom + 6) + "px";
+    tip.classList.add("show");
+  };
+  if (now || Date.now() - lastHide < 300) go(); else tipTimer = setTimeout(go, 400);
+}
+function hideTip() {
+  clearTimeout(tipTimer);
+  hideTimer = setTimeout(() => { if (tip.classList.contains("show")) lastHide = Date.now(); tip.classList.remove("show"); tipFor = null; }, 100);
+}
+// Strong's word split over two lines: static underline instead of ::after (red-letters 3.4.3)
+function markWrapped(e) { const w = e.target.closest && e.target.closest(".vtext .w"); if (w) w.toggleAttribute("data-wrapped", w.getClientRects().length > 1); }
+document.addEventListener("pointerover", markWrapped);
+document.addEventListener("focusin", markWrapped);
+document.addEventListener("pointerover", (e) => { const el = e.target.closest && e.target.closest("[data-tip]"); if (el && el !== tipFor) showTip(el, false); });
+document.addEventListener("pointerout", (e) => { const el = e.target.closest && e.target.closest("[data-tip]"); if (el && !el.contains(e.relatedTarget)) hideTip(); });
+document.addEventListener("focusin", (e) => { const el = e.target.closest && e.target.closest("[data-tip]"); if (el && el.matches(":focus-visible")) showTip(el, true); });
+document.addEventListener("focusout", (e) => { if (e.target.closest && e.target.closest("[data-tip]")) hideTip(); });
+document.addEventListener("pointerdown", () => { clearTimeout(tipTimer); tip.classList.remove("show"); tipFor = null; });
+
+/* ======================================================================
+   Global keyboard (reader.md 10)
+   ====================================================================== */
+function regionOf(el) {
+  if (panel.contains(el)) return 2;
+  if (scroller.contains(el)) return 1;
+  return 0;
+}
+function cycleRegion(d) {
+  const regions = [input, scroller].concat(panel.hidden ? [] : [$("panel-close")]);
+  const i = regionOf(document.activeElement);
+  const next = regions[(Math.min(i, regions.length - 1) + d + regions.length) % regions.length];
+  closeAllPops(); next.focus(); if (next === input) input.select();
+}
+document.addEventListener("keydown", (e) => {
+  if (e.target.closest && (e.target.closest(".mock-bar") || e.target.closest("dialog"))) return;
+  const k = e.key, ctrl = e.ctrlKey || e.metaKey;
+  if (ctrl && !e.altKey && /^[lg]$/i.test(k)) { e.preventDefault(); focusCmd(); return; }
+  if (ctrl && k === "PageUp") { e.preventDefault(); stepChapter(-1); return; }
+  if (ctrl && k === "PageDown") { e.preventDefault(); stepChapter(1); return; }
+  if (ctrl && (k === "=" || k === "+")) { e.preventDefault(); setStep(state.step + 1); return; }
+  if (ctrl && (k === "-" || k === "_")) { e.preventDefault(); setStep(state.step - 1); return; }
+  if (ctrl && k === "0") { e.preventDefault(); setStep(4); return; }
+  if (ctrl && /^j$/i.test(k)) { e.preventDefault(); togglePanel("shortcut"); return; }
+  if (k === "F6") { e.preventDefault(); cycleRegion(e.shiftKey ? -1 : 1); return; }
+  if (!ctrl && !e.altKey && document.activeElement === scroller) {
+    if (k === "[") { e.preventDefault(); stepChapter(-1); }
+    else if (k === "]") { e.preventDefault(); stepChapter(1); }
+  }
+});
+
+/* ======================================================================
+   Mockup controls and the T20 sketch (red-letters-and-highlights.md 3.4.6).
+   The real T20 also forces :hover / :focus via the DevTools Protocol, which
+   a page cannot do, and covers every chapter.
+   ====================================================================== */
+$("m-theme").onchange = (e) => { root.dataset.theme = e.target.value; };
+$("m-motion").onchange = (e) => { if (e.target.value) root.dataset.motion = e.target.value; else delete root.dataset.motion; };
+$("m-strongs").onchange = rerenderKeepingPlace;
+$("m-hl").onchange = rerenderKeepingPlace;
+forcedQuery.addEventListener("change", syncChrome);
+
+function colourCheck() {
+  const probe = document.createElement("span");
+  readingEl.append(probe);
+  const resolve = (v) => { probe.style.color = `var(${v})`; return getComputedStyle(probe).color; };
+  const ALLOWED = new Set(["wj", "add", "nd", "nd-sc", "w", "pilcrow"]);
+  const saved = { red: root.dataset.redLetters, hl: [...chapterEl.querySelectorAll(".verse")].map((v) => v.dataset.hl || "") };
+  let passes = 0, nodes = 0, fails = [], selNote = "";
+  const verses = [...chapterEl.querySelectorAll(".verse")];
+  // structure (3.4.1)
+  chapterEl.querySelectorAll(".vtext *").forEach((el) => {
+    if (el.tagName !== "SPAN" || el.classList.length !== 1 || !ALLOWED.has(el.classList[0]) || el.hasAttribute("style")) fails.push("disallowed element in .vtext: <" + el.tagName.toLowerCase() + " class=" + el.className + ">");
+  });
+  chapterEl.querySelectorAll(".wj .vnum, .wj .pilcrow").forEach(() => fails.push("vnum or pilcrow inside .wj"));
+  // Strong's hover underline (red-letters 3.4.3, T20 item 5): neutral colour, never red or link
+  const UL = resolve("--color-word-underline");
+  if (UL === resolve("--color-red-letter") || UL === resolve("--color-link")) fails.push("hover underline colour equals red or link");
+  chapterEl.querySelectorAll(".vtext .w").forEach((w) => {
+    const a = getComputedStyle(w, "::after");
+    if (a.position !== "absolute" || a.backgroundColor !== UL) fails.push("Strong's underline pseudo-element not as specified");
+  });
+  for (const red of ["on", "off"]) {
+    root.dataset.redLetters = red;
+    for (const tint of ["", "gold", "green", "blue", "rose", "violet"]) {
+      verses.forEach((v) => { if (tint) v.dataset.hl = tint; else delete v.dataset.hl; });
+      for (const sel of [false, true]) {
+        const s = getSelection(); s.removeAllRanges();
+        if (sel) s.selectAllChildren(chapterEl);
+        const RED = resolve("--color-red-letter"), TEXT = resolve("--color-text");
+        if (RED === TEXT) fails.push("red equals text colour");
+        let redChars = 0, dbRed = 0;
+        passes++;
+        for (const v of verses) {
+          const vt = v.querySelector(".vtext");
+          const ranges = v.dataset.r ? v.dataset.r.split(",").map((x) => x.split("-").map(Number)) : [];
+          ranges.forEach(([a, b]) => { dbRed += b - a; });
+          const walker = document.createTreeWalker(vt, NodeFilter.SHOW_TEXT);
+          for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+            nodes++;
+            const r = document.createRange(); r.setStart(vt, 0); r.setEnd(n, 0);
+            const start = r.toString().length, end = start + n.data.length;
+            const inside = ranges.some(([a, b]) => start >= a && end <= b);
+            const touches = ranges.some(([a, b]) => start < b && end > a);
+            if (touches && !inside) fails.push(`v${v.dataset.v}: text node straddles a red boundary`);
+            const p = n.parentElement, cs = getComputedStyle(p);
+            const want = inside && red === "on" ? RED : TEXT;
+            if (cs.color !== want) fails.push(`v${v.dataset.v} @${start}: color ${cs.color}, expected ${want} (red ${red}, tint ${tint || "none"})`);
+            if (cs.webkitTextFillColor && cs.webkitTextFillColor !== want) fails.push(`v${v.dataset.v} @${start}: -webkit-text-fill-color differs`);
+            if (cs.color === RED) redChars += n.data.length;
+            if (sel) {
+              const sc = getComputedStyle(p, "::selection").color;
+              if (!sc) selNote = "this browser doesn't report ::selection styles (the real T20 fails instead of skipping)";
+              else if (sc !== want) fails.push(`v${v.dataset.v} @${start}: ::selection color ${sc}, expected ${want}`);
+            }
+          }
+        }
+        const wantRed = red === "on" ? dbRed : 0;
+        if (redChars !== wantRed) fails.push(`red characters painted ${redChars}, stored ${wantRed} (red ${red})`);
+      }
+    }
+  }
+  getSelection().removeAllRanges();
+  root.dataset.redLetters = saved.red;
+  verses.forEach((v, i) => { if (saved.hl[i]) v.dataset.hl = saved.hl[i]; else delete v.dataset.hl; });
+  probe.remove();
+  nodes = Math.round(nodes / passes);
+  $("m-out").textContent = fails.length
+    ? `FAIL: ${fails.length} problem(s). First: ${fails[0]}`
+    : `pass: ${passes} passes (red on/off × 6 tints × rest/selection), ${nodes} text nodes each, 0 failures` + (selNote ? `; ${selNote}` : "");
+}
+$("m-check").onclick = colourCheck;
+
+/* ======================================================================
+   Start (the app resumes with no animation, reader.md 12)
+   ====================================================================== */
+syncChrome();
+go(state.loc.bi, state.loc.ch, null, 1, false);
+scroller.focus({ preventScroll: true });
+</script>
+</body>
+</html>

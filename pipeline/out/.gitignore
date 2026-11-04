@@ -1,0 +1,4 @@
+# Built content files (kjv.sqlite, kjv-search.sqlite, content.sqlite, mhcc.sqlite and their .sha256 convenience sidecars) are build output,
+# never committed. The expected hash is in pipeline/tests/expected/output-sha256.txt.
+*
+!.gitignore

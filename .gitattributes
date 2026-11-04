@@ -1,0 +1,41 @@
+# Rule: Git must never change the bytes of any file in this repository.
+#
+# Each attribute below turns off one way Git can rewrite bytes on checkout or
+# add, whatever the machine's own config says:
+#   -text                    no end-of-line conversion (core.autocrlf, core.eol),
+#                            so a Windows clone with the Git for Windows default
+#                            (autocrlf=true) still gets byte-exact files;
+#   -ident                   no `$Id$` expansion;
+#   -filter                  no smudge/clean filter (for example git-lfs, which
+#                            is configured system-wide on some machines);
+#   -working-tree-encoding   no re-encoding (for example to UTF-16).
+# Scripture, red-letter offsets, checksums and golden data depend on that.
+#
+# This file overrides a user-level or system core.attributesFile. Only
+# $GIT_DIR/info/attributes (local to one clone) and a .gitattributes in a
+# subdirectory outrank it, so CI also checks that every content file's bytes
+# equal its index blob (`git hash-object --no-filters`, see
+# .github/workflows/ci.yml). Don't add .gitattributes files in subdirectories.
+#
+# Code line endings are not normalized by Git. rustfmt.toml enforces LF for
+# Rust, and `cargo fmt --check` in CI fails on CRLF.
+* -text -ident -filter -working-tree-encoding
+
+# Binary formats: no text diff, no textual merge.
+*.sqlite  binary
+*.revpack binary
+*.zip     binary
+*.woff2   binary
+*.ttf     binary
+*.otf     binary
+*.webp    binary
+*.png     binary
+*.jpg     binary
+
+# Content paths, listed explicitly. Keep these lines LAST: in .gitattributes
+# the last matching line wins, so they stay byte-exact even if someone later
+# adds a normalization rule (like `* text=auto` or `* ident`) above.
+/sources/**                  -text -ident -filter -working-tree-encoding
+/pipeline/tests/fixtures/**  -text -ident -filter -working-tree-encoding
+**/golden/**                 -text -ident -filter -working-tree-encoding
+**/*.sha256                  -text -ident -filter -working-tree-encoding

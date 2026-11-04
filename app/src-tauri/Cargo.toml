@@ -1,0 +1,41 @@
+[package]
+name = "revelation"
+version = "0.0.0"
+edition = "2024"
+license = "MIT"
+publish = false
+description = "Revelation desktop app core (Tauri 2): read-only content queries and the user database."
+
+# A member of the root workspace (task D4b): one Cargo.lock and one target/
+# at the repository root; the release profile is set there.
+
+[lib]
+name = "revelation_core"
+path = "src/lib.rs"
+
+[[bin]]
+name = "revelation"
+path = "src/main.rs"
+
+# Every crate is cleared in the project's internal review notes section 9. Exact versions;
+# a bump is a reviewed change with a fresh licence check.
+[build-dependencies]
+tauri-build = { version = "=2.7.3", features = [] }
+# Only the std-only expected-hash parser (no SQLite): build.rs compiles the
+# expected SHA-256 values into the app.
+revelation-content = { path = "../../crates/revelation-content", default-features = false }
+
+[dependencies]
+tauri = { version = "=2.12.4", features = [] }
+serde = { version = "=1.0.229", features = ["derive"] }
+serde_json = "=1.0.154"
+# SQLite compiled in; `serialize` gives sqlite3_deserialize for open_verified
+# (pipeline/DESIGN.md 10.3 "Best"). Default `cache` is off.
+rusqlite = { version = "=0.40.2", default-features = false, features = ["bundled", "serialize"] }
+# The one open_verified (M1-F1), shared with the pipeline (path crate in this
+# repository; adds no third-party crate). It brings sha2 =0.11.1.
+revelation-content = { path = "../../crates/revelation-content" }
+# Restores window size/position/maximised, clamped to a connected monitor
+# (PLAN.md 7). Cleared in the project's internal review notes 9 (Apache-2.0 OR MIT; adds
+# no new licence family). Rust side only: no WebView permission is granted.
+tauri-plugin-window-state = "=2.5.0"

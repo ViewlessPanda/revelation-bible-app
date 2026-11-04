@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osis><osisText><div type="book" osisID="Test">
+<chapter osisID="Test.1">
+<verse osisID="Test.1.1" sID="Test.1.1"/>alpha <q sID="q1" who="Jesus" marker=""/>beta<verse eID="Test.1.1"/>
+<verse osisID="Test.1.2" sID="Test.1.2"/>gamma<q eID="q1"/> delta<verse eID="Test.1.2"/>
+</chapter>
+</div></osisText></osis>

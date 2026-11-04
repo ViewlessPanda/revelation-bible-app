@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-marks-for-chapter"
+description = "Enables the marks_for_chapter command without any pre-configured scope."
+commands.allow = ["marks_for_chapter"]
+
+[[permission]]
+identifier = "deny-marks-for-chapter"
+description = "Denies the marks_for_chapter command without any pre-configured scope."
+commands.deny = ["marks_for_chapter"]

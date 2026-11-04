@@ -1,0 +1,24 @@
+# Expected SHA-256 of each bundled content file (DESIGN.md 10.2). Owner review required for any change.
+# Each database is a pure function of the pinned sources and the pipeline code (+ Cargo.lock, which pins
+# the bundled SQLite): no commit id, time or host is stored in it (DESIGN.md 10.1, PM decision
+# 2026-10-22). T16 (pipeline/tests/kjv_real.rs, lexicon_real.rs) rebuilds and compares.
+#
+# Build provenance of the values below (not part of any hash; `revelation-pipeline build` prints it):
+#   first built 2026-10-22 on Windows 11, twice into separate directories with identical output.
+#   Rebuilt 2026-10-22 (task D7, D5-F9) by `revelation-pipeline build sources/raw <out>` (release)
+#   with the same two hashes; it printed pipeline_commit 56c4ea9e5b30ff4c710906d25f71cdfd0a1150a2;
+#   Cargo.lock sha256 4d6232bee2b2149dec9bf339e27ed0e165be0dcd03d7b6ef9d14b8052610b05c;
+#   rustc 1.99.1 (58cf8f9c3 2026-10-13).
+#   mhcc.sqlite added 2026-10-24 (task W2-4b, CMT-MHCC-CW20) by the same command (release) and by
+#   pipeline/tests/cmt_real.rs (debug, two builds into separate directories), all three identical;
+#   kjv.sqlite and content.sqlite unchanged by that build.
+#   kjv-search.sqlite added 2026-10-24 (task W2-2p, DESIGN.md 18; built from the published kjv.sqlite)
+#   by the same command (release) twice into separate directories, byte-identical, and by
+#   pipeline/tests/search_real.rs (debug); the other three files unchanged by that build.
+#   mhcc.sqlite rebuilt 2026-10-27 (task W2-LBL: owner approved the label, label.status = approved_by_owner)
+#   by the same command (release) twice into separate directories, byte-identical;
+#   kjv.sqlite, kjv-search.sqlite and content.sqlite unchanged by that build.
+f59bad81f787d12cb0b377c0b903a1864f52cfd87ee652c94d7225ad1d50c255  kjv.sqlite
+3e8bb71dc48869dff8a281cb29e18ccdba28ec7828fb2e8294c753a01b047290  kjv-search.sqlite
+4ae75e41566d263aa23004141bbe9b30948737a7840cec5c3c3c39311b3515bf  content.sqlite
+79b0c960569c1123e6a98216d66ebec5953a56f3d6c916aed7a6e1632cb348be  mhcc.sqlite

@@ -1,0 +1,111 @@
+# golden-db-red-dump.tsv: red pieces of every golden-sample reference, read back from the built
+# kjv.sqlite through open_verified (sqlite3_deserialize of the hashed bytes). Machine-extracted:
+# the words are cut from the stored verse text by the stored code-point offsets, never typed.
+# database: kjv.sqlite sha256 f59bad81f787d12cb0b377c0b903a1864f52cfd87ee652c94d7225ad1d50c255 (= pipeline/tests/expected/output-sha256.txt)
+# references: docs/scholar/red-letter-golden-samples.md section 10, sha256 1a4ccc65173bceb9070cede238557956c655f75477eee3cf69954cbf6fe758ef
+# generator: pipeline/examples/golden_red_dump.rs. One line per piece; a verse without red has one
+# line with '-'. first_words/last_words: the first/last 4 space-separated words of the piece.
+ref	osis	n	start_cp	end_cp	q_ord	verse_len	first_words	last_words
+MAT.3.15	Matt.3.15	0	35	111	1	133	Suffer it to be	to fulfil all righteousness.
+MAT.3.17	Matt.3.17	-	-	-	-	86	-	-
+MAT.4.4	Matt.4.4	0	26	134	2	134	It is written, Man	the mouth of God.
+MAT.4.6	Matt.4.6	-	-	-	-	230	-	-
+MAT.4.7	Matt.4.7	0	21	80	3	80	It is written again,	the Lord thy God.
+MAT.4.10	Matt.4.10	0	27	136	4	136	Get thee hence, Satan:	only shalt thou serve.
+MAT.4.17	Matt.4.17	0	50	95	5	95	Repent: for the kingdom	heaven is at hand.
+MAT.4.19	Matt.4.19	0	24	70	6	70	Follow me, and I	you fishers of men.
+MAT.5.2	Matt.5.2	-	-	-	-	49	-	-
+MAT.5.3	Matt.5.3	0	0	68	7	68	Blessed are the poor	the kingdom of heaven.
+MAT.5.12	Matt.5.12	0	0	126	7	126	Rejoice, and be exceeding	which were before you.
+MAT.5.13	Matt.5.13	0	0	190	7	190	Ye are the salt	under foot of men.
+MAT.5.14	Matt.5.14	0	0	75	7	75	Ye are the light	hill cannot be hid.
+MAT.9.6	Matt.9.6	0	0	77	20	168	But that ye may	earth to forgive sins,
+MAT.9.6	Matt.9.6	1	120	168	21	168	Arise, take up thy	go unto thine house.
+MAT.22.21	Matt.22.21	0	53	150	113	150	Render therefore unto Cesar	things that are God’s.
+MAT.22.24	Matt.22.24	-	-	-	-	131	-	-
+MAT.26.26	Matt.26.26	0	113	140	128	140	Take, eat; this is	this is my body.
+MAT.26.27	Matt.26.27	0	67	86	129	86	Drink ye all of	ye all of it;
+MAT.26.28	Matt.26.28	0	0	92	129	92	For this is my	the remission of sins.
+MAT.27.46	Matt.27.46	0	64	91	143	150	Eli, Eli, lama sabachthani?	Eli, Eli, lama sabachthani?
+MRK.5.41	Mark.5.41	0	55	68	185	129	Talitha cumi;	Talitha cumi;
+MRK.7.34	Mark.7.34	0	57	67	199	87	Ephphatha,	Ephphatha,
+MRK.8.1	Mark.8.1	-	-	-	-	130	-	-
+MRK.8.2	Mark.8.2	0	0	107	200	107	I have compassion on	have nothing to eat:
+MRK.15.34	Mark.15.34	0	61	90	276	162	Eloi, Eloi, lama sabachthani?	Eloi, Eloi, lama sabachthani?
+LUK.4.17	Luke.4.17	-	-	-	-	138	-	-
+LUK.4.18	Luke.4.18	0	0	257	282	257	The Spirit of the	them that are bruised,
+LUK.4.19	Luke.4.19	0	0	42	282	42	To preach the acceptable	year of the Lord.
+LUK.4.20	Luke.4.20	-	-	-	-	149	-	-
+LUK.4.21	Luke.4.21	0	31	81	283	81	This day is this	fulfilled in your ears.
+LUK.23.46	Luke.23.46	0	53	96	454	140	Father, into thy hands	I commend my spirit:
+LUK.23.47	Luke.23.47	-	-	-	-	103	-	-
+JHN.3.2	John.3.2	-	-	-	-	179	-	-
+JHN.3.3	John.3.3	0	34	128	476	128	Verily, verily, I say	the kingdom of God.
+JHN.3.4	John.3.4	-	-	-	-	129	-	-
+JHN.3.5	John.3.5	0	16	138	477	138	Verily, verily, I say	the kingdom of God.
+JHN.3.6	John.3.6	0	0	89	477	89	That which is born	the Spirit is spirit.
+JHN.3.7	John.3.7	0	0	56	477	56	Marvel not that I	must be born again.
+JHN.3.8	John.3.8	0	0	173	477	173	The wind bloweth where	born of the Spirit.
+JHN.3.9	John.3.9	-	-	-	-	62	-	-
+JHN.3.10	John.3.10	0	34	92	478	92	Art thou a master	knowest not these things?
+JHN.3.11	John.3.11	0	0	121	478	121	Verily, verily, I say	receive not our witness.
+JHN.3.12	John.3.12	0	0	110	478	110	If I have told	you of heavenly things?
+JHN.3.13	John.3.13	0	0	113	478	113	And no man hath	which is in heaven.
+JHN.3.14	John.3.14	0	0	95	478	95	And as Moses lifted	man be lifted up:
+JHN.3.15	John.3.15	0	0	73	478	73	That whosoever believeth in	but have eternal life.
+JHN.3.16	John.3.16	0	0	141	478	141	For God so loved	but have everlasting life.
+JHN.3.17	John.3.17	0	0	108	478	108	For God sent not	him might be saved.
+JHN.3.18	John.3.18	0	0	164	478	164	He that believeth on	begotten Son of God.
+JHN.3.19	John.3.19	0	0	137	478	137	And this is the	their deeds were evil.
+JHN.3.20	John.3.20	0	0	111	478	111	For every one that	deeds should be reproved.
+JHN.3.21	John.3.21	0	0	111	478	111	But he that doeth	are wrought in God.
+JHN.3.22	John.3.22	-	-	-	-	117	-	-
+JHN.11.34	John.11.34	0	10	33	550	73	Where have ye laid	have ye laid him?
+JHN.11.35	John.11.35	-	-	-	-	11	-	-
+JHN.19.26	John.19.26	0	108	130	591	130	Woman, behold thy son!	Woman, behold thy son!
+JHN.19.27	John.19.27	0	31	49	592	110	Behold thy mother!	Behold thy mother!
+JHN.19.28	John.19.28	0	111	120	593	120	I thirst.	I thirst.
+JHN.19.30	John.19.30	0	56	71	594	117	It is finished:	It is finished:
+ACT.1.4	Acts.1.4	0	104	146	616	177	wait for the promise	of the Father, which,
+ACT.1.4	Acts.1.4	1	157	177	617	177	ye have heard of	have heard of me.
+ACT.1.5	Acts.1.5	0	0	101	617	101	For John truly baptized	not many days hence.
+ACT.1.6	Acts.1.6	-	-	-	-	132	-	-
+ACT.1.7	Acts.1.7	0	23	118	618	118	It is not for	in his own power.
+ACT.1.8	Acts.1.8	0	0	200	618	200	But ye shall receive	part of the earth.
+ACT.1.9	Acts.1.9	-	-	-	-	117	-	-
+ACT.1.10	Acts.1.10	-	-	-	-	109	-	-
+ACT.1.11	Acts.1.11	-	-	-	-	193	-	-
+ACT.9.4	Acts.9.4	0	61	97	619	97	Saul, Saul, why persecutest	why persecutest thou me?
+ACT.9.5	Acts.9.5	0	52	133	620	133	I am Jesus whom	kick against the pricks.
+ACT.9.6	Acts.9.6	0	102	175	621	175	Arise, and go into	what thou must do.
+ACT.9.10	Acts.9.10	0	99	107	622	145	Ananias.	Ananias.
+ACT.20.35	Acts.20.35	0	140	183	627	183	It is more blessed	give than to receive.
+1CO.11.24	1Cor.11.24	0	53	135	637	135	Take, eat: this is	in remembrance of me.
+1CO.11.25	1Cor.11.25	0	72	171	638	171	This cup is the	in remembrance of me.
+1CO.11.26	1Cor.11.26	-	-	-	-	96	-	-
+2CO.12.9	2Cor.12.9	0	21	98	639	202	My grace is sufficient	made perfect in weakness.
+REV.1.7	Rev.1.7	-	-	-	-	164	-	-
+REV.1.8	Rev.1.8	-	-	-	-	128	-	-
+REV.1.11	Rev.1.11	0	8	53	640	275	I am Alpha and	first and the last:
+REV.1.11	Rev.1.11	1	59	275	641	275	What thou seest, write	Philadelphia, and unto Laodicea.
+REV.1.17	Rev.1.17	0	100	138	642	138	Fear not; I am	first and the last:
+REV.1.18	Rev.1.18	0	0	118	642	118	I am he that	hell and of death.
+REV.1.19	Rev.1.19	0	0	105	642	105	Write the things which	which shall be hereafter;
+REV.1.20	Rev.1.20	0	0	224	642	224	The mystery of the	are the seven churches.
+REV.2.1	Rev.2.1	0	0	175	643	175	Unto the angel of	the seven golden candlesticks;
+REV.3.6	Rev.3.6	0	0	74	644	74	He that hath an	saith unto the churches.
+REV.3.20	Rev.3.20	0	0	146	644	146	Behold, I stand at	and he with me.
+REV.3.22	Rev.3.22	0	0	74	644	74	He that hath an	saith unto the churches.
+REV.4.1	Rev.4.1	-	-	-	-	222	-	-
+REV.22.7	Rev.22.7	0	0	23	645	92	Behold, I come quickly:	Behold, I come quickly:
+REV.22.11	Rev.22.11	-	-	-	-	190	-	-
+REV.22.12	Rev.22.12	0	0	104	646	104	And, behold, I come	his work shall be.
+REV.22.13	Rev.22.13	0	0	72	646	72	I am Alpha and	first and the last.
+REV.22.14	Rev.22.14	-	-	-	-	138	-	-
+REV.22.15	Rev.22.15	-	-	-	-	123	-	-
+REV.22.16	Rev.22.16	0	0	153	647	153	I Jesus have sent	bright and morning star.
+REV.22.17	Rev.22.17	-	-	-	-	168	-	-
+REV.22.20	Rev.22.20	0	40	62	648	95	Surely I come quickly.	Surely I come quickly.
+GEN.1.1	Gen.1.1	-	-	-	-	54	-	-
+PSA.23.1	Ps.23.1	-	-	-	-	42	-	-
+PSA.22.1	Ps.22.1	-	-	-	-	113	-	-

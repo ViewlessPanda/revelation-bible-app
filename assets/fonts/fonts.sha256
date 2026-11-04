@@ -1,0 +1,8 @@
+# SHA-256 of every bundled font file, unmodified from the pinned upstream release
+# (sources/SOURCES.md FONT-LITERATA, FONT-INTER; conditions F1-F6). Checked by
+# app/scripts/sync-fonts.mjs before the files are copied into the app build.
+b41138c9373112f32abb589cc22e8674b06ed4048b0c513be922bdd26f274440  literata/Literata[opsz,wght].ttf
+d483dfaeba9cbf4ce71d32a52ee65df82f7e35b15fff8d1011cdb242d1fcd465  literata/Literata-Italic[opsz,wght].ttf
+8742963604cd89dc81437811a850018fc03b2bfad686d7422c8235967c87614e  literata/OFL.txt
+4989b125924991b90d05b2d16e0e388c48f7d5bb8b30539bbf9c755278d0ccaf  inter/InterVariable.ttf
+262481e844521b326f5ecd053e59b98c8b2da78c8ee1bdbb6e8174305e54935a  inter/LICENSE.txt

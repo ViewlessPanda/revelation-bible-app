@@ -1,0 +1,23 @@
+Revelation brand assets
+
+The files in this directory (`revelation-logo-original.webp`,
+`revelation-icon-1024.png` and any later logo or icon files), and the copies
+and derived sizes of them in `app/public/brand/` and `app/src-tauri/icons/`,
+are NOT licensed under the MIT License that covers the rest of this
+repository, and no licence to them is granted by that License.
+
+"Revelation" and the Revelation star-and-book logo are used by C. Ethan Key as
+trademarks for the Revelation Bible software. All trademark rights are
+reserved.
+
+The artwork was generated with an AI image tool (ChatGPT) and adjusted by
+script (`make-icon.ps1`). No copyright is claimed in it beyond what applicable
+law may allow.
+
+You may show the unmodified logo or icon only to refer to the Revelation
+project (for example in a review, article or link to it). Any other use,
+including in a fork, a modified build or another product, requires written
+permission from C. Ethan Key.
+
+`make-icon.ps1` is project code and is covered by the repository's MIT
+License.

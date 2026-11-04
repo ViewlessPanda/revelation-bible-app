@@ -1,0 +1,32 @@
+# Root Cargo workspace.
+#
+# Why a workspace: one shared target/ directory and one Cargo.lock for every
+# Rust crate, and CI runs fmt, clippy and test once from the repo root.
+# Members:
+# - crates/revelation-content: the one `open_verified` (M1-F1) and the
+#   expected-hash file parser, shared by the two below (task D4b);
+# - pipeline: builds the content databases;
+# - app/src-tauri: the Tauri 2 app core (`revelation.exe`; joined in D4b).
+[workspace]
+resolver = "3"
+members = ["crates/revelation-content", "pipeline", "app/src-tauri"]
+
+# Tests parse the real 28 MB KJV file and write a 30 MB database. Optimise the
+# dependencies (SQLite's C amalgamation, quick-xml, sha2) and lightly optimise
+# the pipeline itself in dev/test builds so the suite runs in seconds. This
+# changes no output: the database bytes depend only on inputs and SQLite.
+[profile.dev.package."*"]
+opt-level = 2
+
+[profile.dev.package.revelation-pipeline]
+opt-level = 1
+
+# Release: the app's settings (was app/src-tauri/Cargo.toml; profiles only
+# take effect at the workspace root). Small, stripped exe. The pipeline's
+# release CLI gets the same settings; its output does not depend on them
+# (T16 compares builds byte for byte).
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 3
+strip = true

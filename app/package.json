@@ -1,0 +1,42 @@
+{
+  "name": "revelation-app",
+  "private": true,
+  "version": "0.0.0",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/sync-fonts.mjs && vite",
+    "build": "node scripts/sync-fonts.mjs && vite build && node scripts/lint-built-css.mjs && node scripts/sync-fonts.mjs --check-dist",
+    "check": "svelte-check --tsconfig ./tsconfig.json --fail-on-warnings",
+    "test": "node scripts/vitest.mjs run",
+    "tauri": "tauri",
+    "copy-content": "node scripts/copy-content.mjs",
+    "preflight": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File ../scripts/preflight-acl.ps1",
+    "preflight:release": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File ../scripts/preflight-acl.ps1 -Release",
+    "preflight:test": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File ../scripts/test-preflight-acl.ps1",
+    "verify": "node ../scripts/verify.mjs",
+    "release": "npm run preflight:release && tauri build --no-bundle && node scripts/copy-content.mjs"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "2.12.4",
+    "prosemirror-commands": "1.7.2",
+    "prosemirror-history": "1.5.1",
+    "prosemirror-inputrules": "1.5.1",
+    "prosemirror-keymap": "1.2.3",
+    "prosemirror-model": "1.25.12",
+    "prosemirror-schema-list": "1.5.1",
+    "prosemirror-state": "1.4.4",
+    "prosemirror-transform": "1.12.4",
+    "prosemirror-view": "1.42.7",
+    "svelte": "5.57.2"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "7.3.1",
+    "@tauri-apps/cli": "2.12.3",
+    "happy-dom": "21.0.4",
+    "svelte-check": "4.7.7",
+    "typescript": "6.0.3",
+    "vite": "8.3.4",
+    "vitest": "5.0.5"
+  }
+}

@@ -1,0 +1,2253 @@
+[
+  {
+    "exact_total": 1,
+    "hits": [
+      {
+        "book": 43,
+        "chapter": 11,
+        "emphasised": true,
+        "exact": true,
+        "id": 43011035,
+        "osis": "John",
+        "reference": "John 11:35",
+        "runs": [
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "Jesus"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "wept"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "."
+          }
+        ],
+        "text": "Jesus wept.",
+        "verse": 35
+      },
+      {
+        "book": 40,
+        "chapter": 26,
+        "emphasised": true,
+        "exact": false,
+        "id": 40026075,
+        "osis": "Matt",
+        "reference": "Matthew 26:75",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "And Peter remembered the word of "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "Jesus"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": ", which said unto him, Before the cock crow, thou shalt deny me thrice. And he went out, and "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "wept"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " bitterly."
+          }
+        ],
+        "text": "And Peter remembered the word of Jesus, which said unto him, Before the cock crow, thou shalt deny me thrice. And he went out, and wept bitterly.",
+        "verse": 75
+      },
+      {
+        "book": 41,
+        "chapter": 14,
+        "emphasised": true,
+        "exact": false,
+        "id": 41014072,
+        "osis": "Mark",
+        "reference": "Mark 14:72",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "And the second time the cock crew. And Peter called to mind the word that "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "Jesus"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " said unto him, Before the cock crow twice, thou shalt deny me thrice. And when he thought thereon, he "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "wept"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "."
+          }
+        ],
+        "text": "And the second time the cock crew. And Peter called to mind the word that Jesus said unto him, Before the cock crow twice, thou shalt deny me thrice. And when he thought thereon, he wept.",
+        "verse": 72
+      }
+    ],
+    "phrase": false,
+    "query": "jesus wept",
+    "spans": [
+      [
+        [
+          0,
+          5
+        ],
+        [
+          6,
+          10
+        ]
+      ],
+      [
+        [
+          33,
+          38
+        ],
+        [
+          131,
+          135
+        ]
+      ],
+      [
+        [
+          74,
+          79
+        ],
+        [
+          182,
+          186
+        ]
+      ]
+    ],
+    "total": 3
+  },
+  {
+    "exact_total": 5,
+    "hits": [
+      {
+        "book": 43,
+        "chapter": 3,
+        "emphasised": true,
+        "exact": true,
+        "id": 43003003,
+        "osis": "John",
+        "reference": "John 3:3",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "Jesus answered and said unto him, "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "Verily, verily, I say unto thee"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": ", Except a man be born again, he cannot see the kingdom of God."
+          }
+        ],
+        "text": "Jesus answered and said unto him, Verily, verily, I say unto thee, Except a man be born again, he cannot see the kingdom of God.",
+        "verse": 3
+      },
+      {
+        "book": 43,
+        "chapter": 3,
+        "emphasised": true,
+        "exact": true,
+        "id": 43003005,
+        "osis": "John",
+        "reference": "John 3:5",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "Jesus answered, "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "Verily, verily, I say unto thee"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": ", Except a man be born of water and "
+          },
+          {
+            "add": true,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "of"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": " the Spirit, he cannot enter into the kingdom of God."
+          }
+        ],
+        "text": "Jesus answered, Verily, verily, I say unto thee, Except a man be born of water and of the Spirit, he cannot enter into the kingdom of God.",
+        "verse": 5
+      },
+      {
+        "book": 43,
+        "chapter": 3,
+        "emphasised": true,
+        "exact": true,
+        "id": 43003011,
+        "osis": "John",
+        "reference": "John 3:11",
+        "runs": [
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "Verily, verily, I say unto thee"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": ", We speak that we do know, and testify that we have seen; and ye receive not our witness."
+          }
+        ],
+        "text": "Verily, verily, I say unto thee, We speak that we do know, and testify that we have seen; and ye receive not our witness.",
+        "verse": 11
+      },
+      {
+        "book": 43,
+        "chapter": 13,
+        "emphasised": true,
+        "exact": true,
+        "id": 43013038,
+        "osis": "John",
+        "reference": "John 13:38",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "Jesus answered him, "
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "Wilt thou lay down thy life for my sake? "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "Verily, verily, I say unto thee"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": ", The cock shall not crow, till thou hast denied me thrice."
+          }
+        ],
+        "text": "Jesus answered him, Wilt thou lay down thy life for my sake? Verily, verily, I say unto thee, The cock shall not crow, till thou hast denied me thrice.",
+        "verse": 38
+      },
+      {
+        "book": 43,
+        "chapter": 21,
+        "emphasised": true,
+        "exact": true,
+        "id": 43021018,
+        "osis": "John",
+        "reference": "John 21:18",
+        "runs": [
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "Verily, verily, I say unto thee"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": ", When thou wast young, thou girdedst thyself, and walkedst whither thou wouldest: but when thou shalt be old, thou shalt stretch forth thy hands, and another shall gird thee, and carry "
+          },
+          {
+            "add": true,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "thee"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": " whither thou wouldest not."
+          }
+        ],
+        "text": "Verily, verily, I say unto thee, When thou wast young, thou girdedst thyself, and walkedst whither thou wouldest: but when thou shalt be old, thou shalt stretch forth thy hands, and another shall gird thee, and carry thee whither thou wouldest not.",
+        "verse": 18
+      }
+    ],
+    "phrase": true,
+    "query": "\"verily, verily, I say unto thee",
+    "spans": [
+      [
+        [
+          34,
+          65
+        ]
+      ],
+      [
+        [
+          16,
+          47
+        ]
+      ],
+      [
+        [
+          0,
+          31
+        ]
+      ],
+      [
+        [
+          61,
+          92
+        ]
+      ],
+      [
+        [
+          0,
+          31
+        ]
+      ]
+    ],
+    "total": 5
+  },
+  {
+    "exact_total": 12,
+    "hits": [
+      {
+        "book": 43,
+        "chapter": 13,
+        "emphasised": true,
+        "exact": true,
+        "id": 43013034,
+        "osis": "John",
+        "reference": "John 13:34",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "A new commandment I give unto you, That ye "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "love"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "one"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "another"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "; as I have loved you, that ye also "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "love"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "one"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "another"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "."
+          }
+        ],
+        "text": "A new commandment I give unto you, That ye love one another; as I have loved you, that ye also love one another.",
+        "verse": 34
+      },
+      {
+        "book": 43,
+        "chapter": 15,
+        "emphasised": true,
+        "exact": true,
+        "id": 43015012,
+        "osis": "John",
+        "reference": "John 15:12",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "This is my commandment, That ye "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "love"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "one"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "another"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": ", as I have loved you."
+          }
+        ],
+        "text": "This is my commandment, That ye love one another, as I have loved you.",
+        "verse": 12
+      },
+      {
+        "book": 43,
+        "chapter": 15,
+        "emphasised": true,
+        "exact": true,
+        "id": 43015017,
+        "osis": "John",
+        "reference": "John 15:17",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "These things I command you, that ye "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "love"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "one"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "another"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "."
+          }
+        ],
+        "text": "These things I command you, that ye love one another.",
+        "verse": 17
+      },
+      {
+        "book": 45,
+        "chapter": 13,
+        "emphasised": true,
+        "exact": true,
+        "id": 45013008,
+        "osis": "Rom",
+        "reference": "Romans 13:8",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "Owe no man any thing, but to "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "love"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "one"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "another"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": ": for he that loveth "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "another"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " hath fulfilled the law."
+          }
+        ],
+        "text": "Owe no man any thing, but to love one another: for he that loveth another hath fulfilled the law.",
+        "verse": 8
+      },
+      {
+        "book": 52,
+        "chapter": 4,
+        "emphasised": true,
+        "exact": true,
+        "id": 52004009,
+        "osis": "1Thess",
+        "reference": "1 Thessalonians 4:9",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "But as touching brotherly "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "love"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " ye need not that I write unto you: for ye yourselves are taught of God to "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "love"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "one"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "another"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "."
+          }
+        ],
+        "text": "But as touching brotherly love ye need not that I write unto you: for ye yourselves are taught of God to love one another.",
+        "verse": 9
+      },
+      {
+        "book": 60,
+        "chapter": 1,
+        "emphasised": true,
+        "exact": true,
+        "id": 60001022,
+        "osis": "1Pet",
+        "reference": "1 Peter 1:22",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "Seeing ye have purified your souls in obeying the truth through the Spirit unto unfeigned "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "love"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " of the brethren, "
+          },
+          {
+            "add": true,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "see that ye"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "love"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "one"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "another"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " with a pure heart fervently:"
+          }
+        ],
+        "text": "Seeing ye have purified your souls in obeying the truth through the Spirit unto unfeigned love of the brethren, see that ye love one another with a pure heart fervently:",
+        "verse": 22
+      },
+      {
+        "book": 62,
+        "chapter": 3,
+        "emphasised": true,
+        "exact": true,
+        "id": 62003011,
+        "osis": "1John",
+        "reference": "1 John 3:11",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "For this is the message that ye heard from the beginning, that we should "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "love"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "one"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "another"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "."
+          }
+        ],
+        "text": "For this is the message that ye heard from the beginning, that we should love one another.",
+        "verse": 11
+      },
+      {
+        "book": 62,
+        "chapter": 3,
+        "emphasised": true,
+        "exact": true,
+        "id": 62003023,
+        "osis": "1John",
+        "reference": "1 John 3:23",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "And this is his commandment, That we should believe on the name of his Son Jesus Christ, and "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "love"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "one"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "another"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": ", as he gave us commandment."
+          }
+        ],
+        "text": "And this is his commandment, That we should believe on the name of his Son Jesus Christ, and love one another, as he gave us commandment.",
+        "verse": 23
+      }
+    ],
+    "phrase": false,
+    "query": "love one another",
+    "spans": [
+      [
+        [
+          43,
+          47
+        ],
+        [
+          48,
+          51
+        ],
+        [
+          52,
+          59
+        ],
+        [
+          95,
+          99
+        ],
+        [
+          100,
+          103
+        ],
+        [
+          104,
+          111
+        ]
+      ],
+      [
+        [
+          32,
+          36
+        ],
+        [
+          37,
+          40
+        ],
+        [
+          41,
+          48
+        ]
+      ],
+      [
+        [
+          36,
+          40
+        ],
+        [
+          41,
+          44
+        ],
+        [
+          45,
+          52
+        ]
+      ],
+      [
+        [
+          29,
+          33
+        ],
+        [
+          34,
+          37
+        ],
+        [
+          38,
+          45
+        ],
+        [
+          66,
+          73
+        ]
+      ],
+      [
+        [
+          26,
+          30
+        ],
+        [
+          105,
+          109
+        ],
+        [
+          110,
+          113
+        ],
+        [
+          114,
+          121
+        ]
+      ],
+      [
+        [
+          90,
+          94
+        ],
+        [
+          124,
+          128
+        ],
+        [
+          129,
+          132
+        ],
+        [
+          133,
+          140
+        ]
+      ],
+      [
+        [
+          73,
+          77
+        ],
+        [
+          78,
+          81
+        ],
+        [
+          82,
+          89
+        ]
+      ],
+      [
+        [
+          93,
+          97
+        ],
+        [
+          98,
+          101
+        ],
+        [
+          102,
+          109
+        ]
+      ]
+    ],
+    "total": 19
+  },
+  {
+    "exact_total": 532,
+    "hits": [
+      {
+        "book": 1,
+        "chapter": 2,
+        "emphasised": true,
+        "exact": true,
+        "id": 1002004,
+        "osis": "Gen",
+        "reference": "Genesis 2:4",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "These "
+          },
+          {
+            "add": true,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "are"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " the generations of the heavens and of the earth when they were created, in the day that the "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": true,
+            "red": false,
+            "text": "Lord"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "God"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " made the earth and the heavens,"
+          }
+        ],
+        "text": "These are the generations of the heavens and of the earth when they were created, in the day that the Lord God made the earth and the heavens,",
+        "verse": 4
+      },
+      {
+        "book": 1,
+        "chapter": 2,
+        "emphasised": true,
+        "exact": true,
+        "id": 1002005,
+        "osis": "Gen",
+        "reference": "Genesis 2:5",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "And every plant of the field before it was in the earth, and every herb of the field before it grew: for the "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": true,
+            "red": false,
+            "text": "Lord"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "God"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " had not caused it to rain upon the earth, and "
+          },
+          {
+            "add": true,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "there was"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " not a man to till the ground."
+          }
+        ],
+        "text": "And every plant of the field before it was in the earth, and every herb of the field before it grew: for the Lord God had not caused it to rain upon the earth, and there was not a man to till the ground.",
+        "verse": 5
+      },
+      {
+        "book": 1,
+        "chapter": 2,
+        "emphasised": true,
+        "exact": true,
+        "id": 1002007,
+        "osis": "Gen",
+        "reference": "Genesis 2:7",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "And the "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": true,
+            "red": false,
+            "text": "Lord"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "God"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " formed man "
+          },
+          {
+            "add": true,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "of"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " the dust of the ground, and breathed into his nostrils the breath of life; and man became a living soul."
+          }
+        ],
+        "text": "And the Lord God formed man of the dust of the ground, and breathed into his nostrils the breath of life; and man became a living soul.",
+        "verse": 7
+      },
+      {
+        "book": 1,
+        "chapter": 2,
+        "emphasised": true,
+        "exact": true,
+        "id": 1002008,
+        "osis": "Gen",
+        "reference": "Genesis 2:8",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "And the "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": true,
+            "red": false,
+            "text": "Lord"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "God"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " planted a garden eastward in Eden; and there he put the man whom he had formed."
+          }
+        ],
+        "text": "And the Lord God planted a garden eastward in Eden; and there he put the man whom he had formed.",
+        "verse": 8
+      },
+      {
+        "book": 1,
+        "chapter": 2,
+        "emphasised": true,
+        "exact": true,
+        "id": 1002009,
+        "osis": "Gen",
+        "reference": "Genesis 2:9",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "And out of the ground made the "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": true,
+            "red": false,
+            "text": "Lord"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "God"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " to grow every tree that is pleasant to the sight and good for food; the tree of life also in the midst of the garden, and the tree of knowledge of good and evil."
+          }
+        ],
+        "text": "And out of the ground made the Lord God to grow every tree that is pleasant to the sight and good for food; the tree of life also in the midst of the garden, and the tree of knowledge of good and evil.",
+        "verse": 9
+      },
+      {
+        "book": 1,
+        "chapter": 2,
+        "emphasised": true,
+        "exact": true,
+        "id": 1002015,
+        "osis": "Gen",
+        "reference": "Genesis 2:15",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "And the "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": true,
+            "red": false,
+            "text": "Lord"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "God"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " took the man, and put him into the garden of Eden to dress it and to keep it."
+          }
+        ],
+        "text": "And the Lord God took the man, and put him into the garden of Eden to dress it and to keep it.",
+        "verse": 15
+      },
+      {
+        "book": 1,
+        "chapter": 2,
+        "emphasised": true,
+        "exact": true,
+        "id": 1002016,
+        "osis": "Gen",
+        "reference": "Genesis 2:16",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "And the "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": true,
+            "red": false,
+            "text": "Lord"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "God"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " commanded the man, saying, Of every tree of the garden thou mayest freely eat:"
+          }
+        ],
+        "text": "And the Lord God commanded the man, saying, Of every tree of the garden thou mayest freely eat:",
+        "verse": 16
+      },
+      {
+        "book": 1,
+        "chapter": 2,
+        "emphasised": true,
+        "exact": true,
+        "id": 1002018,
+        "osis": "Gen",
+        "reference": "Genesis 2:18",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "And the "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": true,
+            "red": false,
+            "text": "Lord"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "God"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " said, "
+          },
+          {
+            "add": true,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "It is"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " not good that the man should be alone; I will make him an help meet for him."
+          }
+        ],
+        "text": "And the Lord God said, It is not good that the man should be alone; I will make him an help meet for him.",
+        "verse": 18
+      }
+    ],
+    "phrase": false,
+    "query": "lord god",
+    "spans": [
+      [
+        [
+          102,
+          106
+        ],
+        [
+          107,
+          110
+        ]
+      ],
+      [
+        [
+          109,
+          113
+        ],
+        [
+          114,
+          117
+        ]
+      ],
+      [
+        [
+          8,
+          12
+        ],
+        [
+          13,
+          16
+        ]
+      ],
+      [
+        [
+          8,
+          12
+        ],
+        [
+          13,
+          16
+        ]
+      ],
+      [
+        [
+          31,
+          35
+        ],
+        [
+          36,
+          39
+        ]
+      ],
+      [
+        [
+          8,
+          12
+        ],
+        [
+          13,
+          16
+        ]
+      ],
+      [
+        [
+          8,
+          12
+        ],
+        [
+          13,
+          16
+        ]
+      ],
+      [
+        [
+          8,
+          12
+        ],
+        [
+          13,
+          16
+        ]
+      ]
+    ],
+    "total": 1598
+  },
+  {
+    "exact_total": 3,
+    "hits": [
+      {
+        "book": 43,
+        "chapter": 4,
+        "emphasised": true,
+        "exact": true,
+        "id": 43004010,
+        "osis": "John",
+        "reference": "John 4:10",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "Jesus answered and said unto her, "
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "If thou knewest the gift of God, and who it is that saith to thee, Give me to drink; thou wouldest have asked of him, and he would have given thee "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "living"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "water"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "."
+          }
+        ],
+        "text": "Jesus answered and said unto her, If thou knewest the gift of God, and who it is that saith to thee, Give me to drink; thou wouldest have asked of him, and he would have given thee living water.",
+        "verse": 10
+      },
+      {
+        "book": 43,
+        "chapter": 4,
+        "emphasised": true,
+        "exact": true,
+        "id": 43004011,
+        "osis": "John",
+        "reference": "John 4:11",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "The woman saith unto him, Sir, thou hast nothing to draw with, and the well is deep: from whence then hast thou that "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "living"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "water"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "?"
+          }
+        ],
+        "text": "The woman saith unto him, Sir, thou hast nothing to draw with, and the well is deep: from whence then hast thou that living water?",
+        "verse": 11
+      },
+      {
+        "book": 43,
+        "chapter": 7,
+        "emphasised": true,
+        "exact": true,
+        "id": 43007038,
+        "osis": "John",
+        "reference": "John 7:38",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "He that believeth on me, as the scripture hath said, out of his belly shall flow rivers of "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "living"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": " "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "water"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "."
+          }
+        ],
+        "text": "He that believeth on me, as the scripture hath said, out of his belly shall flow rivers of living water.",
+        "verse": 38
+      },
+      {
+        "book": 3,
+        "chapter": 14,
+        "emphasised": true,
+        "exact": false,
+        "id": 3014006,
+        "osis": "Lev",
+        "reference": "Leviticus 14:6",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "As for the "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "living"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " bird, he shall take it, and the cedar wood, and the scarlet, and the hyssop, and shall dip them and the "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "living"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " bird in the blood of the bird "
+          },
+          {
+            "add": true,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "that was"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " killed over the running "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "water"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": ":"
+          }
+        ],
+        "text": "As for the living bird, he shall take it, and the cedar wood, and the scarlet, and the hyssop, and shall dip them and the living bird in the blood of the bird that was killed over the running water:",
+        "verse": 6
+      },
+      {
+        "book": 3,
+        "chapter": 14,
+        "emphasised": true,
+        "exact": false,
+        "id": 3014051,
+        "osis": "Lev",
+        "reference": "Leviticus 14:51",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "And he shall take the cedar wood, and the hyssop, and the scarlet, and the "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "living"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " bird, and dip them in the blood of the slain bird, and in the running "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "water"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": ", and sprinkle the house seven times:"
+          }
+        ],
+        "text": "And he shall take the cedar wood, and the hyssop, and the scarlet, and the living bird, and dip them in the blood of the slain bird, and in the running water, and sprinkle the house seven times:",
+        "verse": 51
+      },
+      {
+        "book": 3,
+        "chapter": 14,
+        "emphasised": true,
+        "exact": false,
+        "id": 3014052,
+        "osis": "Lev",
+        "reference": "Leviticus 14:52",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "And he shall cleanse the house with the blood of the bird, and with the running "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "water"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": ", and with the "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "living"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " bird, and with the cedar wood, and with the hyssop, and with the scarlet:"
+          }
+        ],
+        "text": "And he shall cleanse the house with the blood of the bird, and with the running water, and with the living bird, and with the cedar wood, and with the hyssop, and with the scarlet:",
+        "verse": 52
+      },
+      {
+        "book": 24,
+        "chapter": 2,
+        "emphasised": true,
+        "exact": false,
+        "id": 24002013,
+        "osis": "Jer",
+        "reference": "Jeremiah 2:13",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "For my people have committed two evils; they have forsaken me the fountain of "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "living"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " waters, "
+          },
+          {
+            "add": true,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "and"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": " hewed them out cisterns, broken cisterns, that can hold no "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": false,
+            "text": "water"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "."
+          }
+        ],
+        "text": "For my people have committed two evils; they have forsaken me the fountain of living waters, and hewed them out cisterns, broken cisterns, that can hold no water.",
+        "verse": 13
+      }
+    ],
+    "phrase": false,
+    "query": "living water",
+    "spans": [
+      [
+        [
+          181,
+          187
+        ],
+        [
+          188,
+          193
+        ]
+      ],
+      [
+        [
+          117,
+          123
+        ],
+        [
+          124,
+          129
+        ]
+      ],
+      [
+        [
+          91,
+          97
+        ],
+        [
+          98,
+          103
+        ]
+      ],
+      [
+        [
+          11,
+          17
+        ],
+        [
+          122,
+          128
+        ],
+        [
+          192,
+          197
+        ]
+      ],
+      [
+        [
+          75,
+          81
+        ],
+        [
+          152,
+          157
+        ]
+      ],
+      [
+        [
+          80,
+          85
+        ],
+        [
+          100,
+          106
+        ]
+      ],
+      [
+        [
+          78,
+          84
+        ],
+        [
+          156,
+          161
+        ]
+      ]
+    ],
+    "total": 7
+  },
+  {
+    "exact_total": 1,
+    "hits": [
+      {
+        "book": 43,
+        "chapter": 14,
+        "emphasised": true,
+        "exact": true,
+        "id": 43014006,
+        "osis": "John",
+        "reference": "John 14:6",
+        "runs": [
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": false,
+            "text": "Jesus saith unto him, "
+          },
+          {
+            "add": false,
+            "hit": true,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": "I am the way"
+          },
+          {
+            "add": false,
+            "hit": false,
+            "nd": false,
+            "red": true,
+            "rp": 0,
+            "text": ", the truth, and the life: no man cometh unto the Father, but by me."
+          }
+        ],
+        "text": "Jesus saith unto him, I am the way, the truth, and the life: no man cometh unto the Father, but by me.",
+        "verse": 6
+      }
+    ],
+    "phrase": true,
+    "query": "\"i am the way",
+    "spans": [
+      [
+        [
+          22,
+          34
+        ]
+      ]
+    ],
+    "total": 1
+  }
+]

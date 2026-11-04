@@ -1,0 +1,114 @@
+# verse-text.tsv (DESIGN.md 12.3, T19): exact stored text expected per reference.
+# MACHINE-EXTRACTED by tag stripping from the pinned source (bytes between the sID and eID
+# tags, minus <note>...</note>, minus every tag), not hand-copied as DESIGN.md 12.3 asks and
+# not checked by a person yet (M1-F14). Trailing spaces are kept; diffs show them as \x20.
+# generator: docs/pipeline/survey-scripts/golden_tsv.py sha256 58be5ca5e35838e09e1c922f28c3eeaa9523300d94d80bed2d616d1eacabdcd9
+# scholar file: docs/scholar/red-letter-golden-samples.md sha256 1a4ccc65173bceb9070cede238557956c655f75477eee3cf69954cbf6fe758ef
+# excerpts: docs/pipeline/golden-source-excerpts.md sha256 e86961a6f3f5234befd7bb1b3d58e9aac707fa06de798cf1365a67faa5f7df17
+# source: BIB-KJV-CW31 kjv.osis.xml sha256 4bcbfe45722fca396adbeac9c81025bbb173cb1e30296da90864f0400cb0e3f5
+ref	osis	code_points	text
+MAT.3.15	Matt.3.15	133	And Jesus answering said unto him, Suffer it to be so now: for thus it becometh us to fulfil all righteousness. Then he suffered him.
+MAT.3.17	Matt.3.17	86	And lo a voice from heaven, saying, This is my beloved Son, in whom I am well pleased.
+MAT.4.4	Matt.4.4	134	But he answered and said, It is written, Man shall not live by bread alone, but by every word that proceedeth out of the mouth of God.
+MAT.4.6	Matt.4.6	230	And saith unto him, If thou be the Son of God, cast thyself down: for it is written, He shall give his angels charge concerning thee: and in their hands they shall bear thee up, lest at any time thou dash thy foot against a stone.
+MAT.4.7	Matt.4.7	80	Jesus said unto him, It is written again, Thou shalt not tempt the Lord thy God.
+MAT.4.10	Matt.4.10	136	Then saith Jesus unto him, Get thee hence, Satan: for it is written, Thou shalt worship the Lord thy God, and him only shalt thou serve.
+MAT.4.17	Matt.4.17	95	From that time Jesus began to preach, and to say, Repent: for the kingdom of heaven is at hand.
+MAT.4.19	Matt.4.19	70	And he saith unto them, Follow me, and I will make you fishers of men.
+MAT.5.2	Matt.5.2	49	And he opened his mouth, and taught them, saying,
+MAT.5.3	Matt.5.3	68	Blessed are the poor in spirit: for theirs is the kingdom of heaven.
+MAT.5.12	Matt.5.12	126	Rejoice, and be exceeding glad: for great is your reward in heaven: for so persecuted they the prophets which were before you.
+MAT.5.13	Matt.5.13	190	Ye are the salt of the earth: but if the salt have lost his savour, wherewith shall it be salted? it is thenceforth good for nothing, but to be cast out, and to be trodden under foot of men.
+MAT.5.14	Matt.5.14	75	Ye are the light of the world. A city that is set on an hill cannot be hid.
+MAT.9.6	Matt.9.6	168	But that ye may know that the Son of man hath power on earth to forgive sins, (then saith he to the sick of the palsy,) Arise, take up thy bed, and go unto thine house.
+MAT.22.21	Matt.22.21	150	They say unto him, Cesar’s. Then saith he unto them, Render therefore unto Cesar the things which are Cesar’s; and unto God the things that are God’s.
+MAT.22.24	Matt.22.24	131	Saying, Master, Moses said, If a man die, having no children, his brother shall marry his wife, and raise up seed unto his brother.
+MAT.26.26	Matt.26.26	140	And as they were eating, Jesus took bread, and blessed it, and brake it, and gave it to the disciples, and said, Take, eat; this is my body.
+MAT.26.27	Matt.26.27	86	And he took the cup, and gave thanks, and gave it to them, saying, Drink ye all of it;
+MAT.26.28	Matt.26.28	92	For this is my blood of the new testament, which is shed for many for the remission of sins.
+MAT.27.46	Matt.27.46	150	And about the ninth hour Jesus cried with a loud voice, saying, Eli, Eli, lama sabachthani? that is to say, My God, my God, why hast thou forsaken me?
+MRK.5.41	Mark.5.41	129	And he took the damsel by the hand, and said unto her, Talitha cumi; which is, being interpreted, Damsel, I say unto thee, arise.
+MRK.7.34	Mark.7.34	87	And looking up to heaven, he sighed, and saith unto him, Ephphatha, that is, Be opened.
+MRK.8.1	Mark.8.1	130	In those days the multitude being very great, and having nothing to eat, Jesus called his disciples unto him, and saith unto them,
+MRK.8.2	Mark.8.2	107	I have compassion on the multitude, because they have now been with me three days, and have nothing to eat:
+MRK.15.34	Mark.15.34	162	And at the ninth hour Jesus cried with a loud voice, saying, Eloi, Eloi, lama sabachthani? which is, being interpreted, My God, my God, why hast thou forsaken me?
+LUK.4.17	Luke.4.17	138	And there was delivered unto him the book of the prophet Esaias. And when he had opened the book, he found the place where it was written,
+LUK.4.18	Luke.4.18	257	The Spirit of the Lord is upon me, because he hath anointed me to preach the gospel to the poor; he hath sent me to heal the brokenhearted, to preach deliverance to the captives, and recovering of sight to the blind, to set at liberty them that are bruised,
+LUK.4.19	Luke.4.19	42	To preach the acceptable year of the Lord.
+LUK.4.20	Luke.4.20	149	And he closed the book, and he gave it again to the minister, and sat down. And the eyes of all them that were in the synagogue were fastened on him.
+LUK.4.21	Luke.4.21	81	And he began to say unto them, This day is this scripture fulfilled in your ears.
+LUK.23.46	Luke.23.46	140	And when Jesus had cried with a loud voice, he said, Father, into thy hands I commend my spirit: and having said thus, he gave up the ghost.
+LUK.23.47	Luke.23.47	103	Now when the centurion saw what was done, he glorified God, saying, Certainly this was a righteous man.
+JHN.3.2	John.3.2	179	The same came to Jesus by night, and said unto him, Rabbi, we know that thou art a teacher come from God: for no man can do these miracles that thou doest, except God be with him.
+JHN.3.3	John.3.3	128	Jesus answered and said unto him, Verily, verily, I say unto thee, Except a man be born again, he cannot see the kingdom of God.
+JHN.3.4	John.3.4	129	Nicodemus saith unto him, How can a man be born when he is old? can he enter the second time into his mother’s womb, and be born?
+JHN.3.5	John.3.5	138	Jesus answered, Verily, verily, I say unto thee, Except a man be born of water and of the Spirit, he cannot enter into the kingdom of God.
+JHN.3.6	John.3.6	89	That which is born of the flesh is flesh; and that which is born of the Spirit is spirit.
+JHN.3.7	John.3.7	56	Marvel not that I said unto thee, Ye must be born again.
+JHN.3.8	John.3.8	173	The wind bloweth where it listeth, and thou hearest the sound thereof, but canst not tell whence it cometh, and whither it goeth: so is every one that is born of the Spirit.
+JHN.3.9	John.3.9	62	Nicodemus answered and said unto him, How can these things be?
+JHN.3.10	John.3.10	92	Jesus answered and said unto him, Art thou a master of Israel, and knowest not these things?
+JHN.3.11	John.3.11	121	Verily, verily, I say unto thee, We speak that we do know, and testify that we have seen; and ye receive not our witness.
+JHN.3.12	John.3.12	110	If I have told you earthly things, and ye believe not, how shall ye believe, if I tell you of heavenly things?
+JHN.3.13	John.3.13	113	And no man hath ascended up to heaven, but he that came down from heaven, even the Son of man which is in heaven.
+JHN.3.14	John.3.14	95	And as Moses lifted up the serpent in the wilderness, even so must the Son of man be lifted up:
+JHN.3.15	John.3.15	73	That whosoever believeth in him should not perish, but have eternal life.
+JHN.3.16	John.3.16	141	For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.
+JHN.3.17	John.3.17	108	For God sent not his Son into the world to condemn the world; but that the world through him might be saved.
+JHN.3.18	John.3.18	164	He that believeth on him is not condemned: but he that believeth not is condemned already, because he hath not believed in the name of the only begotten Son of God.
+JHN.3.19	John.3.19	137	And this is the condemnation, that light is come into the world, and men loved darkness rather than light, because their deeds were evil.
+JHN.3.20	John.3.20	111	For every one that doeth evil hateth the light, neither cometh to the light, lest his deeds should be reproved.
+JHN.3.21	John.3.21	111	But he that doeth truth cometh to the light, that his deeds may be made manifest, that they are wrought in God.
+JHN.3.22	John.3.22	117	After these things came Jesus and his disciples into the land of Judea; and there he tarried with them, and baptized.
+JHN.11.34	John.11.34	73	And said, Where have ye laid him? They said unto him, Lord, come and see.
+JHN.11.35	John.11.35	11	Jesus wept.
+JHN.19.26	John.19.26	130	When Jesus therefore saw his mother, and the disciple standing by, whom he loved, he saith unto his mother, Woman, behold thy son!
+JHN.19.27	John.19.27	110	Then saith he to the disciple, Behold thy mother! And from that hour that disciple took her unto his own home.
+JHN.19.28	John.19.28	120	After this, Jesus knowing that all things were now accomplished, that the scripture might be fulfilled, saith, I thirst.
+JHN.19.30	John.19.30	117	When Jesus therefore had received the vinegar, he said, It is finished: and he bowed his head, and gave up the ghost.
+ACT.1.4	Acts.1.4	177	And, being assembled together with them, commanded them that they should not depart from Jerusalem, but wait for the promise of the Father, which, saith he, ye have heard of me.
+ACT.1.5	Acts.1.5	101	For John truly baptized with water; but ye shall be baptized with the Holy Ghost not many days hence.
+ACT.1.6	Acts.1.6	132	When they therefore were come together, they asked of him, saying, Lord, wilt thou at this time restore again the kingdom to Israel?
+ACT.1.7	Acts.1.7	118	And he said unto them, It is not for you to know the times or the seasons, which the Father hath put in his own power.
+ACT.1.8	Acts.1.8	200	But ye shall receive power, after that the Holy Ghost is come upon you: and ye shall be witnesses unto me both in Jerusalem, and in all Judea, and in Samaria, and unto the uttermost part of the earth.
+ACT.1.9	Acts.1.9	117	And when he had spoken these things, while they beheld, he was taken up; and a cloud received him out of their sight.
+ACT.1.10	Acts.1.10	109	And while they looked stedfastly toward heaven as he went up, behold, two men stood by them in white apparel;
+ACT.1.11	Acts.1.11	193	Which also said, Ye men of Galilee, why stand ye gazing up into heaven? this same Jesus, which is taken up from you into heaven, shall so come in like manner as ye have seen him go into heaven.
+ACT.9.4	Acts.9.4	97	And he fell to the earth, and heard a voice saying unto him, Saul, Saul, why persecutest thou me?
+ACT.9.5	Acts.9.5	133	And he said, Who art thou, Lord? And the Lord said, I am Jesus whom thou persecutest: it is hard for thee to kick against the pricks.
+ACT.9.6	Acts.9.6	175	And he trembling and astonished said, Lord, what wilt thou have me to do? And the Lord said unto him, Arise, and go into the city, and it shall be told thee what thou must do.
+ACT.9.10	Acts.9.10	145	And there was a certain disciple at Damascus, named Ananias; and to him said the Lord in a vision, Ananias. And he said, Behold, I am here, Lord.
+ACT.20.35	Acts.20.35	183	I have shewed you all things, how that so labouring ye ought to support the weak, and to remember the words of the Lord Jesus, how he said, It is more blessed to give than to receive.
+1CO.11.24	1Cor.11.24	135	And when he had given thanks, he brake it, and said, Take, eat: this is my body, which is broken for you: this do in remembrance of me.
+1CO.11.25	1Cor.11.25	171	After the same manner also he took the cup, when he had supped, saying, This cup is the new testament in my blood: this do ye, as oft as ye drink it, in remembrance of me.
+1CO.11.26	1Cor.11.26	96	For as often as ye eat this bread, and drink this cup, ye do shew the Lord’s death till he come.
+2CO.12.9	2Cor.12.9	202	And he said unto me, My grace is sufficient for thee: for my strength is made perfect in weakness. Most gladly therefore will I rather glory in my infirmities, that the power of Christ may rest upon me.
+REV.1.7	Rev.1.7	164	Behold, he cometh with clouds; and every eye shall see him, and they also which pierced him: and all kindreds of the earth shall wail because of him. Even so, Amen.
+REV.1.8	Rev.1.8	128	I am Alpha and Omega, the beginning and the ending, saith the Lord, which is, and which was, and which is to come, the Almighty.
+REV.1.11	Rev.1.11	275	Saying, I am Alpha and Omega, the first and the last: and, What thou seest, write in a book, and send it unto the seven churches which are in Asia; unto Ephesus, and unto Smyrna, and unto Pergamos, and unto Thyatira, and unto Sardis, and unto Philadelphia, and unto Laodicea.
+REV.1.17	Rev.1.17	138	And when I saw him, I fell at his feet as dead. And he laid his right hand upon me, saying unto me, Fear not; I am the first and the last:
+REV.1.18	Rev.1.18	118	I am he that liveth, and was dead; and, behold, I am alive for evermore, Amen; and have the keys of hell and of death.
+REV.1.19	Rev.1.19	105	Write the things which thou hast seen, and the things which are, and the things which shall be hereafter;
+REV.1.20	Rev.1.20	224	The mystery of the seven stars which thou sawest in my right hand, and the seven golden candlesticks. The seven stars are the angels of the seven churches: and the seven candlesticks which thou sawest are the seven churches.
+REV.2.1	Rev.2.1	175	Unto the angel of the church of Ephesus write; These things saith he that holdeth the seven stars in his right hand, who walketh in the midst of the seven golden candlesticks;
+REV.3.6	Rev.3.6	74	He that hath an ear, let him hear what the Spirit saith unto the churches.
+REV.3.20	Rev.3.20	146	Behold, I stand at the door, and knock: if any man hear my voice, and open the door, I will come in to him, and will sup with him, and he with me.
+REV.3.22	Rev.3.22	74	He that hath an ear, let him hear what the Spirit saith unto the churches.
+REV.4.1	Rev.4.1	222	After this I looked, and, behold, a door was opened in heaven: and the first voice which I heard was as it were of a trumpet talking with me; which said, Come up hither, and I will shew thee things which must be hereafter.
+REV.22.7	Rev.22.7	92	Behold, I come quickly: blessed is he that keepeth the sayings of the prophecy of this book.
+REV.22.11	Rev.22.11	190	He that is unjust, let him be unjust still: and he which is filthy, let him be filthy still: and he that is righteous, let him be righteous still: and he that is holy, let him be holy still.
+REV.22.12	Rev.22.12	104	And, behold, I come quickly; and my reward is with me, to give every man according as his work shall be.
+REV.22.13	Rev.22.13	72	I am Alpha and Omega, the beginning and the end, the first and the last.
+REV.22.14	Rev.22.14	138	Blessed are they that do his commandments, that they may have right to the tree of life, and may enter in through the gates into the city.
+REV.22.15	Rev.22.15	123	For without are dogs, and sorcerers, and whoremongers, and murderers, and idolaters, and whosoever loveth and maketh a lie.
+REV.22.16	Rev.22.16	153	I Jesus have sent mine angel to testify unto you these things in the churches. I am the root and the offspring of David, and the bright and morning star.
+REV.22.17	Rev.22.17	168	And the Spirit and the bride say, Come. And let him that heareth say, Come. And let him that is athirst come. And whosoever will, let him take the water of life freely.
+REV.22.20	Rev.22.20	95	He which testifieth these things saith, Surely I come quickly. Amen. Even so, come, Lord Jesus.
+GEN.1.1	Gen.1.1	54	In the beginning God created the heaven and the earth.
+PSA.23.1	Ps.23.1	42	The Lord is my shepherd; I shall not want.
+PSA.22.1	Ps.22.1	113	My God, my God, why hast thou forsaken me? why art thou so far from helping me, and from the words of my roaring?
+PSA.23.2	Ps.23.2	82	He maketh me to lie down in green pastures: he leadeth me beside the still waters.
+PSA.23.3	Ps.23.3	86	He restoreth my soul: he leadeth me in the paths of righteousness for his name’s sake.
+PSA.23.4	Ps.23.4	143	Yea, though I walk through the valley of the shadow of death, I will fear no evil: for thou art with me; thy rod and thy staff they comfort me.
+PSA.23.5	Ps.23.5	119	Thou preparest a table before me in the presence of mine enemies: thou anointest my head with oil; my cup runneth over.
+PSA.23.6	Ps.23.6	118	Surely goodness and mercy shall follow me all the days of my life: and I will dwell in the house of the Lord for ever.

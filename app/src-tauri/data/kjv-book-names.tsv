@@ -1,0 +1,90 @@
+# Reader-facing short book names (KJV) and command-box abbreviations.
+# App data, not content: it is the machine-readable table of the biblical
+# scholar's cited recommendation, copied byte for byte (every line below this
+# comment block) from docs/scholar/kjv-book-names.md section 6 (D6a, 2026-10-22).
+# A test (app/src-tauri/src/books.rs) checks the copy against that file.
+#
+# Citation (kjv-book-names.md section 8): short names from The Holy Bible
+# (Oxford: Clarendon Press, Samuel Collingwood and Co., 1823), "The Names and
+# Order of all the Books", unpaginated front matter, University of Toronto copy,
+# https://archive.org/details/holybiblecontain00oxfouoft, leaf n17, viewed
+# 2026-10-22; cross-checked against The Holy Bible, Red Letter Edition,
+# Authorized King James Version (Oxford: University Press, printed for Concordia
+# Publishing House, n.d. [1958-78]), pp. 4-5,
+# https://archive.org/details/B-001-001-277, leaf n9, viewed 2026-10-22.
+# Abbreviations: The SBL Handbook of Style, 2nd ed. (SBL Press, 2014), section
+# 8.3, as given by University of Divinity Library, "Style guide: Bible"; the
+# others are UX convention, not content. Per the scholar: `jud` removed from
+# Jude (ambiguous with Judges), `cant` added to Song of Solomon.
+#
+# Short names use option A (arabic numerals, "1 Samuel"); the editions print
+# roman numerals ("I. Samuel"). Owner decision pending: see NUMERALS in books.rs.
+# Columns: osis, short_name, citation, abbreviations (comma-separated, lower
+# case, no spaces; the full name always matches too). Tab-separated, UTF-8.
+osis	short_name	citation	abbreviations
+Gen	Genesis	E2 p.5 (n9); S1 table (n17)	gen,ge,gn
+Exod	Exodus	E2 p.5 (n9); S1 table (n17)	exod,exo,ex
+Lev	Leviticus	E2 p.5 (n9); S1 table (n17)	lev,le,lv
+Num	Numbers	E2 p.5 (n9); S1 table (n17)	num,nu,nm,nb
+Deut	Deuteronomy	E2 p.5 (n9); S1 table (n17)	deut,dt,de
+Josh	Joshua	E2 p.5 (n9); S1 table (n17)	josh,jos,jsh
+Judg	Judges	E2 p.5 (n9); S1 table (n17)	judg,jdg,jg,jdgs
+Ruth	Ruth	E2 p.5 (n9); S1 table (n17)	rth,ru
+1Sam	1 Samuel	E2 p.5 (n9) and S1 table (n17) print roman numeral; arabic is a display convention	1sam,1sa,1sm
+2Sam	2 Samuel	E2 p.5 (n9) and S1 table (n17) print roman numeral; arabic is a display convention	2sam,2sa,2sm
+1Kgs	1 Kings	E2 p.5 (n9) and S1 table (n17) print roman numeral; arabic is a display convention	1kgs,1ki,1kg
+2Kgs	2 Kings	E2 p.5 (n9) and S1 table (n17) print roman numeral; arabic is a display convention	2kgs,2ki,2kg
+1Chr	1 Chronicles	E2 p.5 (n9) and S1 table (n17) print roman numeral; arabic is a display convention	1chr,1ch
+2Chr	2 Chronicles	E2 p.5 (n9) and S1 table (n17) print roman numeral; arabic is a display convention	2chr,2ch
+Ezra	Ezra	E2 p.5 (n9); S1 table (n17)	ezr
+Neh	Nehemiah	E2 p.5 (n9); S1 table (n17)	neh,ne
+Esth	Esther	E2 p.5 (n9); S1 table (n17)	esth,est,es
+Job	Job	E2 p.5 (n9); S1 table (n17)	jb
+Ps	Psalms	E2 p.5 (n9); S1 table (n17); each psalm headed PSALM (S1 n475)	ps,pss,psa,psalm,psm
+Prov	Proverbs	E2 p.5 (n9); S1 table (n17)	prov,pro,pr,prv
+Eccl	Ecclesiastes	E2 p.5 (n9); S1 table (n17); S1 head (n557)	eccl,qoh,ecc,ec
+Song	Song of Solomon	E2 p.4 and p.5 (n9); S1 table: The Song of Solomon (n17); S1 head: SOLOMON'S SONG (n563)	song,cant,sos,sng
+Isa	Isaiah	E2 p.5 (n9); S1 table (n17)	isa,is
+Jer	Jeremiah	E2 p.5 (n9); S1 table (n17)	jer,je,jr
+Lam	Lamentations	E2 p.5 (n9); S1 table (n17)	lam,la
+Ezek	Ezekiel	E2 p.5 (n9); S1 table (n17)	ezek,eze,ezk
+Dan	Daniel	E2 p.5 (n9); S1 table (n17)	dan,da,dn
+Hos	Hosea	E2 p.5 (n9); S1 table (n17)	hos,ho
+Joel	Joel	E2 p.5 (n9); S1 table (n17)	jl
+Amos	Amos	E2 p.5 (n9); S1 table (n17)	am
+Obad	Obadiah	E2 p.5 (n9); S1 table (n17)	obad,ob
+Jonah	Jonah	E2 p.5 (n9); S1 table (n17)	jon,jnh
+Mic	Micah	E2 p.5 (n9); S1 table (n17)	mic,mc
+Nah	Nahum	E2 p.5 (n9); S1 table (n17)	nah,na
+Hab	Habakkuk	E2 p.5 (n9); S1 table (n17)	hab,hb
+Zeph	Zephaniah	E2 p.5 (n9); S1 table (n17)	zeph,zep,zp
+Hag	Haggai	E2 p.5 (n9); S1 table (n17)	hag,hg
+Zech	Zechariah	E2 p.5 (n9); S1 table (n17)	zech,zec,zc
+Mal	Malachi	E2 p.5 (n9); S1 table (n17)	mal,ml
+Matt	Matthew	E2 p.5 (n9); S1 table (n17); S1 head: S. MATTHEW (n941)	matt,mat,mt
+Mark	Mark	E2 p.5 (n9); S1 table (n17)	mrk,mk,mr
+Luke	Luke	E2 p.5 (n9); S1 table (n17)	luk,lk
+John	John	E2 p.5 (n9); S1 table (n17); S1 head: S. JOHN (n1033)	jn,jhn,joh
+Acts	Acts	E2 p.5 (n9); E2 p.4, S1 table (n17) and S1 head (n1051) print The Acts	act,ac
+Rom	Romans	E2 p.5 (n9); S1 head ROMANS (n1075); S1 table: The Epistle to the Romans	rom,ro,rm
+1Cor	1 Corinthians	E2 p.5 (n9) and S1 table (n17) print roman numeral; arabic is a display convention	1cor,1co
+2Cor	2 Corinthians	E2 p.5 (n9) and S1 table (n17) print roman numeral; arabic is a display convention	2cor,2co
+Gal	Galatians	E2 p.5 (n9); S1 table (n17)	gal,ga
+Eph	Ephesians	E2 p.5 (n9); S1 table (n17)	eph,ephes
+Phil	Philippians	E2 p.5 (n9); S1 table (n17)	phil,php,pp
+Col	Colossians	E2 p.5 (n9); S1 table (n17)	col
+1Thess	1 Thessalonians	E2 p.5 (n9) and S1 table (n17) print roman numeral; arabic is a display convention	1thess,1thes,1th
+2Thess	2 Thessalonians	E2 p.5 (n9) and S1 table (n17) print roman numeral; arabic is a display convention	2thess,2thes,2th
+1Tim	1 Timothy	E2 p.5 (n9) and S1 table (n17) print roman numeral; arabic is a display convention	1tim,1ti,1tm
+2Tim	2 Timothy	E2 p.5 (n9) and S1 table (n17) print roman numeral; arabic is a display convention	2tim,2ti,2tm
+Titus	Titus	E2 p.5 (n9); S1 table (n17)	tit,ti
+Phlm	Philemon	E2 p.5 (n9); S1 table (n17)	phlm,phm,philem
+Heb	Hebrews	E2 p.5 (n9); S1 head HEBREWS (n1132); S1 table: To the Hebrews	heb
+Jas	James	E2 p.5 (n9); S1 head JAMES (n1141); S1 table: The Epistle of James	jas,jm
+1Pet	1 Peter	E2 p.5 (n9) and S1 table (n17) print roman numeral; arabic is a display convention; S1 head I. PETER (n1145)	1pet,1pe,1pt
+2Pet	2 Peter	E2 p.5 (n9) and S1 table (n17) print roman numeral; arabic is a display convention	2pet,2pe,2pt
+1John	1 John	E2 p.5 (n9) and S1 table (n17) print roman numeral; arabic is a display convention	1jn,1jhn,1jo,1joh
+2John	2 John	E2 p.5 (n9) and S1 table (n17) print roman numeral; arabic is a display convention	2jn,2jhn,2jo
+3John	3 John	E2 p.5 (n9) and S1 table (n17) print roman numeral; arabic is a display convention	3jn,3jhn,3jo
+Jude	Jude	E2 p.5 (n9); S1 table (n17)	jde
+Rev	Revelation	E2 p.5 (n9); S1 table (n17)	rev,re,rv

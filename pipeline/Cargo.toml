@@ -1,0 +1,22 @@
+[package]
+name = "revelation-pipeline"
+version = "0.0.0"
+edition = "2024"
+license = "MIT"
+publish = false
+description = "Builds Revelation's read-only content databases from pinned, checksummed sources."
+
+# Each crate is justified in pipeline/DESIGN.md section 13 and licence-checked.
+# Exact versions; any bump is
+# a reviewed change with a fresh licence check (`cargo tree -e normal,build`).
+[dependencies]
+# Low-level pull reader over &[u8]; `encoding` (encoding_rs) stays off.
+quick-xml = { version = "=0.42.0", default-features = false }
+# SHA-256 of sources and of the built database: through revelation-content
+# (sha256_hex), which uses sha2 =0.11.1.
+# SQLite 3.54 compiled in (`bundled`); `serialize` gives sqlite3_deserialize
+# for open_verified. Default `cache` is off (drops hashlink/hashbrown/foldhash).
+rusqlite = { version = "=0.40.2", default-features = false, features = ["bundled", "serialize"] }
+# The one open_verified + read_capped, shared with the app (path crate in this
+# repository; adds no third-party crate).
+revelation-content = { path = "../crates/revelation-content" }
